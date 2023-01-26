@@ -44,9 +44,9 @@ function Input({
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
-  testId: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  eventChange: PropTypes.func.isRequired,
+  testId: PropTypes.string,
+  value: PropTypes.string,
+  eventChange: PropTypes.func,
   type: PropTypes.string,
   id: PropTypes.string,
   labelName: PropTypes.string,
@@ -54,9 +54,12 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  value: undefined,
   type: 'text',
+  eventChange: null,
   labelName: null,
   id: null,
+  testId: null,
   placeholder: null,
 };
 

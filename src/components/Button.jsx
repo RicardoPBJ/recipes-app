@@ -10,7 +10,7 @@ function Button({
   eventClick,
   type,
 }) {
-  if (nameButton) {
+  if (labelName) {
     return (
       <label htmlFor={ id }>
         {labelName}
@@ -42,8 +42,8 @@ function Button({
 }
 
 Button.propTypes = {
-  testId: PropTypes.string.isRequired,
   nameButton: PropTypes.string.isRequired,
+  testId: PropTypes.string,
   labelName: PropTypes.string,
   id: PropTypes.string,
   eventClick: PropTypes.func,
@@ -54,6 +54,7 @@ Button.propTypes = {
 Button.defaultProps = {
   type: 'button',
   labelName: null,
+  testId: null,
   id: null,
   isDisabled: false,
   eventClick: null,
