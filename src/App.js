@@ -3,11 +3,11 @@ import { Switch, Route } from 'react-router-dom';
 import {
   DoneRecipes,
   Login,
-  Recipes,
   Drinks,
   FavoriteRecipes,
-  Meals,
-  Profile } from './pages';
+  Recipes,
+  Profile,
+  Meals } from './pages';
 import './App.css';
 
 function App() {
