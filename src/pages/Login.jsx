@@ -1,20 +1,9 @@
-import React, { useState } from 'react';
-import Input from '../components/Input';
-import Button from '../components/Button';
-// import { AuthContext } from '../context/AuthProvider';
+import React from 'react';
+import { Button, Input } from '../components';
+import { handlers } from '../hooks';
 
 function Login() {
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChange = ({ target }) => {
-    setUser({
-      ...user,
-      [target.name]: target.value,
-    });
-  };
+  const { handlerChange, clickSetStorageEmail, email, password, isDisabled } = handlers();
 
   return (
     <div>
@@ -22,28 +11,28 @@ function Login() {
         name="email"
         labelName="email"
         type="email"
-        value={ user.email }
+        value={ email }
         id="email"
         testId="email-input"
-        handleInput={ handleChange }
+        eventChange={ handlerChange }
         placeholder="E-mail"
       />
       <Input
         name="password"
         labelName="password"
-        type="password"
-        value={ user.password }
         id="password"
+        type="password"
+        value={ password }
         testId="password-input"
-        handleInput={ handleChange }
+        eventChange={ handlerChange }
         placeholder="password"
       />
       <Button
+        nameButton="Entrar"
+        eventClick={ clickSetStorageEmail }
         testId="login-submit-btn"
-        btnLabel="Enter"
-        isDisabled={ false }
-        /* handleButton={} */
-        types="button"
+        isDisabled={ isDisabled }
+        type="button"
       />
     </div>
   );

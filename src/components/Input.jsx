@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 function Input({
@@ -7,40 +8,56 @@ function Input({
   value,
   id,
   testId,
-  handleInput,
+  eventChange,
   placeholder,
 }) {
+  if (labelName) {
+    return (
+      <label htmlFor={ id }>
+        {labelName}
+        {' '}
+        <input
+          type={ type }
+          name={ name }
+          value={ value }
+          id={ id }
+          data-testid={ testId }
+          onChange={ eventChange }
+          placeholder={ placeholder }
+        />
+      </label>
+    );
+  }
+
   return (
-    <label htmlFor={ name }>
-      {labelName}
-      <input
-        type={ type }
-        name={ name }
-        value={ value }
-        id={ id }
-        data-testid={ testId }
-        onChange={ handleInput }
-        placeholder={ placeholder }
-      />
-    </label>
+    <input
+      type={ type }
+      name={ name }
+      value={ value }
+      id={ id }
+      data-testid={ testId }
+      onChange={ eventChange }
+      placeholder={ placeholder }
+    />
   );
 }
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  testId: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  eventChange: PropTypes.func.isRequired,
+  type: PropTypes.string,
   id: PropTypes.string,
   labelName: PropTypes.string,
-  testId: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  value: PropTypes.string.isRequired,
-  handleInput: PropTypes.func.isRequired,
 };
 
 Input.defaultProps = {
-  id: '',
-  placeholder: '',
-  labelName: '',
+  type: 'text',
+  labelName: null,
+  id: null,
+  placeholder: null,
 };
 
 export default Input;
