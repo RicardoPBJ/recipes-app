@@ -19,8 +19,10 @@ export default function Handlers() {
     }
   }
 
-  function clickSetStorageEmail() {
+  function clickSetStorageEmail(history) {
     localStorage.setItem('user', JSON.stringify({ email }));
+
+    history.push('/meals');
   }
 
   useEffect(() => {

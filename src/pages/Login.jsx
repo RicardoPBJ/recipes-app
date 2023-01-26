@@ -1,8 +1,9 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { Button, Input } from '../components';
 import { handlers } from '../hooks';
 
-function Login() {
+function Login({ history }) {
   const { handlerChange, clickSetStorageEmail, email, password, isDisabled } = handlers();
 
   return (
@@ -29,7 +30,7 @@ function Login() {
       />
       <Button
         nameButton="Entrar"
-        eventClick={ clickSetStorageEmail }
+        eventClick={ () => clickSetStorageEmail(history) }
         testId="login-submit-btn"
         isDisabled={ isDisabled }
         type="button"
@@ -37,5 +38,11 @@ function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Login;
