@@ -1,5 +1,12 @@
 import React from 'react';
+import { Footer } from '../components';
 
-export default function Recipes() {
-  return <div>receitas</div>;
+function Meals() {
+  return (
+    <main>
+      <Footer />
+    </main>
+  );
 }
+
+export default Meals;
