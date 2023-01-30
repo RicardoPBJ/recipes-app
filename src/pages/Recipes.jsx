@@ -6,17 +6,25 @@ import DrinkCard from '../components/DrinkCard';
 import MealCard from '../components/MealCard';
 import useFetchDrinks from '../hooks/custom/useFetchDrinks';
 import useFetchMeals from '../hooks/custom/useFetchMeals';
+import useFetchMealsCat from '../hooks/custom/useMealsCategory';
+import useFetchDrinksCat from '../hooks/custom/useDrinksCategory';
 
 function Recipes({ history: { location: { pathname } } }) {
   const { drinkData, makeFetchDrinks } = useFetchDrinks();
   const { mealData, makeFetchMeals } = useFetchMeals();
+  const { mealCategory, makeFetchMealsCat } = useFetchMealsCat();
+  const { drinkCategory, makeFetchDrinksCat } = useFetchDrinksCat();
   console.log(pathname);
+  const FIVE = 5;
 
   useEffect(() => {
     if (pathname === '/meals') {
       makeFetchMeals();
+      makeFetchMealsCat();
+      console.log(mealCategory);
     } else {
       makeFetchDrinks();
+      makeFetchDrinksCat();
     }
   }, [pathname]);
 
@@ -26,12 +34,34 @@ function Recipes({ history: { location: { pathname } } }) {
         pathname === '/meals'
           ? (
             <div>
+              <div>
+                {mealCategory.slice(0, FIVE)
+                  .map((e) => (
+                    <button
+                      key={ e.strCategory }
+                      data-testid={ `${e.strCategory}-category-filter` }
+                      type="button"
+                    >
+                      {e.strCategory}
+                    </button>))}
+              </div>
               <MealCard mealData={ mealData } />
               <Footer />
             </div>
           )
           : (
             <div>
+              <div>
+                {drinkCategory.slice(0, FIVE)
+                  .map((e) => (
+                    <button
+                      key={ e.strCategory }
+                      data-testid={ `${e.strCategory}-category-filter` }
+                      type="button"
+                    >
+                      {e.strCategory}
+                    </button>))}
+              </div>
               <DrinkCard drinkData={ drinkData } />
               <Footer />
             </div>

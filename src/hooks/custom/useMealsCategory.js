@@ -1,16 +1,16 @@
 import { useState } from 'react';
 
-export default function useFetchMeals() {
+export default function useFetchMealsCat() {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState(null);
-  const [mealData, setMealData] = useState([]);
+  const [mealCategory, setMealCategory] = useState([]);
 
-  const makeFetchMeals = async (url) => {
+  const makeFetchMealsCat = async (url) => {
     try {
       setIsLoading(true);
       let response;
       if (!url) {
-        response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+        response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
       } else {
         response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?${url}`);
       }
@@ -22,7 +22,8 @@ export default function useFetchMeals() {
         throw apiError;
       }
       const result = await response.json();
-      setMealData(result.meals);
+      setMealCategory(result.meals);
+      console.log(result.meals);
     } catch (error) {
       setErrors(error);
     } finally {
@@ -30,6 +31,6 @@ export default function useFetchMeals() {
     }
   };
   return {
-    makeFetchMeals, isLoading, errors, mealData,
+    makeFetchMealsCat, isLoading, errors, mealCategory,
   };
 }
