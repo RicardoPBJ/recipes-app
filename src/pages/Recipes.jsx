@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Footer } from '../components';
 import DrinkCard from '../components/DrinkCard';
 import MealCard from '../components/MealCard';
@@ -16,15 +18,36 @@ function Recipes({ history: { location: { pathname } } }) {
     } else {
       makeFetchDrinks();
     }
-  }, []);
+  }, [pathname]);
 
   return (
     <main>
-      <DrinkCard drinkData={ drinkData } />
-      <MealCard mealData={ mealData } />
-      <Footer />
+      {
+        pathname === '/meals'
+          ? (
+            <div>
+              <MealCard mealData={ mealData } />
+              <Footer />
+            </div>
+          )
+          : (
+            <div>
+              <DrinkCard drinkData={ drinkData } />
+              <Footer />
+            </div>
+          )
+      }
+
     </main>
   );
 }
+
+Recipes.propTypes = {
+  history: PropTypes.shape({
+    history: PropTypes.number,
+    location: PropTypes.string,
+  }).isRequired,
+
+};
 
 export default Recipes;

@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function MealCard({ mealData }) {
+function MealCard({ mealData }) {
   console.log('comida nhami nhami', mealData);
   return (
     <div>
@@ -16,3 +17,11 @@ export default function MealCard({ mealData }) {
     </div>
   );
 }
+
+MealCard.propTypes = {
+  mealData: PropTypes.shape({
+    map: PropTypes.func,
+  }).isRequired,
+};
+
+export default MealCard;
