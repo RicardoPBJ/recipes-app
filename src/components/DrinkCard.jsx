@@ -14,7 +14,7 @@ export default function DrinkCard({ drinkData }) {
           >
             <img
               data-testid={ `${index}-card-img` }
-              src={ e.strDrinkThumb }
+              src={ `${e.strDrinkThumb}/preview ` }
               alt={ e.strDrink }
             />
             <p data-testid={ `${index}-card-name` }>{ e.strDrink }</p>

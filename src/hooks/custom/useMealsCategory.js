@@ -12,7 +12,7 @@ export default function useFetchMealsCat() {
       if (!url) {
         response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
       } else {
-        response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?${url}`);
+        response = await fetch(`https://www.themealdb.com/api/json/v1/1/${url}`);
       }
       if (!response.ok) {
         const apiError = new Error(
@@ -23,7 +23,6 @@ export default function useFetchMealsCat() {
       }
       const result = await response.json();
       setMealCategory(result.meals);
-      console.log(result.meals);
     } catch (error) {
       setErrors(error);
     } finally {

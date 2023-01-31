@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function MealCard({ mealData }) {
+function MealCardCategory({ mealCategory }) {
   const TWELVE = 12;
-  const mealData12 = mealData.slice(0, TWELVE);
+  const mealData12 = mealCategory.slice(0, TWELVE);
 
   return (
     <div>
@@ -27,11 +27,11 @@ function MealCard({ mealData }) {
   );
 }
 
-MealCard.propTypes = {
+MealCardCategory.propTypes = {
   mealData: PropTypes.shape({
     map: PropTypes.func,
     slice: PropTypes.func,
   }).isRequired,
 };
 
-export default MealCard;
+export default MealCardCategory;
