@@ -3,11 +3,11 @@ import { Switch, Route } from 'react-router-dom';
 import {
   DoneRecipes,
   Login,
-  Drinks,
   FavoriteRecipes,
+  RecipeDetails,
   Recipes,
   Profile,
-  Meals } from './pages';
+  RecipeInProgress } from './pages';
 import './App.css';
 
 function App() {
@@ -15,12 +15,15 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/meals" component={ Recipes } />
-        <Route path="/done-recipes" component={ DoneRecipes } />
-        <Route path="/drinks" component={ Drinks } />
-        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
-        <Route path="/meals" component={ Meals } />
-        <Route path="/profile" component={ Profile } />
+        <Route exact path="/meals" component={ Recipes } />
+        <Route exact path="/drinks" component={ Recipes } />
+        <Route exact path="/meals/:id" component={ RecipeDetails } />
+        <Route exact path="/drinks/:id" component={ RecipeDetails } />
+        <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/profile" component={ Profile } />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
       </Switch>
     </div>
   );
