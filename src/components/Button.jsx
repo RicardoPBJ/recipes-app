@@ -9,6 +9,7 @@ function Button({
   isDisabled,
   eventClick,
   type,
+  value,
 }) {
   if (labelName) {
     return (
@@ -21,6 +22,7 @@ function Button({
           data-testid={ testId }
           disabled={ isDisabled }
           onClick={ eventClick }
+          value={ value }
         >
           {nameButton}
         </button>
@@ -35,6 +37,7 @@ function Button({
       data-testid={ testId }
       disabled={ isDisabled }
       onClick={ eventClick }
+      value={ value }
     >
       {nameButton}
     </button>
@@ -49,6 +52,7 @@ Button.propTypes = {
   eventClick: PropTypes.func,
   type: PropTypes.string,
   isDisabled: PropTypes.bool,
+  value: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -58,6 +62,7 @@ Button.defaultProps = {
   id: null,
   isDisabled: false,
   eventClick: null,
+  value: '*',
 };
 
 export default Button;
