@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 function MealCard({ recipesData }) {
   const TWELVE = 12;
   const mealRecipesToShow = recipesData.meals.slice(0, TWELVE);
-  console.log(recipesData);
   return (
     <div>
       {

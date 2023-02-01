@@ -7,8 +7,10 @@ import useFetchCategoryItems from '../hooks/custom/useFetchCategoryItems';
 export default function Meals() {
   const { isLoading, recipesData, makeFetchRecipes } = useFetchRecipes();
   const { isLoadingCat, categories, makeFetchCat } = useFetchCategories();
-  const { isLoadingItems, items, makeFetchCatItems } = useFetchCategoryItems();
-  const [showCategory, setShowCategory] = useState(false);
+  const { fetchState, makeFetchCatItems } = useFetchCategoryItems();
+  // const [showCategory, setShowCategory] = useState(false);
+  const [recipesExhibitor, setExhibitor] = useState({ showCategory: false,
+  });
   const mealsRecipesUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const mealsCatUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const FIVE = 5;
@@ -20,20 +22,23 @@ export default function Meals() {
 
   const searchCategory = ({ target }) => {
     makeFetchCatItems(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.value}`);
-    setShowCategory(!showCategory);
+    setExhibitor({ ...recipesExhibitor,
+      showCategory: !recipesExhibitor.showCategory,
+    });
   };
 
   const showAllMeals = () => {
-    setShowCategory(false);
+    setExhibitor({ ...recipesExhibitor,
+      showCategory: false,
+    });
   };
   // console.log(recipesData);
   // console.log(categories);
-
   return (
     <div>
       { !isLoadingCat && (
         <div>
-          {showCategory && (
+          {recipesExhibitor.showCategory && (
             <button
               onClick={ showAllMeals }
               type="button"
@@ -59,7 +64,8 @@ export default function Meals() {
       { !isLoading
       && (
         <div style={ { height: '80vh' } }>
-          {showCategory && !isLoadingItems ? <MealCard recipesData={ items } />
+          {recipesExhibitor.showCategory && !fetchState.isLoadingItems
+            ? <MealCard recipesData={ fetchState.items } />
             : <MealCard recipesData={ recipesData } />}
         </div>
       )}

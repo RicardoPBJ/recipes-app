@@ -3,9 +3,12 @@ import { useState } from 'react';
 // HOOK RESPONSAVEL POR FAZER O FETCH DOS ITEMS DAS CATEGORIAS QUE PREENCHEM OS BOTOES
 
 export default function useFetchCategoryItems() {
-  const [isLoadingItems, setIsLoading] = useState(true);
+  // const [isLoadingItems, setIsLoading] = useState(true);
   const [errors, setErrors] = useState(null);
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]);
+  const [fetchState, setFetchState] = useState({
+    isLoadingItems: true,
+    items: [] });
 
   const makeFetchCatItems = async (url) => {
     try {
@@ -18,14 +21,17 @@ export default function useFetchCategoryItems() {
         throw apiError;
       }
       const result = await response.json();
-      setItems(result);
+      setFetchState({ ...fetchState,
+        items: result,
+        isLoadingItems: false });
     } catch (error) {
       setErrors(error);
-    } finally {
-      setIsLoading(false);
     }
+    // finally {
+    //   setIsLoading(false);
+    // }
   };
   return {
-    makeFetchCatItems, isLoadingItems, errors, items,
+    makeFetchCatItems, fetchState, errors,
   };
 }

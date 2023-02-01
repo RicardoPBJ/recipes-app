@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function DrinkCard({ recipesData }) {
-  const TWELVE = 12;
-  const drinksRecipesToShow = recipesData.drinks.slice(0, TWELVE);
+function DrinkCardCategory({ items }) {
+  // const TWELVE = 12;
+  // const drinksRecipesToShow = items.drinks.slice(0, TWELVE);
   return (
     <div>
       {
-        drinksRecipesToShow.map((e, index) => (
+        items.map((e, index) => (
           <div
             data-testid={ `${index}-recipe-card` }
             key={ e.idDrink }
@@ -22,18 +22,18 @@ function DrinkCard({ recipesData }) {
             </Link>
             <p data-testid={ `${index}-card-name` }>{ e.strDrink }</p>
           </div>
-
         ))
+
       }
     </div>
   );
 }
 
-DrinkCard.propTypes = {
-  recipesData: PropTypes
+DrinkCardCategory.propTypes = {
+  items: PropTypes
     .shape({ drinks: PropTypes
       .arrayOf(PropTypes.objectOf(PropTypes.string)) }).isRequired,
 
 };
 
-export default DrinkCard;
+export default DrinkCardCategory;
