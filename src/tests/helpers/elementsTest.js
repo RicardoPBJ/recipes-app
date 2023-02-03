@@ -12,3 +12,4 @@ export const getUserInfo = () => screen.getByTestId('profile-email');
 export const doneRecipesBtn = () => screen.getByTestId('profile-done-btn');
 export const favoritesBtn = () => screen.getByTestId('profile-favorite-btn');
 export const logoutBtn = () => screen.getByTestId('profile-logout-btn');
+export const drinkFooterBtn = () => screen.getByTestId('drinks-bottom-btn');

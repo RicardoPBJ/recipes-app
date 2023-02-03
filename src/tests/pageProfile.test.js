@@ -22,7 +22,7 @@ describe('Testes da página de Profile.', () => {
     expect(logoutBtn()).toBeInTheDocument();
   });
 
-  test.only('Verifica se ao clicar nos botões ocorre o redirecionamento correto para outras pages', async () => {
+  test('Verifica se ao clicar nos botões ocorre o redirecionamento correto para outras pages', async () => {
     renderWithRouter(<Profile />);
 
     userEvent.click(doneRecipesBtn());

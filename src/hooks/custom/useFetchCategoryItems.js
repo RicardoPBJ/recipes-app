@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 // HOOK RESPONSAVEL POR FAZER O FETCH DOS ITEMS DAS CATEGORIAS QUE PREENCHEM OS BOTOES
-
-export default function useFetchCategoryItems() {
+export default function useFetchCategoryItems(value) {
+  const DOZE = 12;
   // const [isLoadingItems, setIsLoading] = useState(true);
   const [errors, setErrors] = useState(null);
   // const [items, setItems] = useState([]);
@@ -21,9 +21,16 @@ export default function useFetchCategoryItems() {
         throw apiError;
       }
       const result = await response.json();
-      setFetchState({ ...fetchState,
-        items: result,
-        isLoadingItems: false });
+      if (value === 'meals') {
+        setFetchState({ ...fetchState,
+          items: result.meals.slice(0, DOZE),
+          isLoadingItems: false });
+      }
+      if (value === 'drinks') {
+        setFetchState({ ...fetchState,
+          items: result.drinks.slice(0, DOZE),
+          isLoadingItems: false });
+      }
     } catch (error) {
       setErrors(error);
     }

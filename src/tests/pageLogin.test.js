@@ -2,6 +2,7 @@ import { waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import {
+  drinkFooterBtn,
   getButton,
   getEmail,
   getPassword,
@@ -48,5 +49,9 @@ describe('Testes da página de Login.', () => {
     userEvent.click(getButton());
 
     await waitFor(() => expect(history.location.pathname).toBe('/meals'));
+
+    userEvent.click(drinkFooterBtn());
+
+    await waitFor(() => expect(history.location.pathname).toBe('/drinks'));
   });
 });
