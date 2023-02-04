@@ -1,30 +1,26 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function MealCard({ recipesData }) {
-  // const TWELVE = 12;
-  // const mealRecipesToShow = recipesData.meals.slice(0, TWELVE);
-
   return (
     <div>
       {
-        recipesData.map((e, index) => (
+        recipesData.map(({ idMeal, strMealThumb, strMeal }, index) => (
           <div
             data-testid={ `${index}-recipe-card` }
-            key={ e.idMeal }
+            key={ idMeal }
           >
-            <Link to={ `/meals/${e.idMeal}` }>
+            <Link to={ `/meals/${idMeal}` }>
               <img
                 style={ { height: '200px' } }
                 data-testid={ `${index}-card-img` }
-                src={ `${e.strMealThumb}` }
-                alt={ e.strMeal }
+                src={ `${strMealThumb}` }
+                alt={ strMeal }
 
               />
             </Link>
-            <p data-testid={ `${index}-card-name` }>{ e.strMeal }</p>
+            <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
           </div>
-
         ))
       }
     </div>
@@ -33,9 +29,11 @@ function MealCard({ recipesData }) {
 
 MealCard.propTypes = {
   recipesData: PropTypes
-    .shape({ meals: PropTypes
-      .arrayOf(PropTypes.objectOf(PropTypes.string)) }).isRequired,
-
+    .arrayOf(PropTypes.shape({
+      idMeal: PropTypes.string.isRequired,
+      strMealThumb: PropTypes.string.isRequired,
+      strMeal: PropTypes.string.isRequired,
+    }).isRequired).isRequired,
 };
 
 export default MealCard;

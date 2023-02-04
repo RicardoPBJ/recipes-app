@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { DrinksContext } from '../hooks/context/DrinksProvider';
+import { DrinksContext } from '../hooks';
 
 function DrinkCardCategory() {
   const { fetchState } = useContext(DrinksContext);
