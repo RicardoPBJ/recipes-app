@@ -1,6 +1,10 @@
+import { Header } from '../components';
+
 function FavoriteRecipes() {
   return (
-    <h1>Favorites</h1>
+    <div>
+      <Header searchAppear={ false } />
+    </div>
   );
 }
 

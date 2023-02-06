@@ -5,3 +5,4 @@ export { default as MealsCardDetails } from './MealCardDetails';
 export { default as DrinkCardDetails } from './DrinkCardDetails';
 export { default as RecomendCardDrinks } from './RecomendCardFoods';
 export { default as RecomendCardFoods } from './RecomendCardDrinks';
+export { default as Header } from './Header';

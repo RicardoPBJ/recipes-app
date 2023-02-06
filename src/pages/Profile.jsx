@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Footer, Button } from '../components';
+import { Footer, Button, Header } from '../components';
 import useLocalStorage from '../hooks/custom/useLocalStorage';
 
 function Profile() {
-  const { storedValue, clearStorage } = useLocalStorage('user', null);
+  const { storedValue, clearStorage } = useLocalStorage('user', 'email');
   const history = useHistory();
 
   const pageRedirect = ({ target }) => {
@@ -18,6 +18,7 @@ function Profile() {
 
   return (
     <main>
+      <Header searchAppear={ false } />
       <div>
         Profile
         <div>
