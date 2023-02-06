@@ -43,7 +43,8 @@ export default function DrinksProvider({ children }) {
     searchCategory,
     showAllMeals,
     recipesExhibitor,
-  }), [isLoading, recipesData, isLoadingCat, categories,
+    makeFetchRecipes,
+  }), [makeFetchRecipes, isLoading, recipesData, isLoadingCat, categories,
     fetchState, searchCategory, showAllMeals, recipesExhibitor]);
 
   return (

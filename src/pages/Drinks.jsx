@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Header } from '../components';
 import DrinkCard from '../components/DrinkCard';
 import DrinkCardCategory from '../components/DrinkCardCategory';
 import { DrinksContext } from '../hooks/context/DrinksProvider';
@@ -14,11 +15,13 @@ export default function Drinks() {
     recipesExhibitor } = useContext(DrinksContext);
 
   const FIVE = 5;
+  const searchOn = true;
 
   return (
     <div className="page-container">
       { !isLoadingCat && (
         <div className="space-button">
+          <Header searchAppear={ searchOn } />
           {recipesExhibitor.showCategory && (
             <button
               onClick={ showAllMeals }

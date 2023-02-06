@@ -43,7 +43,8 @@ export default function MealsProvider({ children }) {
     searchCategory,
     showAllMeals,
     recipesExhibitor,
-  }), [isLoading, recipesData, isLoadingCat, categories,
+    makeFetchRecipes,
+  }), [makeFetchRecipes, isLoading, recipesData, isLoadingCat, categories,
     fetchState, searchCategory, showAllMeals, recipesExhibitor]);
 
   return (

@@ -24,6 +24,7 @@ export default function useFetchRecipes(value) {
       console.log('fez o fetchRecipes');
     } catch (error) {
       setErrors(error);
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } finally {
       setIsLoading(false);
     }
