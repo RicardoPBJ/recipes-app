@@ -1,8 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import RecomendCardDrinks from './RecomendCardDrinks';
+import './css/MealCardInProgress.css';
 
-function MealCardDetails(
+function MealCardInProgress(
   {
     recipes: {
       idMeal,
@@ -11,7 +11,7 @@ function MealCardDetails(
       mealName,
       instructions,
       category,
-      linkYoutube,
+
     },
   },
 ) {
@@ -24,16 +24,7 @@ function MealCardDetails(
           src={ mealThumb }
           alt={ mealName }
         />
-        <iframe
-          src={ linkYoutube }
-          title="video"
-          width="400"
-          height="300"
-          data-testid="video"
-          allow="accelerometer; autoplay; clipboard-write;
-        encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+
         <p data-testid="instructions">{instructions}</p>
         <p data-testid="recipe-title">{mealName}</p>
         <p data-testid="recipe-category">{category}</p>
@@ -42,18 +33,31 @@ function MealCardDetails(
             key={ `ingredient-and-measure-${i + 1}` }
             data-testid={ `${i}-ingredient-name-and-measure` }
           >
-            {`${obj[`strIngredient${i + 1}`]}: ${obj[`strMeasure${i + 1}`]}`}
+            <label
+              className="ingredients-measure"
+              data-testid={ `${i}-ingredient-step` }
+              htmlFor="recipeCheck"
+            >
+              <span className="ingredients-measure">
+                {`${obj[`strIngredient${i + 1}`]}:
+               ${obj[`strMeasure${i + 1}`]}`}
+
+              </span>
+              <input
+                className="ingredients-measure"
+                type="checkbox"
+                name="recipeCheck"
+                id=""
+              />
+            </label>
           </span>))}
-        <div>
-          <RecomendCardDrinks />
-        </div>
       </div>
 
     </div>
   );
 }
 
-MealCardDetails.propTypes = {
+MealCardInProgress.propTypes = {
   recipes: propTypes.shape({
     idMeal: propTypes.string.isRequired,
     mealThumb: propTypes.string.isRequired,
@@ -67,4 +71,4 @@ MealCardDetails.propTypes = {
   }).isRequired,
 };
 
-export default MealCardDetails;
+export default MealCardInProgress;

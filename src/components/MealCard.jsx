@@ -1,29 +1,29 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import '../styles/Cards.css';
 
-function MealCard({ recipesData }) {
-  // const TWELVE = 12;
-  // const mealRecipesToShow = recipesData.meals.slice(0, TWELVE);
 
+function MealCard({ recipesData }) {
   return (
     <div className="card-container">
       {
-        recipesData.map((e, index) => (
+        recipesData.map(({ idMeal, strMealThumb, strMeal }, index) => (
           <div
             data-testid={ `${index}-recipe-card` }
+            key={ idMeal }
             key={ e.idMeal }
             className="card-item"
           >
-            <Link to={ `/meals/${e.idMeal}` }>
+            <Link to={ `/meals/${idMeal}` }>
               <img
                 style={ { height: '200px' } }
                 data-testid={ `${index}-card-img` }
-                src={ `${e.strMealThumb}` }
-                alt={ e.strMeal }
+                src={ `${strMealThumb}` }
+                alt={ strMeal }
 
               />
             </Link>
+            <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
             <p
               data-testid={ `${index}-card-name` }
               className="card-text"
@@ -31,7 +31,6 @@ function MealCard({ recipesData }) {
               { e.strMeal }
             </p>
           </div>
-
         ))
       }
     </div>
@@ -39,6 +38,12 @@ function MealCard({ recipesData }) {
 }
 
 MealCard.propTypes = {
+  recipesData: PropTypes
+    .arrayOf(PropTypes.shape({
+      idMeal: PropTypes.string.isRequired,
+      strMealThumb: PropTypes.string.isRequired,
+      strMeal: PropTypes.string.isRequired,
+    }).isRequired).isRequired,
   recipesData: PropTypes.shape({
     map: PropTypes.func,
   }).isRequired,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { Button, Input } from '../components';
 import { handlers } from '../hooks';
@@ -6,6 +6,13 @@ import '../styles/Login.css';
 
 function Login({ history }) {
   const { handlerChange, clickSetStorageEmail, email, password, isDisabled } = handlers();
+
+  useEffect(() => {
+    if (localStorage.length === 0) {
+      localStorage
+        .setItem('favoriteRecipes', JSON.stringify([]));
+    }
+  }, []);
 
   return (
     <div className="login-box init">
