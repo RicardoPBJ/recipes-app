@@ -1,3 +1,4 @@
+import { Carousel } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import { MealsContext } from '../hooks';
 

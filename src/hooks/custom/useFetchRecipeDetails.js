@@ -6,6 +6,7 @@ import { reduceDrinks, reduceMeals } from './helpers';
 export default function useFetchRecipes(url) {
   const [errors, setErrors] = useState(null);
   const [recipes, SetRecipes] = useState({});
+  const [recipeData, setData] = useState({});
   const [isLoading, setLoading] = useState(true);
   // const DOZE = 12;
 
@@ -19,6 +20,7 @@ export default function useFetchRecipes(url) {
   )
     .then(async (response) => {
       const data = await response.json();
+      setData(data);
 
       return data[url.match(/meals|drinks/i)[0]][0];
     })
@@ -64,5 +66,6 @@ export default function useFetchRecipes(url) {
     errors,
     recipes,
     isLoading,
+    recipeData,
   };
 }

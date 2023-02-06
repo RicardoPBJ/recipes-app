@@ -18,5 +18,9 @@ export default function useLocalStorage(key, initialValue) {
     localStorage.clear();
   };
 
-  return { storedValue, setValue, clearValue, clearStorage };
+  return {
+    storedValue,
+    setValue,
+    clearValue,
+    clearStorage };
 }
