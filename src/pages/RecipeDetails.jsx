@@ -67,6 +67,7 @@ export default function RecipeDetails() {
         }]));
   };
 
+  console.log(recipeData);
   return (
     pathname.includes('meals')
       ? (

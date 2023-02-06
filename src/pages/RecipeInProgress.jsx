@@ -9,14 +9,44 @@ export default function RecipeInProgress() {
   const { location: { pathname } } = useHistory();
   const history = useHistory();
   const params = useParams();
-  const { recipes,
+  const { recipes, recipeData,
     isLoading, getRecipesDetails } = useFetchRecipesDetails(pathname);
-
+  const TEN = 10;
   useEffect(() => {
     getRecipesDetails(params.id);
   }, []);
 
   const handleClick = () => {
+    if (pathname.includes('meals')) {
+      localStorage.setItem('doneRecipes', JSON
+        .stringify([
+          {
+            id: recipeData.meals[0].idMeal,
+            type: 'meal',
+            nationality: recipeData.meals[0].strArea,
+            category: recipeData.meals[0].strCategory,
+            alcoholicOrNot: '',
+            name: recipeData.meals[0].strMeal,
+            image: recipeData.meals[0].strMealThumb,
+            doneDate: new Date().toJSON().slice(0, TEN),
+            tags: (recipeData.meals[0].strTags).split(',', 2),
+          }]));
+    }
+    if (pathname.includes('drinks')) {
+      localStorage.setItem('doneRecipes', JSON
+        .stringify([
+          {
+            id: recipeData.drinks[0].idDrink,
+            type: 'drink',
+            nationality: recipeData.drinks[0].strArea,
+            category: recipeData.drinks[0].strCategory,
+            alcoholicOrNot: recipeData.drinks[0].strAlcoholic,
+            name: recipeData.drinks[0].strDrink,
+            image: recipeData.drinks[0].strDrinkThumb,
+            doneDate: new Date().toJSON().slice(0, TEN),
+            tags: [],
+          }]));
+    }
     history.push('/done-recipes');
   };
   return (
