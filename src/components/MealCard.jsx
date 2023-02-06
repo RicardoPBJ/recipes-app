@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../styles/Cards.css';
 
 function MealCard({ recipesData }) {
   // const TWELVE = 12;
   // const mealRecipesToShow = recipesData.meals.slice(0, TWELVE);
 
   return (
-    <div>
+    <div className="card-container">
       {
         recipesData.map((e, index) => (
           <div
             data-testid={ `${index}-recipe-card` }
             key={ e.idMeal }
+            className="card-item"
           >
             <Link to={ `/meals/${e.idMeal}` }>
               <img
@@ -22,7 +24,12 @@ function MealCard({ recipesData }) {
 
               />
             </Link>
-            <p data-testid={ `${index}-card-name` }>{ e.strMeal }</p>
+            <p
+              data-testid={ `${index}-card-name` }
+              className="card-text"
+            >
+              { e.strMeal }
+            </p>
           </div>
 
         ))
@@ -32,10 +39,9 @@ function MealCard({ recipesData }) {
 }
 
 MealCard.propTypes = {
-  recipesData: PropTypes
-    .shape({ meals: PropTypes
-      .arrayOf(PropTypes.objectOf(PropTypes.string)) }).isRequired,
-
+  recipesData: PropTypes.shape({
+    map: PropTypes.func,
+  }).isRequired,
 };
 
 export default MealCard;

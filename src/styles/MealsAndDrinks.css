@@ -1,0 +1,14 @@
+.page-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.space-button {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+}

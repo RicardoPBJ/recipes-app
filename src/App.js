@@ -8,11 +8,11 @@ import {
   Recipes,
   Profile,
   RecipeInProgress } from './pages';
-import './App.css';
+import './styles/App.css';
 
 function App() {
   return (
-    <div className="meals">
+    <div className="init">
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/meals" component={ Recipes } />
