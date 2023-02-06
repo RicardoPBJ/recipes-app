@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import MealCard from '../components/MealCard';
 import { MealsContext } from '../hooks/context/MealsProvider';
+import '../styles/MealsAndDrinks.css';
 
 export default function Meals() {
   const { isLoading,
@@ -15,9 +16,9 @@ export default function Meals() {
   const FIVE = 5;
 
   return (
-    <div>
+    <div className="page-container">
       { !isLoadingCat && (
-        <div>
+        <div className="space-button">
           {recipesExhibitor.showCategory && (
             <button
               onClick={ showAllMeals }
