@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import DrinkCard from '../components/DrinkCard';
 import DrinkCardCategory from '../components/DrinkCardCategory';
 import { DrinksContext } from '../hooks/context/DrinksProvider';
+import '../styles/MealsAndDrinks.css';
 
 export default function Drinks() {
   const { isLoading,
@@ -15,9 +16,9 @@ export default function Drinks() {
   const FIVE = 5;
 
   return (
-    <div>
+    <div className="page-container">
       { !isLoadingCat && (
-        <div>
+        <div className="space-button">
           {recipesExhibitor.showCategory && (
             <button
               onClick={ showAllMeals }
