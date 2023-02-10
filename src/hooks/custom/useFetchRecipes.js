@@ -2,15 +2,20 @@ import { useState } from 'react';
 
 // HOOK RESPONSAVEL POR FAZER O FETCH DE RECEITAS ALEATORIAS (MEALS OR DRINKS)
 
-export default function useFetchRecipes(value) {
+export default function useFetchRecipes() {
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState(null);
   const [recipesData, SetRecipesData] = useState([]);
-  const DOZE = 12;
-  const makeFetchRecipes = async (url) => {
+  const mealsRecipesUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const LIM = 12;
+
+  const makeFetchRecipes = async (path) => {
     try {
-      // setIsLoading(true);
-      const response = await fetch(url);
+      setIsLoading(true);
+      const response = await fetch(
+        path.includes('meals') ? mealsRecipesUrl : drinksRecipesUrl,
+      );
       if (!response.ok) {
         const apiError = new Error(
           `A resposta da url ${url} veio com o status ${response.status}`,
@@ -19,9 +24,8 @@ export default function useFetchRecipes(value) {
         throw apiError;
       }
       const result = await response.json();
-      if (value === 'meals') SetRecipesData(result.meals.slice(0, DOZE));
-      if (value === 'drinks') SetRecipesData(result.drinks.slice(0, DOZE));
-      console.log('fez o fetchRecipes');
+
+      SetRecipesData(result[result.meals ? 'meals' : 'drinks'].slice(0, LIM));
     } catch (error) {
       setErrors(error);
       global.alert('Sorry, we haven\'t found any recipes for these filters.');

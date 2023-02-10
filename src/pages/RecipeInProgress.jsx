@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';

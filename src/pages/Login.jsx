@@ -1,18 +1,17 @@
 // import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { Button, Input } from '../components';
-import { handlers } from '../hooks';
+import { handlersLogin } from '../hooks';
 import '../styles/Login.css';
 
 function Login({ history }) {
-  const { handlerChange, clickSetStorageEmail, email, password, isDisabled } = handlers();
-
-  // useEffect(() => {
-  //   if (localStorage.length === 0) {
-  //     localStorage
-  //       .setItem('favoriteRecipes', JSON.stringify([]));
-  //   }
-  // }, []);
+  const {
+    handlerChange,
+    clickSetStorageEmail,
+    email,
+    password,
+    isDisabled,
+  } = handlersLogin();
 
   return (
     <div className="login-box init">
@@ -20,7 +19,6 @@ function Login({ history }) {
         <div>
           <Input
             name="email"
-            // labelName="Email"
             type="email"
             value={ email }
             id="email"
@@ -32,7 +30,6 @@ function Login({ history }) {
         <div className="mt-3">
           <Input
             name="password"
-            // labelName="Password"
             id="password"
             type="password"
             value={ password }

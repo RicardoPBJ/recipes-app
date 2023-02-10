@@ -65,7 +65,6 @@ DrinkCardInProgress.propTypes = {
     instructions: propTypes.string.isRequired,
     category: propTypes.string.isRequired,
     categoryAlcool: propTypes.string.isRequired,
-    linkYoutube: propTypes.string.isRequired,
   }).isRequired,
 };
 export default DrinkCardInProgress;

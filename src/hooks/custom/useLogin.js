@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
-export default function Handlers() {
+export default function useLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
@@ -36,8 +36,8 @@ export default function Handlers() {
   return {
     handlerChange,
     clickSetStorageEmail,
-    email,
-    password,
-    isDisabled,
+    email: useMemo(() => email, [email]),
+    password: useMemo(() => password, [password]),
+    isDisabled: useMemo(() => isDisabled, [isDisabled]),
   };
 }

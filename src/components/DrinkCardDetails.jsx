@@ -34,9 +34,7 @@ function DrinkCardDetails(
         >
           {`${obj[`strIngredient${i + 1}`]}: ${obj[`strMeasure${i + 1}`]}`}
         </span>))}
-      <div>
-        <RecomendCardFoods />
-      </div>
+      <RecomendCardFoods />
     </div>
   );
 }
@@ -50,9 +48,7 @@ DrinkCardDetails.propTypes = {
     ).isRequired,
     drinkName: propTypes.string.isRequired,
     instructions: propTypes.string.isRequired,
-    category: propTypes.string.isRequired,
     categoryAlcool: propTypes.string.isRequired,
-    linkYoutube: propTypes.string.isRequired,
   }).isRequired,
 };
 export default DrinkCardDetails;

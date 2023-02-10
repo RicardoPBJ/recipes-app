@@ -6,11 +6,14 @@ export default function useFetchCategories() {
   const [isLoadingCat, setIsLoading] = useState(true);
   const [errors, setErrors] = useState(null);
   const [categories, setCategories] = useState([]);
+  const mealsCatUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const drinksCatUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  const LIM = 5;
 
-  const makeFetchCat = async (url) => {
+  const makeFetchCat = async (path) => {
     try {
-      // setIsLoading(true);
-      const response = await fetch(url);
+      setIsLoading(true);
+      const response = await fetch(path.includes('meals') ? mealsCatUrl : drinksCatUrl);
       if (!response.ok) {
         const apiError = new Error(
           `A resposta da url ${url} veio com o status ${response.status}`,
@@ -19,8 +22,8 @@ export default function useFetchCategories() {
         throw apiError;
       }
       const result = await response.json();
-      setCategories(result);
-      console.log('fez o fetch em categories');
+
+      setCategories(result[result.meals ? 'meals' : 'drinks'].slice(0, LIM));
     } catch (error) {
       setErrors(error);
     } finally {
@@ -28,6 +31,9 @@ export default function useFetchCategories() {
     }
   };
   return {
-    makeFetchCat, isLoadingCat, errors, categories,
+    makeFetchCat,
+    isLoadingCat,
+    errors,
+    categories,
   };
 }

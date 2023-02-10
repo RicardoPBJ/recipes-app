@@ -6,34 +6,14 @@ function Button({
   nameButton,
   id,
   testId,
-  labelName,
   isDisabled,
   eventClick,
   type,
   value,
 }) {
-  if (labelName) {
-    return (
-      <label htmlFor={ id }>
-        {labelName}
-        {' '}
-        <button
-          type={ type !== 'submit' ? 'button' : 'submit' }
-          id={ id }
-          data-testid={ testId }
-          disabled={ isDisabled }
-          onClick={ eventClick }
-          value={ value }
-        >
-          {nameButton}
-        </button>
-      </label>
-    );
-  }
-
   return (
     <button
-      type={ type !== 'submit' ? 'button' : 'submit' }
+      type={ type }
       id={ id }
       data-testid={ testId }
       disabled={ isDisabled }
@@ -48,7 +28,6 @@ function Button({
 Button.propTypes = {
   nameButton: PropTypes.string.isRequired,
   testId: PropTypes.string,
-  labelName: PropTypes.string,
   id: PropTypes.string,
   eventClick: PropTypes.func,
   type: PropTypes.string,
@@ -58,7 +37,6 @@ Button.propTypes = {
 
 Button.defaultProps = {
   type: 'button',
-  labelName: null,
   testId: null,
   id: null,
   isDisabled: false,

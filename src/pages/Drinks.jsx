@@ -1,59 +1,56 @@
-import { useContext } from 'react';
-import { Header } from '../components';
-import DrinkCard from '../components/DrinkCard';
-import DrinkCardCategory from '../components/DrinkCardCategory';
-import { DrinksContext } from '../hooks/context/DrinksProvider';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { DrinkCard, Header, Loading } from '../components';
+import { DrinksContext } from '../hooks';
 import '../styles/MealsAndDrinks.css';
 
 export default function Drinks() {
+  const { pathname } = useLocation();
   const { isLoading,
     isLoadingCat,
     categories,
-    fetchState,
     searchCategory,
-    showAllMeals,
-    recipesExhibitor } = useContext(DrinksContext);
+    showAllcat,
+    allRecipes,
+    makeFetchRecipes,
+    makeFetchCat } = useContext(DrinksContext);
 
-  const FIVE = 5;
-  const searchOn = true;
+  useEffect(() => {
+    makeFetchCat(pathname);
+    makeFetchRecipes(pathname);
+  }, []);
 
   return (
     <div className="page-container">
-      { !isLoadingCat && (
+      {isLoadingCat ? (
+        <Loading />
+      ) : (
         <div className="space-button">
-          <Header searchAppear={ searchOn } />
-          {recipesExhibitor.showCategory && (
+          <Header />
+          {allRecipes && (
             <button
-              onClick={ showAllMeals }
+              onClick={ showAllcat }
               type="button"
               data-testid="All-category-filter"
             >
               All
             </button>
           )}
-          {categories.drinks.slice(0, FIVE)
-            .map((e) => (
-              <button
-                key={ e.strCategory }
-                data-testid={ `${e.strCategory}-category-filter` }
-                type="button"
-                value={ `${e.strCategory}` }
-                onClick={ searchCategory }
-              >
-                {e.strCategory}
-              </button>))}
+          {categories.map((e) => (
+            <button
+              key={ e.strCategory }
+              data-testid={ `${e.strCategory}-category-filter` }
+              type="button"
+              value={ `${e.strCategory}` }
+              onClick={ (event) => searchCategory(event, pathname) }
+            >
+              {e.strCategory}
+            </button>
+          ))}
         </div>
       )}
-
-      { !isLoading
-      && (
-        <div style={ { height: '80vh' } }>
-          {recipesExhibitor.showCategory && !fetchState.isLoadingItems
-            ? <DrinkCardCategory />
-            : <DrinkCard />}
-        </div>
-      )}
-
+      {isLoading ? <Loading /> : <DrinkCard /> }
     </div>
   );
 }
