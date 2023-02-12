@@ -1,5 +1,6 @@
-import { createContext, useMemo, useState } from 'react';
 /* eslint-disable react-hooks/exhaustive-deps */
+import { createContext, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import propTypes from 'prop-types';
 import useFetchCategories from '../custom/useFetchCategories';
 import useFetchCategoryItems from '../custom/useFetchCategoryItems';
@@ -8,14 +9,15 @@ import useFetchRecipes from '../custom/useFetchRecipes';
 export const MealsContext = createContext();
 
 export default function MealsProvider({ children }) {
-  const { isLoading, recipesData, makeFetchRecipes } = useFetchRecipes();
-  const { isLoadingCat, categories, makeFetchCat } = useFetchCategories();
-  const { typeCategory, makeFetchCatItems } = useFetchCategoryItems();
+  const { pathname } = useLocation();
+  const { isLoading, recipesData, makeFetchRecipes } = useFetchRecipes(pathname);
+  const { isLoadingCat, categories, makeFetchCat } = useFetchCategories(pathname);
+  const { isLoadingTypeCat, typeCategory, makeFetchCatItems } = useFetchCategoryItems();
   const [allRecipes, setAllRecipes] = useState(false);
 
-  const searchCategory = ({ target: { value } }, path) => {
-    makeFetchCatItems(value, path);
+  const searchCategory = ({ target: { value } }) => {
     setAllRecipes(true);
+    makeFetchCatItems(value, pathname);
   };
 
   const showAllcat = () => {
@@ -25,8 +27,9 @@ export default function MealsProvider({ children }) {
   const values = useMemo(
     () => ({
       isLoading,
-      recipesData,
       isLoadingCat,
+      isLoadingTypeCat,
+      recipesData,
       categories,
       typeCategory,
       allRecipes,
@@ -38,8 +41,9 @@ export default function MealsProvider({ children }) {
     [
       makeFetchRecipes,
       isLoading,
-      recipesData,
       isLoadingCat,
+      isLoadingTypeCat,
+      recipesData,
       categories,
       typeCategory,
       allRecipes,
@@ -49,11 +53,7 @@ export default function MealsProvider({ children }) {
     ],
   );
 
-  return (
-    <MealsContext.Provider value={ values }>
-      { children }
-    </MealsContext.Provider>
-  );
+  return <MealsContext.Provider value={ values }>{children}</MealsContext.Provider>;
 }
 
 MealsProvider.propTypes = {

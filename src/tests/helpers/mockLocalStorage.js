@@ -1,25 +1,21 @@
-export default localStorageMock = () => {
+export default function localStorageMock() {
   let obj = {};
 
   return {
-    getItem(key) {
-      return obj[key] || null;
-    },
+    getItem: (key) => obj[key] || null,
 
-    setItem(key, value) {
+    setItem: (key, value) => {
       obj[key] = value;
     },
 
-    clear() {
+    clear: () => {
       obj = {};
     },
 
-    removeItem(key) {
+    removeItem: (key) => {
       delete obj[key];
     },
 
-    getAll() {
-      return obj;
-    },
+    getAll: () => obj,
   };
-};
+}

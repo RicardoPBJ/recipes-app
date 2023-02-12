@@ -2,30 +2,30 @@ import { waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
-  catItemBeef,
-  catItemDessert,
-  findAllCategoryMeals,
+  catItemOrdDrink,
+  catItemShake,
+  findAllCategoryDrinks,
   findAllRecipes,
   findBtnAll,
-  findCatBeef,
-  findCatDessert,
+  findCatOrdinDrink,
+  findCatShake,
   getLoading,
-  mockMeals,
-  mockMealsCategory,
+  mockDrinks,
+  mockDrinksCategory,
   queryBtnAll,
   renderWithRouter,
 } from './helpers';
 import App from '../App';
 import '@testing-library/jest-dom';
 
-describe('Testes da page Meals.', () => {
+describe('Testes da page Drinks.', () => {
   beforeEach(() => {
     global.fetch = jest.fn((url) => {
       if (url.includes('search')) {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(mockMeals),
+          json: () => Promise.resolve(mockDrinks),
         });
       }
 
@@ -33,23 +33,23 @@ describe('Testes da page Meals.', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(mockMealsCategory),
+          json: () => Promise.resolve(mockDrinksCategory),
         });
       }
 
-      if (url.includes('Beef')) {
+      if (url.includes('Ordinary Drink')) {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(catItemBeef),
+          json: () => Promise.resolve(catItemOrdDrink),
         });
       }
 
-      if (url.includes('Dessert')) {
+      if (url.includes('Shake')) {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(catItemDessert),
+          json: () => Promise.resolve(catItemShake),
         });
       }
     });
@@ -60,34 +60,33 @@ describe('Testes da page Meals.', () => {
   });
 
   test('Verifica se a page renderiza 12 receitas e 5 categorias do fetch.', async () => {
-    renderWithRouter(<App />, { initialEntries: ['/meals'] });
+    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
 
     waitForElementToBeRemoved(
       () => act(() => expect(getLoading()).toHaveLength(2)), // 2 loading: 1 para recipes e outro para o category
     );
+
     expect(global.fetch).toHaveBeenCalledTimes(2);
-    expect(await findAllCategoryMeals()).toHaveLength(5);
+    expect(await findAllCategoryDrinks()).toHaveLength(5);
     expect(await findAllRecipes()).toHaveLength(12);
   });
 
   test('Verifica se ocorre um novo fetch ao clicar em uma categoria.', async () => {
-    renderWithRouter(<App />, { initialEntries: ['/meals'] });
+    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
 
-    waitForElementToBeRemoved(
-      () => act(() => expect(getLoading()).toHaveLength(2)),
-    );
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(2)));
     expect(global.fetch).toHaveBeenCalledTimes(2);
     expect(queryBtnAll()).not.toBeInTheDocument();
 
-    userEvent.click(await findCatBeef());
+    userEvent.click(await findCatOrdinDrink());
 
-    await waitFor(async () => expect(await findBtnAll()).toBeVisible());
     waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+    await waitFor(async () => expect(await findBtnAll()).toBeVisible());
     expect(global.fetch).toHaveBeenCalledTimes(3);
 
     expect(await findAllRecipes()).toHaveLength(12);
 
-    userEvent.click(await findCatDessert());
+    userEvent.click(await findCatShake());
 
     waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
     expect(global.fetch).toHaveBeenCalledTimes(4);

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { checkFavorites } from './helpers';
 
-export default function useFavorite(idRecipe, path, recipes) {
+export default function useFavorite(path, recipes) {
   const [clipBoard, setClip] = useState({ copied: '', show: false });
   const [fillHeart, setFillHeart] = useState(false);
   const { hasFav, isFav } = checkFavorites(recipes);

@@ -1,11 +1,14 @@
 export { default as Input } from './Input';
+export { default as SearchBar } from './SearchBar';
+export { default as Header } from './Header';
 export { default as Footer } from './Footer';
-export { default as Button } from './Button';
 export { default as Loading } from './Loading';
 export { default as MealCard } from './MealCard';
+export { default as MealCardDetails } from './MealCardDetails';
+export { default as MealCardInProgress } from './MealCardInProgress';
 export { default as DrinkCard } from './DrinkCard';
-export { default as MealsCardDetails } from './MealCardDetails';
 export { default as DrinkCardDetails } from './DrinkCardDetails';
+export { default as DrinkCardInProgress } from './DrinkCardInProgress';
+export { default as DoneRecipeCard } from './DoneRecipeCard';
 export { default as RecomendCardDrinks } from './RecomendCardFoods';
 export { default as RecomendCardFoods } from './RecomendCardDrinks';
-export { default as Header } from './Header';

@@ -15,7 +15,7 @@ import '@testing-library/jest-dom';
 
 describe('Testes da page Profile.', () => {
   beforeAll(() => {
-    Object.defineProperty(window, 'localStorage', { value: mockLocalStorage });
+    Object.defineProperty(window, 'localStorage', { value: mockLocalStorage() });
     window.localStorage.setItem('user', JSON.stringify({ email: validEmail }));
   });
 

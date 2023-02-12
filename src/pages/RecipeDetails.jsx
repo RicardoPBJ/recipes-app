@@ -1,15 +1,14 @@
+import React from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { Link, useHistory, useParams } from 'react-router-dom';
-import { DrinkCardDetails, MealsCardDetails } from '../components';
+import { DrinkCardDetails, MealCardDetails } from '../components';
 import { useFavorite, useFetchRecipesDetails } from '../hooks';
 import blackHeart from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import './css/RecipeDetails.css';
 
 export default function RecipeDetails() {
-  const {
-    location: { pathname },
-  } = useHistory();
+  const { pathname } = useLocation();
   const { id } = useParams();
   const {
     recipes,
@@ -21,7 +20,7 @@ export default function RecipeDetails() {
     handleShare,
     fillHeart,
     clipBoard,
-  } = useFavorite(id, pathname, recipes);
+  } = useFavorite(pathname, recipes);
 
   return !isLoading && (
     <div>
@@ -38,7 +37,7 @@ export default function RecipeDetails() {
         />
       )}
       {pathname.includes('meals')
-        ? <MealsCardDetails recipes={ recipes } />
+        ? <MealCardDetails recipes={ recipes } />
         : <DrinkCardDetails recipes={ recipes } />}
       <Link to={ `${pathname}/in-progress` }>
         <Button

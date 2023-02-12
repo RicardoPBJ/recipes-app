@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import Button from './Button';
+import { Button } from 'react-bootstrap';
+import { MealsContext, DrinksContext } from '../hooks';
 import Input from './Input';
-import { MealsContext } from '../hooks/context/MealsProvider';
-import { DrinksContext } from '../hooks/context/DrinksProvider';
 
 export default function SearchBar() {
   const history = useHistory();
@@ -113,10 +112,11 @@ export default function SearchBar() {
       />
       <Button
         type="button"
-        nameButton="Search"
-        testId="exec-search-btn"
-        eventClick={ onClick }
-      />
+        data-tesid="exec-search-btn"
+        onClick={ onClick }
+      >
+        Search
+      </Button>
     </div>
   );
 }

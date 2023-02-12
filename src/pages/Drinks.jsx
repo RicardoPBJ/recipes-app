@@ -1,12 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { DrinkCard, Header, Loading } from '../components';
 import { DrinksContext } from '../hooks';
 import '../styles/MealsAndDrinks.css';
 
 export default function Drinks() {
-  const { pathname } = useLocation();
   const { isLoading,
     isLoadingCat,
     categories,
@@ -17,8 +15,8 @@ export default function Drinks() {
     makeFetchCat } = useContext(DrinksContext);
 
   useEffect(() => {
-    makeFetchCat(pathname);
-    makeFetchRecipes(pathname);
+    makeFetchCat();
+    makeFetchRecipes();
   }, []);
 
   return (
@@ -43,7 +41,7 @@ export default function Drinks() {
               data-testid={ `${e.strCategory}-category-filter` }
               type="button"
               value={ `${e.strCategory}` }
-              onClick={ (event) => searchCategory(event, pathname) }
+              onClick={ searchCategory }
             >
               {e.strCategory}
             </button>

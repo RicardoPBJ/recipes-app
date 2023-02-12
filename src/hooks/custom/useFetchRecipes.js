@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 // HOOK RESPONSAVEL POR FAZER O FETCH DE RECEITAS ALEATORIAS (MEALS OR DRINKS)
 
-export default function useFetchRecipes() {
+export default function useFetchRecipes(path) {
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState(null);
   const [recipesData, SetRecipesData] = useState([]);
@@ -10,7 +10,7 @@ export default function useFetchRecipes() {
   const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const LIM = 12;
 
-  const makeFetchRecipes = async (path) => {
+  const makeFetchRecipes = async () => {
     try {
       setIsLoading(true);
       const response = await fetch(

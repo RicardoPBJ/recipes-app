@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 // HOOK RESPONSAVEL POR FAZER O FETCH DOS NOMES DAS CATEGORIAS QUE PREENCHEM OS BOTOES
 
-export default function useFetchCategories() {
+export default function useFetchCategories(path) {
   const [isLoadingCat, setIsLoading] = useState(true);
   const [errors, setErrors] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -10,7 +10,7 @@ export default function useFetchCategories() {
   const drinksCatUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const LIM = 5;
 
-  const makeFetchCat = async (path) => {
+  const makeFetchCat = async () => {
     try {
       setIsLoading(true);
       const response = await fetch(path.includes('meals') ? mealsCatUrl : drinksCatUrl);

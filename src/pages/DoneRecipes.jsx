@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { Header } from '../components';
-import DoneRecipeCard from '../components/DoneRecipeCard';
+import { DoneRecipeCard, Header } from '../components';
 
 function DoneRecipes() {
   return (

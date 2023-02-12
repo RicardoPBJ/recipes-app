@@ -19,6 +19,7 @@ export default function useFetchCategoryItems() {
           : `${filterDrinksUrl}${value}`,
       );
       if (!response.ok) {
+        const url = path.includes('meals') ? filterMealsUrl : filterDrinksUrl;
         const apiError = new Error(
           `A resposta da url ${url} veio com o status ${response.status}`,
         );
