@@ -27,7 +27,7 @@ export default function Drinks() {
         <Loading />
       ) : (
         <div className="space-button">
-          <Header />
+          <Header searchAppear />
           {allRecipes && (
             <button
               onClick={ showAllcat }
