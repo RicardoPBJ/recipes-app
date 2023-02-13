@@ -1,22 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { DrinkCard, Header, Loading } from '../components';
 import { DrinksContext } from '../hooks';
 import '../styles/MealsAndDrinks.css';
 
 export default function Drinks() {
-  const { isLoading,
+  const {
+    isLoadingRecipes,
     isLoadingCat,
     categories,
     searchCategory,
     showAllcat,
     allRecipes,
     makeFetchRecipes,
-    makeFetchCat } = useContext(DrinksContext);
+    makeFetchCat,
+  } = useContext(DrinksContext);
 
   useEffect(() => {
     makeFetchCat();
-    makeFetchRecipes();
+    makeFetchRecipes('drinks');
   }, []);
 
   return (
@@ -48,7 +50,7 @@ export default function Drinks() {
           ))}
         </div>
       )}
-      {isLoading ? <Loading /> : <DrinkCard /> }
+      {isLoadingRecipes ? <Loading /> : <DrinkCard />}
     </div>
   );
 }

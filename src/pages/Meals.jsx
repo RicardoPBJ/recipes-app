@@ -5,18 +5,20 @@ import { MealsContext } from '../hooks';
 import '../styles/MealsAndDrinks.css';
 
 export default function Meals() {
-  const { isLoadingRecipes,
+  const {
+    isLoadingRecipes,
     isLoadingCat,
     categories,
     searchCategory,
     showAllcat,
     allRecipes,
     makeFetchCat,
-    makeFetchRecipes } = useContext(MealsContext);
+    makeFetchRecipes,
+  } = useContext(MealsContext);
 
   useEffect(() => {
     makeFetchCat();
-    makeFetchRecipes();
+    makeFetchRecipes('meals');
   }, []);
 
   return (

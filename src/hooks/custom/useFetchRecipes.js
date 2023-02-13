@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 // HOOK RESPONSAVEL POR FAZER O FETCH DE RECEITAS ALEATORIAS (MEALS OR DRINKS)
 
@@ -7,17 +6,16 @@ export default function useFetchRecipes() {
   const [isLoadingRecipes, setIsLoading] = useState(true);
   const [errors, setErrors] = useState(null);
   const [recipes, SetRecipesData] = useState([]);
-  const { pathname } = useLocation();
   const mealsRecipesUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const LIM = 12;
 
-  const makeFetchRecipes = async () => {
+  const makeFetchRecipes = async (path) => {
     try {
       setIsLoading(true);
 
       const response = await fetch(
-        pathname.includes('meals') ? mealsRecipesUrl : drinksRecipesUrl,
+        path.includes('meals') ? mealsRecipesUrl : drinksRecipesUrl,
       );
 
       if (!response.ok) {
