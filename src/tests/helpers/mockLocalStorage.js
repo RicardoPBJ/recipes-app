@@ -1,4 +1,4 @@
-export default localStorageMock = () => {
+const localStorageMock = () => {
   let obj = {};
 
   return {
@@ -23,3 +23,5 @@ export default localStorageMock = () => {
     },
   };
 };
+
+export default localStorageMock;
