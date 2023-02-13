@@ -13,4 +13,4 @@ export const doneRecipesBtn = () => screen.getByTestId('profile-done-btn');
 export const favoritesBtn = () => screen.getByTestId('profile-favorite-btn');
 export const logoutBtn = () => screen.getByTestId('profile-logout-btn');
 export const drinkFooterBtn = () => screen.getByTestId('drinks-bottom-btn');
-export const findAllRecipesMeals = () => screen.findAllByTestId(/recipe-card/);
+export const findAllRecipesMeals = () => screen.findAllByTestId('recipe-card');

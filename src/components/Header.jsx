@@ -8,6 +8,9 @@ import '../styles/App.css';
 export default function Header({ searchAppear }) {
   const [search, setSearch] = useState(false);
   const { pathname } = useLocation();
+  let title = pathname.replace(/-/g, ' ');
+  title = title.replace(/\b\w/g, (l) => l.toUpperCase());
+  title = title.replace('/', '');
   const searchClick = () => {
     setSearch(!search);
   };
@@ -29,11 +32,14 @@ export default function Header({ searchAppear }) {
           </button>
         )
         }
-        <h1 data-testid="page-title">
+        {/* <h1 data-testid="page-title">
           {pathname.replace(
             /(.+)(\b\w)((?!\b\w)\w+)/,
             (_all, _p1, p2, p3) => `${p2.toUpperCase()}${p3}`,
           )}
+        </h1> */}
+        <h1 data-testid="page-title">
+          { title }
         </h1>
         <Link to="/profile">
           <img
