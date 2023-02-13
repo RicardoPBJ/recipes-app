@@ -18,7 +18,7 @@ export default function Meals() {
 
   useEffect(() => {
     makeFetchCat();
-    makeFetchRecipes('meals');
+    makeFetchRecipes();
   }, []);
 
   return (

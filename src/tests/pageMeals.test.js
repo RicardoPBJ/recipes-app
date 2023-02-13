@@ -7,13 +7,30 @@ import {
   findAllCategoryMeals,
   findAllRecipes,
   findBtnAll,
+  findBtnSearch,
+  findBtnStartSearch,
   findCatBeef,
   findCatDessert,
+  findInputSearch,
+  findLinkProfile,
+  findRadiofirstLetter,
+  findRadioIngredient,
+  findRadioName,
+  findTitleHeader,
   getLoading,
   mockMeals,
   mockMealsCategory,
+  promiseMock,
   queryBtnAll,
+  queryBtnStartSearch,
+  queryInputSearch,
+  queryRadioFirstLetter,
+  queryRadioIngredient,
+  queryRadioName,
   renderWithRouter,
+  searchIngrtTomato,
+  searchMealFirstLetterA,
+  searchNameLamb,
 } from './helpers';
 import App from '../App';
 import '@testing-library/jest-dom';
@@ -21,37 +38,21 @@ import '@testing-library/jest-dom';
 describe('Testes da page Meals.', () => {
   beforeEach(() => {
     global.fetch = jest.fn((url) => {
-      if (url.includes('search')) {
-        return Promise.resolve({
-          ok: true,
-          status: 200,
-          json: () => Promise.resolve(mockMeals),
-        });
-      }
+      // AVISO: a ordem dos ifs importam! Não altere as posições para evitar dor de cabeça.
 
-      if (url.includes('list')) {
-        return Promise.resolve({
-          ok: true,
-          status: 200,
-          json: () => Promise.resolve(mockMealsCategory),
-        });
-      }
+      if (url.includes('search.php?s=lamb')) return promiseMock(searchNameLamb);
 
-      if (url.includes('Beef')) {
-        return Promise.resolve({
-          ok: true,
-          status: 200,
-          json: () => Promise.resolve(catItemBeef),
-        });
-      }
+      if (url.includes('filter.php?i=tomato')) return promiseMock(searchIngrtTomato);
 
-      if (url.includes('Dessert')) {
-        return Promise.resolve({
-          ok: true,
-          status: 200,
-          json: () => Promise.resolve(catItemDessert),
-        });
-      }
+      if (url.includes('search.php?f=a')) return promiseMock(searchMealFirstLetterA);
+
+      if (url.includes('Beef')) return promiseMock(catItemBeef);
+
+      if (url.includes('Dessert')) return promiseMock(catItemDessert);
+
+      if (url.includes('search')) return promiseMock(mockMeals);
+
+      if (url.includes('list')) return promiseMock(mockMealsCategory);
     });
   });
 
@@ -98,5 +99,63 @@ describe('Testes da page Meals.', () => {
 
     waitFor(() => expect(queryBtnAll()).not.toBeInTheDocument());
     expect(await findAllRecipes()).toHaveLength(12);
+  });
+
+  test('Verifica se o componente Header possui os elementos e a barra de busca.', async () => {
+    renderWithRouter(<App />, { initialEntries: ['/meals'] });
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(2)));
+
+    expect(await findTitleHeader()).toBeVisible();
+    expect(await findTitleHeader()).toHaveTextContent('Meals');
+    expect(await findBtnSearch()).toBeVisible();
+    expect(await findLinkProfile()).toBeVisible();
+    expect(queryInputSearch()).not.toBeInTheDocument();
+    expect(queryRadioIngredient()).not.toBeInTheDocument();
+    expect(queryRadioName()).not.toBeInTheDocument();
+    expect(queryRadioFirstLetter()).not.toBeInTheDocument();
+    expect(queryBtnStartSearch()).not.toBeInTheDocument();
+
+    userEvent.click(await findBtnSearch());
+
+    expect(await findInputSearch()).toBeVisible();
+    expect(await findRadioIngredient()).toBeVisible();
+    expect(await findRadioName()).toBeVisible();
+    expect(await findRadiofirstLetter()).toBeVisible();
+    expect(await findBtnStartSearch()).toBeVisible();
+
+    userEvent.type(await findInputSearch(), 'lamb');
+    userEvent.click(await findRadioName());
+    userEvent.click(await findBtnStartSearch());
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+
+    expect(await findAllRecipes()).toHaveLength(10);
+
+    userEvent.clear(await findInputSearch());
+    userEvent.type(await findInputSearch(), 'tomato');
+    userEvent.click(await findRadioIngredient());
+    userEvent.click(await findBtnStartSearch());
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+
+    expect(await findAllRecipes()).toHaveLength(9);
+
+    userEvent.clear(await findInputSearch());
+    userEvent.type(await findInputSearch(), 'a');
+    userEvent.click(await findRadiofirstLetter());
+    userEvent.click(await findBtnStartSearch());
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+
+    expect(await findAllRecipes()).toHaveLength(4);
+
+    userEvent.click(await findBtnSearch());
+
+    expect(queryInputSearch()).not.toBeInTheDocument();
+    expect(queryRadioIngredient()).not.toBeInTheDocument();
+    expect(queryRadioName()).not.toBeInTheDocument();
+    expect(queryRadioFirstLetter()).not.toBeInTheDocument();
+    expect(queryBtnStartSearch()).not.toBeInTheDocument();
   });
 });

@@ -14,7 +14,7 @@ export default function useFetchRecipes() {
   const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const LIM = 12;
 
-  async function makeFetchRecipes(path) {
+  async function makeFetchRecipes(path = pathname) {
     try {
       setIsLoading(true);
 
@@ -108,6 +108,7 @@ export default function useFetchRecipes() {
   useEffect(() => {
     if (recipes && recipes.length === 1) {
       const isId = pathname === '/meals' ? recipes[0].idMeal : recipes[0].idDrink;
+
       push(`${pathname}/${isId}`);
     }
   }, [recipes]);

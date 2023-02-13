@@ -46,7 +46,7 @@ export default function SearchBar() {
       />
       <Button
         type="button"
-        data-tesid="exec-search-btn"
+        data-testid="exec-search-btn"
         onClick={ () => makeFetchSearchRecipes(dataSearch) }
       >
         Search

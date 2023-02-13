@@ -8,15 +8,13 @@ import '../styles/App.css';
 export default function Header() {
   const [search, setSearch] = useState(false);
   const { pathname } = useLocation();
-  const searchClick = () => {
-    setSearch(!search);
-  };
+
   return (
     <main className="headerfix">
       <header className="headerfix">
         <button
           style={ { background: 'none', border: 'none', marginLeft: '90px' } }
-          onClick={ searchClick }
+          onClick={ () => setSearch(!search) }
         >
           <img
             src={ searchIcon }
