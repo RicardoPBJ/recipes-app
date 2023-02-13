@@ -7,8 +7,8 @@ import '../styles/Cards.css';
 function MealCard() {
   const {
     isLoadingTypeCat,
-    typeCategory,
-    recipesData,
+    recipesForCategory,
+    recipes,
     allRecipes } = useContext(MealsContext);
 
   return (
@@ -19,7 +19,7 @@ function MealCard() {
           style={ { height: '80vh' } }
         >
           {
-            (allRecipes ? typeCategory : recipesData).map(
+            (allRecipes ? recipesForCategory : recipes).map(
               ({ idMeal, strMealThumb, strMeal }, index) => (
                 <div
                   data-testid={ `${index}-recipe-card` }

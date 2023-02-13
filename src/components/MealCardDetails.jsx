@@ -1,10 +1,10 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { MealsContext } from '../hooks';
 import RecomendCardDrinks from './RecomendCardDrinks';
 
-function MealCardDetails(
-  {
-    recipes: {
+function MealCardDetails() {
+  const {
+    recipeDetails: {
       idMeal,
       mealThumb,
       ingredientAndMeasure,
@@ -12,9 +12,8 @@ function MealCardDetails(
       instructions,
       category,
       linkYoutube,
-    },
-  },
-) {
+    } } = useContext(MealsContext);
+
   return (
     <div>
       <div key={ idMeal }>
@@ -37,7 +36,7 @@ function MealCardDetails(
         <p data-testid="instructions">{instructions}</p>
         <p data-testid="recipe-title">{mealName}</p>
         <p data-testid="recipe-category">{category}</p>
-        {ingredientAndMeasure.map((obj, i) => (
+        {(ingredientAndMeasure || []).map((obj, i) => (
           <span
             key={ `ingredient-and-measure-${i + 1}` }
             data-testid={ `${i}-ingredient-name-and-measure` }
@@ -52,19 +51,5 @@ function MealCardDetails(
     </div>
   );
 }
-
-MealCardDetails.propTypes = {
-  recipes: propTypes.shape({
-    idMeal: propTypes.string.isRequired,
-    mealThumb: propTypes.string.isRequired,
-    ingredientAndMeasure: propTypes.arrayOf(
-      propTypes.object.isRequired,
-    ).isRequired,
-    mealName: propTypes.string.isRequired,
-    instructions: propTypes.string.isRequired,
-    category: propTypes.string.isRequired,
-    linkYoutube: propTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default MealCardDetails;

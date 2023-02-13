@@ -1,20 +1,17 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { MealsContext } from '../hooks';
 import './css/MealCardInProgress.css';
 
-function MealCardInProgress(
-  {
-    recipes: {
+function MealCardInProgress() {
+  const {
+    recipeDetails: {
       idMeal,
       mealThumb,
       ingredientAndMeasure,
       mealName,
       instructions,
-      category,
+      category } } = useContext(MealsContext);
 
-    },
-  },
-) {
   return (
     <div>
       <div key={ idMeal }>
@@ -41,8 +38,8 @@ function MealCardInProgress(
               <span className="ingredients-measure">
                 {`${obj[`strIngredient${i + 1}`]}:
                ${obj[`strMeasure${i + 1}`]}`}
-
               </span>
+              {' '}
               <input
                 className="ingredients-measure"
                 type="checkbox"
@@ -50,25 +47,11 @@ function MealCardInProgress(
                 id=""
               />
             </label>
-          </span>))}
+          </span>
+        ))}
       </div>
-
     </div>
   );
 }
-
-MealCardInProgress.propTypes = {
-  recipes: propTypes.shape({
-    idMeal: propTypes.string.isRequired,
-    mealThumb: propTypes.string.isRequired,
-    ingredientAndMeasure: propTypes.arrayOf(
-      propTypes.object.isRequired,
-    ).isRequired,
-    mealName: propTypes.string.isRequired,
-    instructions: propTypes.string.isRequired,
-    category: propTypes.string.isRequired,
-    linkYoutube: propTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default MealCardInProgress;

@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { MealsContext } from '../hooks';
 
 function RecomendCardFoods() {
-  const { recipesData, isLoading } = useContext(MealsContext);
+  const { recipes, isLoading } = useContext(MealsContext);
   const SIX = 6;
-  const recomended = recipesData.slice(0, SIX);
+  const recomended = recipes.slice(0, SIX);
   return (
     <div style={ { height: '200px' } }>
       {!isLoading && recomended.map((e, i) => (

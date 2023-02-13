@@ -36,5 +36,6 @@ export default function reduceMeals({ meals: [objMeals] }) {
     instructions: objMeals.strInstructions,
     category: objMeals.strCategory,
     linkYoutube: `https://www.youtube.com/embed/${objMeals.strYoutube.slice(embed)}`,
+    tags: objMeals.strTags,
   };
 }

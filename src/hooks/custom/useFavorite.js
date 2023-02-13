@@ -1,24 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { checkFavorites } from './helpers';
 
-export default function useFavorite(path, recipes) {
+export default function useFavorite(recipes) {
   const [clipBoard, setClip] = useState({ copied: '', show: false });
   const [fillHeart, setFillHeart] = useState(false);
+  const { pathname } = useLocation();
   const { hasFav, isFav } = checkFavorites(recipes);
   const getFavs = () => JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   async function handleShare() {
     const TIME = 4000;
-    await navigator.clipboard.writeText(`http://localhost:3000${path}`);
+    await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
 
     if (clipBoard.timeoutShow) clearTimeout(clipBoard.timeoutShow);
 
     setClip({
-      copied: path,
+      copied: pathname,
       show: true,
       timeoutShow: setTimeout(
-        () => setClip({ copied: path, show: false, timeoutShow: null }),
+        () => setClip({ copied: pathname, show: false, timeoutShow: null }),
         TIME,
       ),
     });

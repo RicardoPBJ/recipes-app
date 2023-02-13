@@ -5,7 +5,7 @@ import { MealsContext } from '../hooks';
 import '../styles/MealsAndDrinks.css';
 
 export default function Meals() {
-  const { isLoading,
+  const { isLoadingRecipes,
     isLoadingCat,
     categories,
     searchCategory,
@@ -48,7 +48,7 @@ export default function Meals() {
           ))}
         </div>
       )}
-      {isLoading ? <Loading /> : <MealCard />}
+      {isLoadingRecipes ? <Loading /> : <MealCard />}
     </div>
   );
 }

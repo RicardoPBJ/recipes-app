@@ -1,25 +1,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import propTypes from 'prop-types';
+import useFavorite from '../custom/useFavorite';
 import useFetchCategories from '../custom/useFetchCategories';
 import useFetchCategoryItems from '../custom/useFetchCategoryItems';
+import useFetchRecipeDetails from '../custom/useFetchRecipeDetails';
 import useFetchRecipes from '../custom/useFetchRecipes';
+import useRecipeInProgress from '../custom/useRecipeInProgress';
 
 export const DrinksContext = createContext();
 
 export default function DrinksProvider({ children }) {
-  const { pathname } = useLocation();
-  const { isLoading, recipesData, makeFetchRecipes } = useFetchRecipes(pathname);
-  const { isLoadingCat, categories, makeFetchCat } = useFetchCategories(pathname);
-  const { typeCategory,
+  const { isLoadingRecipes, recipes, makeFetchRecipes } = useFetchRecipes();
+  const { isLoadingCat, categories, makeFetchCat } = useFetchCategories();
+  const {
     isLoadingTypeCat,
+    recipesForCategory,
     makeFetchCatItems } = useFetchCategoryItems();
+  const {
+    getRecipesDetails,
+    isLoadingRecDetal,
+    recipeDetails } = useFetchRecipeDetails();
+  const {
+    handleFavoriteDrink,
+    handleFavoriteMeal,
+    handleShare,
+    clipBoard,
+    fillHeart } = useFavorite(recipeDetails);
+  const { finishRecipeDone } = useRecipeInProgress(recipeDetails);
   const [allRecipes, setAllRecipes] = useState(false);
 
   const searchCategory = ({ target: { value } }) => {
     setAllRecipes(true);
-    makeFetchCatItems(value, pathname);
+    makeFetchCatItems(value);
   };
 
   const showAllcat = () => {
@@ -28,30 +41,48 @@ export default function DrinksProvider({ children }) {
 
   const values = useMemo(
     () => ({
-      isLoading,
-      recipesData,
+      isLoadingRecipes,
+      recipes,
       isLoadingCat,
       isLoadingTypeCat,
+      isLoadingRecDetal,
       categories,
-      typeCategory,
+      recipesForCategory,
       allRecipes,
+      recipeDetails,
+      clipBoard,
+      fillHeart,
+      handleFavoriteDrink,
+      handleFavoriteMeal,
+      handleShare,
+      getRecipesDetails,
       searchCategory,
       showAllcat,
       makeFetchRecipes,
       makeFetchCat,
+      finishRecipeDone,
     }),
     [
-      isLoading,
+      isLoadingRecipes,
       isLoadingTypeCat,
-      recipesData,
+      isLoadingRecDetal,
+      recipes,
       isLoadingCat,
       categories,
-      typeCategory,
+      recipesForCategory,
       allRecipes,
+      recipeDetails,
+      clipBoard,
+      fillHeart,
+      handleFavoriteDrink,
+      handleFavoriteMeal,
+      handleShare,
+      getRecipesDetails,
       searchCategory,
       makeFetchRecipes,
       showAllcat,
       makeFetchCat,
+      finishRecipeDone,
     ],
   );
 

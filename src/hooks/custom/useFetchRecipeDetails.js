@@ -1,46 +1,44 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { reduceDrinks, reduceMeals } from './helpers';
 
-export default function useFetchRecipes(url, id) {
+export default function useFetchRecipeDetails() {
   const [errors, setErrors] = useState(null);
-  const [recipes, SetRecipes] = useState({});
-  const [isLoading, setLoading] = useState(true);
+  const [recipeDetails, SetRecipeDetails] = useState({});
+  const [isLoadingRecDetal, setLoading] = useState(true);
+  const { pathname } = useLocation();
   const fetchMeal = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
   const fetchDrink = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
-  const getFetch = (endpoint) => fetch(
-    url.includes('meals')
-      ? `${fetchMeal}${endpoint}`
-      : `${fetchDrink}${endpoint}`,
+  const getFetch = (id) => fetch(
+    pathname.includes('meals')
+      ? `${fetchMeal}${id}`
+      : `${fetchDrink}${id}`,
   )
     .then((response) => response.json())
     .catch((error) => setErrors(error));
 
-  const getRecipesDetails = async (endpoint) => {
+  const getRecipesDetails = async (id) => {
     setLoading(true);
 
-    const data = await getFetch(endpoint);
+    const data = await getFetch(id);
 
     if (data) {
-      const recipe = url.includes('meals')
-        ? reduceMeals(data)
-        : reduceDrinks(data);
-
-      SetRecipes(recipe);
+      SetRecipeDetails(
+        pathname.includes('meals')
+          ? reduceMeals(data)
+          : reduceDrinks(data),
+      );
     }
 
     setLoading(false);
   };
 
-  useEffect(() => {
-    getRecipesDetails(id);
-  }, []);
-
   return {
-    getRecipesDetails,
     errors,
-    recipes,
-    isLoading,
+    isLoadingRecDetal,
+    recipeDetails,
+    getRecipesDetails,
   };
 }
