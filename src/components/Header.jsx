@@ -5,7 +5,7 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import '../styles/App.css';
 
-export default function Header({ searchAppear }) {
+export default function Header() {
   const [search, setSearch] = useState(false);
   const { pathname } = useLocation();
 
@@ -27,7 +27,7 @@ export default function Header({ searchAppear }) {
             /(.+)(\b\w)((?!\b\w)\w+)/,
             (_all, _p1, p2, p3) => `${p2.toUpperCase()}${p3}`,
           )}
-        </h1> */}
+        </h1>
         <h1 data-testid="page-title">
           { title }
         </h1>
