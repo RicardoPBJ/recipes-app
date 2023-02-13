@@ -11,7 +11,12 @@ import useRecipeInProgress from '../custom/useRecipeInProgress';
 export const MealsContext = createContext();
 
 export default function MealsProvider({ children }) {
-  const { isLoadingRecipes, recipes, makeFetchRecipes } = useFetchRecipes();
+  const {
+    isLoadingRecipes,
+    recipes,
+    makeFetchRecipes,
+    makeFetchSearchRecipes,
+  } = useFetchRecipes();
   const { isLoadingCat, categories, makeFetchCat } = useFetchCategories();
   const {
     isLoadingTypeCat,
@@ -29,15 +34,22 @@ export default function MealsProvider({ children }) {
     fillHeart } = useFavorite(recipeDetails);
   const { finishRecipeDone } = useRecipeInProgress(recipeDetails);
   const [allRecipes, setAllRecipes] = useState(false);
-
-  const searchCategory = ({ target: { value } }) => {
+  const [dataSearch, setDataSearch] = useState({ radioOpt: '', searchBar: '' });
+  function searchCategory({ target: { value } }) {
     setAllRecipes(true);
     makeFetchCatItems(value);
-  };
+  }
 
-  const showAllcat = () => {
+  function handleSearch({ target: { name, value } }) {
+    setDataSearch({
+      ...dataSearch,
+      [name]: value,
+    });
+  }
+
+  function showAllcat() {
     setAllRecipes(false);
-  };
+  }
 
   const values = useMemo(
     () => ({
@@ -52,14 +64,17 @@ export default function MealsProvider({ children }) {
       recipeDetails,
       clipBoard,
       fillHeart,
+      dataSearch,
       handleFavoriteDrink,
       handleFavoriteMeal,
       handleShare,
+      handleSearch,
       getRecipesDetails,
       searchCategory,
       showAllcat,
       makeFetchRecipes,
       makeFetchCat,
+      makeFetchSearchRecipes,
       finishRecipeDone,
     }),
     [
@@ -74,14 +89,17 @@ export default function MealsProvider({ children }) {
       recipeDetails,
       clipBoard,
       fillHeart,
+      dataSearch,
       handleFavoriteDrink,
       handleFavoriteMeal,
       handleShare,
+      handleSearch,
       getRecipesDetails,
       makeFetchRecipes,
       searchCategory,
       showAllcat,
       makeFetchCat,
+      makeFetchSearchRecipes,
       finishRecipeDone,
     ],
   );
