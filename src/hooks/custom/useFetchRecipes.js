@@ -72,7 +72,7 @@ export default function useFetchRecipes() {
 
   function makeFetchSearchRecipes({ radioOpt, searchBar }) {
     const mealsIngreUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
-    const drinksIngreUrl = 'https://www.thecocktaildb.com//api/json/v1/1/filter.php?i=';
+    const drinksIngreUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
     switch (radioOpt) {
     case 'ingredient':
@@ -86,8 +86,8 @@ export default function useFetchRecipes() {
     case 'name':
       fetchSearch(
         pathname.includes('meals')
-          ? `${mealsRecipesUrl.replace(/\b[a-z]\b/, 's')}${searchBar}`
-          : `${drinksRecipesUrl.replace(/\b[a-z]\b/, 's')}${searchBar}`,
+          ? `${mealsRecipesUrl}${searchBar}`
+          : `${drinksRecipesUrl}${searchBar}`,
       );
       break;
 

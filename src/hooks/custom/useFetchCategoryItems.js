@@ -8,7 +8,7 @@ export default function useFetchCategoryItems() {
   const [errors, setErrors] = useState(null);
   const { pathname } = useLocation();
   const filterMealsUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
-  const filterDrinksUrl = 'https://www.thecocktaildb.com//api/json/v1/1/filter.php?c=';
+  const filterDrinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
   const LIM = 12;
 
   const makeFetchCatItems = async (value) => {

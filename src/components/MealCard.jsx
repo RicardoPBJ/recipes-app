@@ -9,39 +9,39 @@ function MealCard() {
     isLoadingTypeCat,
     recipesForCategory,
     recipes,
-    allRecipes } = useContext(MealsContext);
+    allRecipes,
+    clrCatRecipes,
+  } = useContext(MealsContext);
 
-  return (
-    isLoadingTypeCat ? <Loading />
-      : (
-        <div
-          className="card-container"
-          style={ { height: '80vh' } }
-        >
-          {
-            (allRecipes ? recipesForCategory : recipes).map(
-              ({ idMeal, strMealThumb, strMeal }, index) => (
-                <div
-                  data-testid={ `${index}-recipe-card` }
-                  key={ `${idMeal}-${strMeal}-${index + 1}` }
-                  className="card-item"
-                >
-                  <Link to={ `/meals/${idMeal}` }>
-                    <img
-                      style={ { height: '200px' } }
-                      data-testid={ `${index}-card-img` }
-                      src={ `${strMealThumb}` }
-                      alt={ strMeal }
-                    />
-                  </Link>
-                  <p data-testid={ `${index}-card-name` }>{strMeal}</p>
-                </div>
-              ),
-            )
-          }
-        </div>
-      )
-  );
+  return isLoadingTypeCat ? <Loading />
+    : (
+      <div
+        className="card-container"
+        style={ { height: '80vh' } }
+      >
+        {
+          (allRecipes && !clrCatRecipes ? recipesForCategory : recipes).map(
+            ({ idMeal, strMealThumb, strMeal }, index) => (
+              <div
+                data-testid={ `${index}-recipe-card` }
+                key={ `${idMeal}-${strMeal}-${index + 1}` }
+                className="card-item"
+              >
+                <Link to={ `/meals/${idMeal}` }>
+                  <img
+                    style={ { height: '200px' } }
+                    data-testid={ `${index}-card-img` }
+                    src={ `${strMealThumb}` }
+                    alt={ strMeal }
+                  />
+                </Link>
+                <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+              </div>
+            ),
+          )
+        }
+      </div>
+    );
 }
 
 export default MealCard;

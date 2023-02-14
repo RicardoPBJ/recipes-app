@@ -16,12 +16,9 @@ export default function useLocalStorage(key, initialValue) {
     setStoredValue(initialValue);
   };
 
-  const clearStorageLogin = () => {
-    localStorage.removeItem('user');
-  };
-
   function handleLogout() {
-    clearStorageLogin();
+    localStorage.clear();
+
     push('/');
   }
 

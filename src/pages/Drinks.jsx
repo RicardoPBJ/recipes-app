@@ -23,11 +23,11 @@ export default function Drinks() {
 
   return (
     <div className="page-container">
+      <Header />
       {isLoadingCat ? (
         <Loading />
       ) : (
         <div className="space-button">
-          <Header searchAppear />
           {allRecipes && (
             <button
               onClick={ showAllcat }

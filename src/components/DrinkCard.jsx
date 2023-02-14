@@ -9,44 +9,44 @@ function DrinkCard() {
     isLoadingTypeCat,
     recipesForCategory,
     recipes,
-    allRecipes } = useContext(DrinksContext);
+    allRecipes,
+    clrCatRecipes,
+  } = useContext(DrinksContext);
 
-  return (
-    isLoadingTypeCat ? <Loading />
-      : (
-        <div
-          className="card-container"
-          style={ { height: '80vh' } }
-        >
-          {
-            (allRecipes ? recipesForCategory : recipes).map(
-              ({ idDrink, strDrink, strDrinkThumb }, index) => (
-                <div
-                  data-testid={ `${index}-recipe-card` }
-                  key={ `${idDrink}-${strDrink}-${index + 1}` }
-                  className="card-item"
+  return isLoadingTypeCat ? <Loading />
+    : (
+      <div
+        className="card-container"
+        style={ { height: '80vh' } }
+      >
+        {
+          (allRecipes && !clrCatRecipes ? recipesForCategory : recipes).map(
+            ({ idDrink, strDrink, strDrinkThumb }, index) => (
+              <div
+                data-testid={ `${index}-recipe-card` }
+                key={ `${idDrink}-${strDrink}-${index + 1}` }
+                className="card-item"
+              >
+                <Link to={ `/drinks/${idDrink}` }>
+                  <img
+                    style={ { height: '200px' } }
+                    data-testid={ `${index}-card-img` }
+                    src={ `${strDrinkThumb}` }
+                    alt={ strDrink }
+                  />
+                </Link>
+                <p
+                  data-testid={ `${index}-card-name` }
+                  className="card-text"
                 >
-                  <Link to={ `/drinks/${idDrink}` }>
-                    <img
-                      style={ { height: '200px' } }
-                      data-testid={ `${index}-card-img` }
-                      src={ `${strDrinkThumb}` }
-                      alt={ strDrink }
-                    />
-                  </Link>
-                  <p
-                    data-testid={ `${index}-card-name` }
-                    className="card-text"
-                  >
-                    {strDrink}
-                  </p>
-                </div>
-              ),
-            )
-          }
-        </div>
-      )
-  );
+                  {strDrink}
+                </p>
+              </div>
+            ),
+          )
+        }
+      </div>
+    );
 }
 
 export default DrinkCard;

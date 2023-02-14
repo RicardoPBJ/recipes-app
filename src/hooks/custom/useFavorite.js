@@ -32,6 +32,7 @@ export default function useFavorite(recipes) {
       type: 'meal',
       nationality: recipes.nationality,
       category: recipes.category,
+      alcoholicOrNot: '',
       name: recipes.mealName,
       image: recipes.mealThumb,
     };
@@ -49,7 +50,7 @@ export default function useFavorite(recipes) {
     const favDrink = {
       id: recipes.idDrink,
       type: 'drink',
-      nationality: null,
+      nationality: '',
       category: recipes.category,
       alcoholicOrNot: recipes.categoryAlcool,
       name: recipes.drinkName,

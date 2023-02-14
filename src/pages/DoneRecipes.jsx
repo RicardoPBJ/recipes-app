@@ -6,7 +6,7 @@ function DoneRecipes() {
   return (
     (
       <div>
-        <Header searchAppear={ false } />
+        <Header />
         <DoneRecipeCard />
         (
         <Button
