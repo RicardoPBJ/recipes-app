@@ -8,13 +8,14 @@ export default function useCategories(makeFetchRecipes, makeFetchCatItems) {
   function searchCategory({ target: { value } }) {
     setAllRecipes(true);
 
-    if (value === historyCat) setClearCat(!clrCatRecipes);
-
-    if (!clrCatRecipes) makeFetchCatItems(value);
+    if (historyCat === value) setClearCat(!clrCatRecipes);
+    else {
+      setClearCat(false);
+      setHistoryCat(value);
+      makeFetchCatItems(value);
+    }
 
     if (clrCatRecipes) makeFetchRecipes();
-
-    setHistoryCat(value);
   }
 
   function showAllcat() {

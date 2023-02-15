@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Footer, Header } from '../components';
-import useLocalStorage from '../hooks/custom/useLocalStorage';
+import { useLocalStorage } from '../hooks';
 
 function Profile() {
   const { storedValue, handleLogout } = useLocalStorage('user', 'email');

@@ -45,3 +45,4 @@ export const findRadiofirstLetter = () => screen.findByTestId('first-letter-sear
 export const queryRadioFirstLetter = () => screen.queryByTestId('first-letter-search-radio');
 export const findBtnStartSearch = () => screen.findByTestId('exec-search-btn');
 export const queryBtnStartSearch = () => screen.queryByTestId('exec-search-btn');
+export const findElementByTxt = (string = '') => screen.findByText(new RegExp(`^${string}$`));

@@ -13,7 +13,10 @@ export default function RecipeDetails() {
   const { pathname } = useLocation();
   const {
     isLoadingRecDetal,
+    isDonedRecipe,
     getRecipesDetails,
+    recipeDetails,
+    checkDoneRecipes,
     handleFavoriteDrink,
     handleFavoriteMeal,
     handleShare,
@@ -24,36 +27,33 @@ export default function RecipeDetails() {
 
   useEffect(() => {
     getRecipesDetails(id);
+    checkDoneRecipes(recipeDetails);
   }, []);
 
   return isLoadingRecDetal ? <Loading />
     : (
       <div>
         {clipBoard.show && <h2>Link copied!</h2>}
-        {fillHeart ? (
-          <img
-            src={ blackHeart }
-            alt=""
-          />
-        ) : (
-          <img
-            src={ whiteHeart }
-            alt=""
-          />
-        )}
+        <img
+          src={ fillHeart ? blackHeart : whiteHeart }
+          alt=""
+        />
         {pathname.includes('meals')
-          ? <MealCardDetails />
-          : <DrinkCardDetails />}
-        <Link to={ `${pathname}/in-progress` }>
-          <Button
-            size="lg"
-            fixed="bottom"
-            data-testid="start-recipe-btn"
-            className="start-btn-container"
-          >
-            Start Recipe
-          </Button>
-        </Link>
+          ? <MealCardDetails /> : <DrinkCardDetails />}
+        {
+          isDonedRecipe && (
+            <Link to={ `${pathname}/in-progress` }>
+              <Button
+                size="lg"
+                fixed="bottom"
+                data-testid="start-recipe-btn"
+                className="start-btn-container"
+              >
+                Start Recipe
+              </Button>
+            </Link>
+          )
+        }
         <Button
           size="lg"
           fixed="top"

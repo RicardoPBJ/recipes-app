@@ -11,6 +11,7 @@ import {
   findBtnStartSearch,
   findCatOrdinDrink,
   findCatShake,
+  findElementByTxt,
   findInputSearch,
   findLinkProfile,
   findRadiofirstLetter,
@@ -156,5 +157,33 @@ describe('Testes da page Drinks.', () => {
     expect(queryRadioName()).not.toBeInTheDocument();
     expect(queryRadioFirstLetter()).not.toBeInTheDocument();
     expect(queryBtnStartSearch()).not.toBeInTheDocument();
+  });
+
+  test('Verifica se ao clicar numa categoria uma outra vez, é feito um fetch sem filtro da categoria.', async () => {
+    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+
+    userEvent.click(await findCatOrdinDrink());
+
+    expect(await findElementByTxt(catItemOrdDrink.drinks[0].strDrink)).toBeVisible();
+    expect(await findElementByTxt(catItemOrdDrink.drinks[1].strDrink)).toBeVisible();
+    expect(await findElementByTxt(catItemOrdDrink.drinks[2].strDrink)).toBeVisible();
+
+    userEvent.click(await findCatOrdinDrink());
+
+    expect(await findElementByTxt(mockDrinks.drinks[0].strDrink)).toBeVisible();
+    expect(await findElementByTxt(mockDrinks.drinks[1].strDrink)).toBeVisible();
+    expect(await findElementByTxt(mockDrinks.drinks[2].strDrink)).toBeVisible();
+
+    userEvent.click(await findCatShake());
+
+    expect(await findElementByTxt(catItemShake.drinks[0].strDrink)).toBeVisible();
+    expect(await findElementByTxt(catItemShake.drinks[1].strDrink)).toBeVisible();
+    expect(await findElementByTxt(catItemShake.drinks[2].strDrink)).toBeVisible();
+
+    userEvent.click(await findCatShake());
+
+    expect(await findElementByTxt(mockDrinks.drinks[0].strDrink)).toBeVisible();
+    expect(await findElementByTxt(mockDrinks.drinks[1].strDrink)).toBeVisible();
+    expect(await findElementByTxt(mockDrinks.drinks[2].strDrink)).toBeVisible();
   });
 });

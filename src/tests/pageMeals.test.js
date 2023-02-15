@@ -11,6 +11,7 @@ import {
   findBtnStartSearch,
   findCatBeef,
   findCatDessert,
+  findElementByTxt,
   findInputSearch,
   findLinkProfile,
   findRadiofirstLetter,
@@ -157,5 +158,33 @@ describe('Testes da page Meals.', () => {
     expect(queryRadioName()).not.toBeInTheDocument();
     expect(queryRadioFirstLetter()).not.toBeInTheDocument();
     expect(queryBtnStartSearch()).not.toBeInTheDocument();
+  });
+
+  test('Verifica se ao clicar numa categoria uma outra vez, é feito um fetch sem filtro da categoria.', async () => {
+    renderWithRouter(<App />, { initialEntries: ['/meals'] });
+
+    userEvent.click(await findCatBeef());
+
+    expect(await findElementByTxt(catItemBeef.meals[0].strMeal)).toBeVisible();
+    expect(await findElementByTxt(catItemBeef.meals[1].strMeal)).toBeVisible();
+    expect(await findElementByTxt(catItemBeef.meals[2].strMeal)).toBeVisible();
+
+    userEvent.click(await findCatBeef());
+
+    expect(await findElementByTxt(mockMeals.meals[0].strMeal)).toBeVisible();
+    expect(await findElementByTxt(mockMeals.meals[1].strMeal)).toBeVisible();
+    expect(await findElementByTxt(mockMeals.meals[2].strMeal)).toBeVisible();
+
+    userEvent.click(await findCatDessert());
+
+    expect(await findElementByTxt(catItemDessert.meals[0].strMeal)).toBeVisible();
+    expect(await findElementByTxt(catItemDessert.meals[1].strMeal)).toBeVisible();
+    expect(await findElementByTxt(catItemDessert.meals[2].strMeal)).toBeVisible();
+
+    userEvent.click(await findCatDessert());
+
+    expect(await findElementByTxt(mockMeals.meals[0].strMeal)).toBeVisible();
+    expect(await findElementByTxt(mockMeals.meals[1].strMeal)).toBeVisible();
+    expect(await findElementByTxt(mockMeals.meals[2].strMeal)).toBeVisible();
   });
 });

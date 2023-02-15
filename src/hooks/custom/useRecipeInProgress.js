@@ -1,8 +1,22 @@
+import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 export default function useRecipeInProgress(recipes) {
+  const [isDonedRecipe, setIsDonedRecipe] = useState(true);
   const { pathname } = useLocation();
   const { push } = useHistory();
+  const getDoneRecipes = () => JSON.parse(localStorage.getItem('doneRecipes'));
+
+  function checkDoneRecipes(recipe) {
+    if (getDoneRecipes()) {
+      setIsDonedRecipe(
+        getDoneRecipes().every(
+          ({ id, name }) => id !== recipe[recipe.idMeal ? 'idMeal' : 'idDrink']
+            && name !== recipe[recipe.mealName ? 'mealName' : 'drinkName'],
+        ),
+      );
+    }
+  }
 
   function finishRecipeDone() {
     const TEN = 10;
@@ -47,6 +61,8 @@ export default function useRecipeInProgress(recipes) {
   }
 
   return {
+    isDonedRecipe,
     finishRecipeDone,
+    checkDoneRecipes,
   };
 }

@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useMemo } from 'react';
+import React, { createContext, useMemo } from 'react';
 import propTypes from 'prop-types';
-import useCategories from '../custom/useCategories';
-import useFavorite from '../custom/useFavorite';
-import useFetchCategories from '../custom/useFetchCategories';
-import useFetchCategoryItems from '../custom/useFetchCategoryItems';
-import useFetchRecipeDetails from '../custom/useFetchRecipeDetails';
-import useFetchRecipes from '../custom/useFetchRecipes';
-import useRecipeInProgress from '../custom/useRecipeInProgress';
-import useSearchBar from '../custom/useSearchBar';
+import {
+  useCategories,
+  useFavorite,
+  useFetchCategories,
+  useFetchCategoryItems,
+  useFetchRecipeDetails,
+  useFetchRecipes,
+  useRecipeInProgress,
+  useSearchBar,
+} from '../custom';
 
 export const MealsContext = createContext();
 
@@ -37,7 +39,11 @@ export default function MealsProvider({ children }) {
     clipBoard,
     fillHeart,
   } = useFavorite(recipeDetails);
-  const { finishRecipeDone } = useRecipeInProgress(recipeDetails);
+  const {
+    finishRecipeDone,
+    isDonedRecipe,
+    checkDoneRecipes,
+  } = useRecipeInProgress(recipeDetails);
   const { allRecipes, clrCatRecipes, searchCategory, showAllcat,
   } = useCategories(makeFetchRecipes, makeFetchCatItems);
   const { dataSearch, handleSearch } = useSearchBar();
@@ -48,6 +54,7 @@ export default function MealsProvider({ children }) {
       isLoadingCat,
       isLoadingTypeCat,
       isLoadingRecDetal,
+      isDonedRecipe,
       recipes,
       categories,
       recipesForCategory,
@@ -68,12 +75,14 @@ export default function MealsProvider({ children }) {
       makeFetchCat,
       makeFetchSearchRecipes,
       finishRecipeDone,
+      checkDoneRecipes,
     }),
     [
       isLoadingRecipes,
       isLoadingCat,
       isLoadingTypeCat,
       isLoadingRecDetal,
+      isDonedRecipe,
       recipes,
       categories,
       recipesForCategory,
@@ -94,6 +103,7 @@ export default function MealsProvider({ children }) {
       makeFetchCat,
       makeFetchSearchRecipes,
       finishRecipeDone,
+      checkDoneRecipes,
     ],
   );
 
