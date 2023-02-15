@@ -12,6 +12,7 @@ import {
   findCatOrdinDrink,
   findCatShake,
   findElementByTxt,
+  findImgCard,
   findInputSearch,
   findLinkProfile,
   findRadiofirstLetter,
@@ -19,9 +20,8 @@ import {
   findRadioName,
   findTitleHeader,
   getLoading,
+  jestMocksFetchsDrinks,
   mockDrinks,
-  mockDrinksCategory,
-  promiseMock,
   queryBtnAll,
   queryBtnStartSearch,
   queryInputSearch,
@@ -29,32 +29,13 @@ import {
   queryRadioIngredient,
   queryRadioName,
   renderWithRouter,
-  searchDrinkFirstLetterJ,
-  searchIngrtIce,
-  searchNameVodka,
 } from './helpers';
 import App from '../App';
 import '@testing-library/jest-dom';
 
 describe('Testes da page Drinks.', () => {
   beforeEach(() => {
-    global.fetch = jest.fn((url) => {
-      // AVISO: a ordem dos ifs importam! Não altere as posições para evitar dor de cabeça.
-
-      if (url.includes('search.php?f=j')) return promiseMock(searchDrinkFirstLetterJ);
-
-      if (url.includes('filter.php?i=ice')) return promiseMock(searchIngrtIce);
-
-      if (url.includes('search.php?s=vodka')) return promiseMock(searchNameVodka);
-
-      if (url.includes('Ordinary Drink')) return promiseMock(catItemOrdDrink);
-
-      if (url.includes('Shake')) return promiseMock(catItemShake);
-
-      if (url.includes('search')) return promiseMock(mockDrinks);
-
-      if (url.includes('list')) return promiseMock(mockDrinksCategory);
-    });
+    global.fetch = jest.fn(jestMocksFetchsDrinks);
   });
 
   afterEach(() => {
@@ -185,5 +166,13 @@ describe('Testes da page Drinks.', () => {
     expect(await findElementByTxt(mockDrinks.drinks[0].strDrink)).toBeVisible();
     expect(await findElementByTxt(mockDrinks.drinks[1].strDrink)).toBeVisible();
     expect(await findElementByTxt(mockDrinks.drinks[2].strDrink)).toBeVisible();
+  });
+
+  test('Verifica se ao clicar numa receita, o usuário é redirecionado para a page Recipe Details.', async () => {
+    const { history } = renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+
+    userEvent.click(await findImgCard(mockDrinks.drinks[0].strDrink));
+
+    expect(history.location.pathname).toBe('/drinks/15997');
   });
 });

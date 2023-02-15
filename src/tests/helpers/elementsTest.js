@@ -1,16 +1,73 @@
 import { screen } from '@testing-library/react';
+import {
+  drinkCatItemOrdDrink,
+  drinkCatItemShake,
+  drinksCategory,
+  mealCatItemBeef,
+  mealCatItemDessert,
+  mealsCategory,
+  mockDrinks,
+  mockMeals,
+  recipeDetailsCorba,
+  recipeDetailsGG,
+  searchDrinkFirstLetterJ,
+  searchIngrtIce,
+  searchIngrtTomato,
+  searchMealFirstLetterA,
+  searchNameLamb,
+  searchNameVodka,
+} from './mocks';
 
 export const invalidEmail = '@email';
 export const validEmail = 'email@email.com';
 export const invalidPassword = 'abc123';
 export const validPassword = 'abc1234';
 
-export const promiseMock = (mock) => Promise
+const promiseMock = (mock) => Promise
   .resolve({
     ok: true,
     status: 200,
     json: () => Promise.resolve(mock),
   });
+
+export function jestMocksFetchsMeals(url) {
+  // AVISO: a ordem dos ifs importam! Não altere as posições para evitar dor de cabeça.
+
+  if (url.includes('lookup.php?i=52977')) return promiseMock(recipeDetailsCorba);
+
+  if (url.includes('search.php?s=lamb')) return promiseMock(searchNameLamb);
+
+  if (url.includes('filter.php?i=tomato')) return promiseMock(searchIngrtTomato);
+
+  if (url.includes('search.php?f=a')) return promiseMock(searchMealFirstLetterA);
+
+  if (url.includes('Beef')) return promiseMock(mealCatItemBeef);
+
+  if (url.includes('Dessert')) return promiseMock(mealCatItemDessert);
+
+  if (url.includes('search')) return promiseMock(mockMeals);
+
+  if (url.includes('list')) return promiseMock(mealsCategory);
+}
+
+export function jestMocksFetchsDrinks(url) {
+  // AVISO: a ordem dos ifs importam! Não altere as posições para evitar dor de cabeça.
+  if (url.includes('lookup.php?i=15997')) return promiseMock(recipeDetailsGG);
+
+  if (url.includes('search.php?f=j')) return promiseMock(searchDrinkFirstLetterJ);
+
+  if (url.includes('filter.php?i=ice')) return promiseMock(searchIngrtIce);
+
+  if (url.includes('search.php?s=vodka')) return promiseMock(searchNameVodka);
+
+  if (url.includes('Ordinary Drink')) return promiseMock(drinkCatItemOrdDrink);
+
+  if (url.includes('Shake')) return promiseMock(drinkCatItemShake);
+
+  if (url.includes('search')) return promiseMock(mockDrinks);
+
+  if (url.includes('list')) return promiseMock(drinksCategory);
+}
 
 export const getEmail = () => screen.getByTestId('email-input');
 export const getPassword = () => screen.getByTestId('password-input');
@@ -46,3 +103,4 @@ export const queryRadioFirstLetter = () => screen.queryByTestId('first-letter-se
 export const findBtnStartSearch = () => screen.findByTestId('exec-search-btn');
 export const queryBtnStartSearch = () => screen.queryByTestId('exec-search-btn');
 export const findElementByTxt = (string = '') => screen.findByText(new RegExp(`^${string}$`));
+export const findImgCard = (string = '') => screen.findByRole('img', { name: new RegExp(`^${string}$`, 'i') });

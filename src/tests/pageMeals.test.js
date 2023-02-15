@@ -12,6 +12,7 @@ import {
   findCatBeef,
   findCatDessert,
   findElementByTxt,
+  findImgCard,
   findInputSearch,
   findLinkProfile,
   findRadiofirstLetter,
@@ -19,9 +20,8 @@ import {
   findRadioName,
   findTitleHeader,
   getLoading,
+  jestMocksFetchsMeals,
   mockMeals,
-  mockMealsCategory,
-  promiseMock,
   queryBtnAll,
   queryBtnStartSearch,
   queryInputSearch,
@@ -29,32 +29,13 @@ import {
   queryRadioIngredient,
   queryRadioName,
   renderWithRouter,
-  searchIngrtTomato,
-  searchMealFirstLetterA,
-  searchNameLamb,
 } from './helpers';
 import App from '../App';
 import '@testing-library/jest-dom';
 
 describe('Testes da page Meals.', () => {
   beforeEach(() => {
-    global.fetch = jest.fn((url) => {
-      // AVISO: a ordem dos ifs importam! Não altere as posições para evitar dor de cabeça.
-
-      if (url.includes('search.php?s=lamb')) return promiseMock(searchNameLamb);
-
-      if (url.includes('filter.php?i=tomato')) return promiseMock(searchIngrtTomato);
-
-      if (url.includes('search.php?f=a')) return promiseMock(searchMealFirstLetterA);
-
-      if (url.includes('Beef')) return promiseMock(catItemBeef);
-
-      if (url.includes('Dessert')) return promiseMock(catItemDessert);
-
-      if (url.includes('search')) return promiseMock(mockMeals);
-
-      if (url.includes('list')) return promiseMock(mockMealsCategory);
-    });
+    global.fetch = jest.fn(jestMocksFetchsMeals);
   });
 
   afterEach(() => {
@@ -186,5 +167,13 @@ describe('Testes da page Meals.', () => {
     expect(await findElementByTxt(mockMeals.meals[0].strMeal)).toBeVisible();
     expect(await findElementByTxt(mockMeals.meals[1].strMeal)).toBeVisible();
     expect(await findElementByTxt(mockMeals.meals[2].strMeal)).toBeVisible();
+  });
+
+  test('Verifica se ao clicar numa receita, o usuário é redirecionado para a page Recipe Details.', async () => {
+    const { history } = renderWithRouter(<App />, { initialEntries: ['/meals'] });
+
+    userEvent.click(await findImgCard(mockMeals.meals[0].strMeal));
+
+    expect(history.location.pathname).toBe('/meals/52977');
   });
 });
