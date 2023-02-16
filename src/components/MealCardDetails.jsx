@@ -36,7 +36,7 @@ function MealCardDetails() {
         <p data-testid="instructions">{instructions}</p>
         <p data-testid="recipe-title">{mealName}</p>
         <p data-testid="recipe-category">{category}</p>
-        {(ingredientAndMeasure || []).map((obj, i) => (
+        {ingredientAndMeasure.map((obj, i) => (
           <span
             key={ `ingredient-and-measure-${i + 1}` }
             data-testid={ `${i}-ingredient-name-and-measure` }

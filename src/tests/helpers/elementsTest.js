@@ -52,6 +52,7 @@ export function jestMocksFetchsMeals(url) {
 
 export function jestMocksFetchsDrinks(url) {
   // AVISO: a ordem dos ifs importam! Não altere as posições para evitar dor de cabeça.
+
   if (url.includes('lookup.php?i=15997')) return promiseMock(recipeDetailsGG);
 
   if (url.includes('search.php?f=j')) return promiseMock(searchDrinkFirstLetterJ);
@@ -103,4 +104,15 @@ export const queryRadioFirstLetter = () => screen.queryByTestId('first-letter-se
 export const findBtnStartSearch = () => screen.findByTestId('exec-search-btn');
 export const queryBtnStartSearch = () => screen.queryByTestId('exec-search-btn');
 export const findElementByTxt = (string = '') => screen.findByText(new RegExp(`^${string}$`));
+export const queryElementByTxt = (string = '') => screen.queryByText(new RegExp(`^${string}$`, 'i'));
 export const findImgCard = (string = '') => screen.findByRole('img', { name: new RegExp(`^${string}$`, 'i') });
+export const findBtnStartRecipe = () => screen.findByTestId('start-recipe-btn');
+export const findBtnShareRecipe = () => screen.findByTestId('share-btn');
+export const findBtnFavoriteRecipe = () => screen.findByTestId('favorite-btn');
+export const findBtnFinishRecipe = () => screen.findByTestId('finish-recipe-btn');
+export const findRecipeDetailsImg = () => screen.findByTestId('recipe-photo');
+export const findRecipeDetailsVideo = () => screen.findByTestId('video');
+export const findRecipeDetailsInstructions = () => screen.findByTestId('instructions');
+export const findRecipeDetailsTitle = () => screen.findByTestId('recipe-title');
+export const findRecipeDetailsCategory = () => screen.findByTestId('recipe-category');
+export const findRecipeDetailsIgrtAndMsr = () => screen.findAllByTestId(/ingredient-name-and-measure$/i);

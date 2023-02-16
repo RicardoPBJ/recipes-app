@@ -20,40 +20,39 @@ export default function RecipeInProgress() {
     getRecipesDetails(id);
   }, []);
 
-  return isLoadingRecDetal ? (
-    <Loading />
-  ) : (
-    <div>
-      {pathname.includes('meals') ? (
-        <MealCardInProgress />
-      ) : (
-        <DrinkCardInProgress />
-      )}
-      <Button
-        size="lg"
-        fixed="bottom"
-        data-testid="finish-recipe-btn"
-        className="start-btn-container"
-        onClick={ finishRecipeDone }
-      >
-        Finish Recipe
-      </Button>
-      <Button
-        size="lg"
-        fixed="top"
-        data-testid="share-btn"
-        onClick={ handleShare }
-      >
-        Compartilhar
-      </Button>
-      <Button
-        size="lg"
-        fixed="top"
-        data-testid="favorite-btn"
-        onClick={ handleFavoriteMeal }
-      >
-        Favoritar
-      </Button>
-    </div>
-  );
+  return isLoadingRecDetal ? <Loading />
+    : (
+      <div>
+        {pathname.includes('meals') ? (
+          <MealCardInProgress />
+        ) : (
+          <DrinkCardInProgress />
+        )}
+        <Button
+          size="lg"
+          fixed="bottom"
+          data-testid="finish-recipe-btn"
+          className="start-btn-container"
+          onClick={ finishRecipeDone }
+        >
+          Finish Recipe
+        </Button>
+        <Button
+          size="lg"
+          fixed="top"
+          data-testid="share-btn"
+          onClick={ handleShare }
+        >
+          Compartilhar
+        </Button>
+        <Button
+          size="lg"
+          fixed="top"
+          data-testid="favorite-btn"
+          onClick={ handleFavoriteMeal }
+        >
+          Favoritar
+        </Button>
+      </div>
+    );
 }

@@ -34,10 +34,6 @@ export default function RecipeDetails() {
     : (
       <div>
         {clipBoard.show && <h2>Link copied!</h2>}
-        <img
-          src={ fillHeart ? blackHeart : whiteHeart }
-          alt=""
-        />
         {pathname.includes('meals')
           ? <MealCardDetails /> : <DrinkCardDetails />}
         {
@@ -69,9 +65,11 @@ export default function RecipeDetails() {
           onClick={ pathname.includes('meals')
             ? handleFavoriteMeal
             : handleFavoriteDrink }
-          src={ fillHeart ? blackHeart : whiteHeart }
         >
-          Favoritar
+          <img
+            src={ fillHeart ? blackHeart : whiteHeart }
+            alt=""
+          />
         </Button>
       </div>
     );

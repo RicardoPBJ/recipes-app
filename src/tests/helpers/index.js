@@ -6,4 +6,6 @@ export { default as catItemDessert } from './mocks/mealCatItemDessert';
 export { default as mockDrinks } from './mocks/drinks';
 export { default as catItemOrdDrink } from './mocks/drinkCatItemOrdDrink';
 export { default as catItemShake } from './mocks/drinkCatItemShake';
+export { default as corba } from './mocks/recipeDetailsCorba';
+export { default as GG } from './mocks/recipeDetailsGG';
 export * from './elementsTest';
