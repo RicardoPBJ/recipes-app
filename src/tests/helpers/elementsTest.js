@@ -8,6 +8,7 @@ import {
   mealsCategory,
   mockDrinks,
   mockMeals,
+  promiseMock,
   recipeDetailsCorba,
   recipeDetailsGG,
   searchDrinkFirstLetterJ,
@@ -22,13 +23,6 @@ export const invalidEmail = '@email';
 export const validEmail = 'email@email.com';
 export const invalidPassword = 'abc123';
 export const validPassword = 'abc1234';
-
-const promiseMock = (mock) => Promise
-  .resolve({
-    ok: true,
-    status: 200,
-    json: () => Promise.resolve(mock),
-  });
 
 export function jestMocksFetchsMeals(url) {
   // AVISO: a ordem dos ifs importam! Não altere as posições para evitar dor de cabeça.
@@ -104,7 +98,7 @@ export const queryRadioFirstLetter = () => screen.queryByTestId('first-letter-se
 export const findBtnStartSearch = () => screen.findByTestId('exec-search-btn');
 export const queryBtnStartSearch = () => screen.queryByTestId('exec-search-btn');
 export const findElementByTxt = (string = '') => screen.findByText(new RegExp(`^${string}$`));
-export const queryElementByTxt = (string = '') => screen.queryByText(new RegExp(`^${string}$`, 'i'));
+export const queryElementByTxt = (string = '') => screen.queryByText(new RegExp(`^${string}$`));
 export const findImgCard = (string = '') => screen.findByRole('img', { name: new RegExp(`^${string}$`, 'i') });
 export const findBtnStartRecipe = () => screen.findByTestId('start-recipe-btn');
 export const findBtnShareRecipe = () => screen.findByTestId('share-btn');
@@ -116,3 +110,5 @@ export const findRecipeDetailsInstructions = () => screen.findByTestId('instruct
 export const findRecipeDetailsTitle = () => screen.findByTestId('recipe-title');
 export const findRecipeDetailsCategory = () => screen.findByTestId('recipe-category');
 export const findRecipeDetailsIgrtAndMsr = () => screen.findAllByTestId(/ingredient-name-and-measure$/i);
+export const findRecipeDetailsTxtShared = () => screen.findByText('Link copied!');
+export const queryRecipeDetailsTxtShared = () => screen.queryByText('Link copied!');

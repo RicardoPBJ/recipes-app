@@ -1,4 +1,4 @@
-export default function localStorageMock() {
+function keys() {
   let obj = {};
 
   return {
@@ -19,3 +19,5 @@ export default function localStorageMock() {
     getAll: () => obj,
   };
 }
+
+export default () => Object.defineProperty(window, 'localStorage', { value: keys() });

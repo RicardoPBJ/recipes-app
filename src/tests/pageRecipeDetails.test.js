@@ -1,4 +1,5 @@
-import { waitForElementToBeRemoved } from '@testing-library/react';
+import { waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
   corba,
@@ -10,18 +11,31 @@ import {
   findRecipeDetailsImg,
   findRecipeDetailsInstructions,
   findRecipeDetailsTitle,
+  findRecipeDetailsTxtShared,
   findRecipeDetailsVideo,
   getLoading,
   GG,
   jestMocksFetchsDrinks,
   jestMocksFetchsMeals,
+  mockClipboard,
+  mockLocalStorage,
   queryElementByTxt,
+  queryRecipeDetailsTxtShared,
   renderWithRouter,
 } from './helpers';
 import App from '../App';
 import '@testing-library/jest-dom';
 
 describe('Teste da page Recipe Details', () => {
+  beforeAll(() => {
+    mockClipboard();
+    mockLocalStorage();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('Verifica se a page Recipes Details faz um fetch da receita selecionada anteriormente na page meals.', async () => {
     global.fetch = jest.fn(jestMocksFetchsMeals);
 
@@ -91,5 +105,56 @@ describe('Teste da page Recipe Details', () => {
     expect(await findRecipeDetailsCategory()).toHaveTextContent(
       GG.drinks[0].strAlcoholic,
     );
+    expect(await findRecipeDetailsIgrtAndMsr()).toHaveLength(3);
+  });
+
+  test('Verifica se os botões são funcionais da rota herdada page meals.', async () => {
+    const spyClipboardWriteText = jest.spyOn(navigator.clipboard, 'writeText');
+    const spyClipboardReadText = jest.spyOn(navigator.clipboard, 'readText');
+    const spySetLocalStorage = jest.spyOn(localStorage, 'setItem');
+
+    global.fetch = jest.fn(jestMocksFetchsMeals);
+
+    renderWithRouter(<App />, { initialEntries: ['/meals/52977'] });
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+
+    userEvent.click(await findBtnShareRecipe());
+
+    waitFor(async () => {
+      expect(spyClipboardWriteText).toBeCalled();
+      expect(spyClipboardReadText).toBeCalled();
+      expect(await findRecipeDetailsTxtShared());
+      expect(queryRecipeDetailsTxtShared()).not.toBeInTheDocument();
+    });
+
+    userEvent.click(await findBtnFavoriteRecipe());
+
+    expect(spySetLocalStorage).toBeCalled();
+  });
+
+  test('Verifica se os botões são funcionais da rota herdada page drinks.', async () => {
+    const spyClipboardWriteText = jest.spyOn(navigator.clipboard, 'writeText');
+    const spyClipboardReadText = jest.spyOn(navigator.clipboard, 'readText');
+    const spySetLocalStorage = jest.spyOn(localStorage, 'setItem');
+
+    global.fetch = jest.fn(jestMocksFetchsDrinks);
+
+    renderWithRouter(<App />, { initialEntries: ['/drinks/15997'] });
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+
+    userEvent.click(await findBtnShareRecipe());
+
+    waitFor(async () => {
+      expect(spyClipboardWriteText).toBeCalled();
+      expect(spyClipboardReadText).toBeCalled();
+      expect(await findRecipeDetailsTxtShared());
+      expect(queryRecipeDetailsTxtShared()).not.toBeInTheDocument();
+    });
+
+    userEvent.click(await findBtnFavoriteRecipe());
+
+    expect(spySetLocalStorage).toBeCalled();
   });
 });

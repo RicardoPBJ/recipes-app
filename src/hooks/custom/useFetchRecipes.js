@@ -10,40 +10,10 @@ export default function useFetchRecipes() {
   const [recipes, SetRecipesData] = useState([]);
   const { pathname } = useLocation();
   const { push } = useHistory();
-  const mealsRecipesUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-  const LIM = 12;
 
-  async function makeFetchRecipes(path = pathname) {
-    try {
-      setIsLoading(true);
+  async function fetchRecipes(url) {
+    const LIM = 12;
 
-      const response = await fetch(
-        path.includes('meals') ? mealsRecipesUrl : drinksRecipesUrl,
-      );
-
-      if (!response.ok) {
-        const apiError = new Error(
-          `A resposta da url ${url} veio com o status ${response.status}`,
-        );
-
-        apiError.response = response;
-        throw apiError;
-      }
-
-      const result = await response.json();
-
-      SetRecipesData(result[result.meals ? 'meals' : 'drinks'].slice(0, LIM));
-    } catch (error) {
-      setErrors(error);
-
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  async function fetchSearch(url) {
     try {
       setIsLoading(true);
 
@@ -70,13 +40,20 @@ export default function useFetchRecipes() {
     }
   }
 
+  const mealsRecipesUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+  function makeFetchRecipes(path = pathname) {
+    fetchRecipes(path.includes('meals') ? mealsRecipesUrl : drinksRecipesUrl);
+  }
+
   function makeFetchSearchRecipes({ radioOpt, searchBar }) {
     const mealsIngreUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
     const drinksIngreUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
     switch (radioOpt) {
     case 'ingredient':
-      fetchSearch(
+      fetchRecipes(
         pathname.includes('meals')
           ? `${mealsIngreUrl}${searchBar}`
           : `${drinksIngreUrl}${searchBar}`,
@@ -84,7 +61,7 @@ export default function useFetchRecipes() {
       break;
 
     case 'name':
-      fetchSearch(
+      fetchRecipes(
         pathname.includes('meals')
           ? `${mealsRecipesUrl}${searchBar}`
           : `${drinksRecipesUrl}${searchBar}`,
@@ -93,7 +70,7 @@ export default function useFetchRecipes() {
 
     case 'firstLetter':
       if (searchBar.length === 1) {
-        fetchSearch(
+        fetchRecipes(
           pathname.includes('meals')
             ? `${mealsRecipesUrl.replace(/\b[a-z]\b/, 'f')}${searchBar}`
             : `${drinksRecipesUrl.replace(/\b[a-z]\b/, 'f')}${searchBar}`,
@@ -107,9 +84,7 @@ export default function useFetchRecipes() {
 
   useEffect(() => {
     if (recipes && recipes.length === 1) {
-      const isId = pathname === '/meals' ? recipes[0].idMeal : recipes[0].idDrink;
-
-      push(`${pathname}/${isId}`);
+      push(`${pathname}/${recipes[0].idMeal || recipes[0].idDrink}`);
     }
   }, [recipes]);
 

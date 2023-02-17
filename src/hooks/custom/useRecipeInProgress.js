@@ -2,59 +2,38 @@ import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 export default function useRecipeInProgress(recipes) {
-  const [isDonedRecipe, setIsDonedRecipe] = useState(true);
+  const [isDonedRecipe, setIsDonedRecipe] = useState(false);
   const { pathname } = useLocation();
   const { push } = useHistory();
   const getDoneRecipes = () => JSON.parse(localStorage.getItem('doneRecipes'));
 
-  function checkDoneRecipes(recipe) {
+  function checkDoneRecipes() {
     if (getDoneRecipes()) {
       setIsDonedRecipe(
         getDoneRecipes().every(
-          ({ id, name }) => id !== recipe[recipe.idMeal ? 'idMeal' : 'idDrink']
-            && name !== recipe[recipe.mealName ? 'mealName' : 'drinkName'],
+          ({ id, name }) => id !== (recipes.idMeal || recipes.idDrink)
+            && name !== (recipes.mealName || recipes.drinkName),
         ),
       );
-    }
+    } else setIsDonedRecipe(true);
   }
 
   function finishRecipeDone() {
     const TEN = 10;
+    const newRecipeDone = {
+      id: recipes.idMeal || recipes.idDrink,
+      type: pathname.includes('meals') ? 'meal' : 'drink',
+      nationality: recipes.nationality || null,
+      category: recipes.category || '',
+      name: recipes.mealName || recipes.drinkName,
+      image: recipes.mealThumb || recipes.drinkThumb,
+      alcoholicOrNot: recipes.categoryAlcool || null,
+      doneDate: new Date().toJSON().slice(0, TEN),
+      tags: recipes.tags ? recipes.tags.split(',', 2) : [],
+    };
 
-    if (pathname.includes('meals')) {
-      localStorage.setItem(
-        'doneRecipes',
-        JSON.stringify([
-          {
-            id: recipes.idMeal,
-            type: 'meal',
-            nationality: recipes.nationality,
-            category: recipes.category,
-            name: recipes.mealName,
-            image: recipes.mealThumb,
-            alcoholicOrNot: null,
-            doneDate: new Date().toJSON().slice(0, TEN),
-            tags: recipes.tags.split(',', 2),
-          },
-        ]),
-      );
-    } else {
-      localStorage.setItem(
-        'doneRecipes',
-        JSON.stringify([
-          {
-            id: recipes.idDrink,
-            type: 'drink',
-            nationality: null,
-            category: recipes.category,
-            alcoholicOrNot: recipes.categoryAlcool,
-            name: recipes.drinkName,
-            image: recipes.drinkThumb,
-            doneDate: new Date().toJSON().slice(0, TEN),
-            tags: [],
-          },
-        ]),
-      );
+    if (getDoneRecipes()) {
+      localStorage.setItem('doneRecipes', JSON.stringify([newRecipeDone]));
     }
 
     push('/done-recipes');

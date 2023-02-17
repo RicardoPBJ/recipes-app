@@ -1,5 +1,4 @@
 export { default as renderWithRouter } from './renderWithRouter';
-export { default as mockLocalStorage } from './mocks/localStorage';
 export { default as mockMeals } from './mocks/meals';
 export { default as catItemBeef } from './mocks/mealCatItemBeef';
 export { default as catItemDessert } from './mocks/mealCatItemDessert';
@@ -8,4 +7,6 @@ export { default as catItemOrdDrink } from './mocks/drinkCatItemOrdDrink';
 export { default as catItemShake } from './mocks/drinkCatItemShake';
 export { default as corba } from './mocks/recipeDetailsCorba';
 export { default as GG } from './mocks/recipeDetailsGG';
+export { default as mockLocalStorage } from './mocks/localStorage';
+export { default as mockClipboard } from './mocks/navigatorClipboard';
 export * from './elementsTest';

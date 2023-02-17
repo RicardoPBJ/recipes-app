@@ -14,3 +14,4 @@ export { default as searchIngrtTomato } from './searchIngredientTomato';
 export { default as searchIngrtIce } from './searchIngredientIce';
 export { default as searchNameLamb } from './searchNameLamb';
 export { default as searchNameVodka } from './searchNameVodka';
+export { default as promiseMock } from './promiseStructureDefault';

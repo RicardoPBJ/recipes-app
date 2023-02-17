@@ -6,6 +6,7 @@ import { DrinkCardDetails, Loading, MealCardDetails } from '../components';
 import { DrinksContext, MealsContext } from '../hooks';
 import blackHeart from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import './css/RecipeDetails.css';
 
 export default function RecipeDetails() {
@@ -15,10 +16,8 @@ export default function RecipeDetails() {
     isLoadingRecDetal,
     isDonedRecipe,
     getRecipesDetails,
-    recipeDetails,
     checkDoneRecipes,
-    handleFavoriteDrink,
-    handleFavoriteMeal,
+    handleFavorite,
     handleShare,
     clipBoard,
     fillHeart } = useContext(
@@ -27,7 +26,7 @@ export default function RecipeDetails() {
 
   useEffect(() => {
     getRecipesDetails(id);
-    checkDoneRecipes(recipeDetails);
+    checkDoneRecipes();
   }, []);
 
   return isLoadingRecDetal ? <Loading />
@@ -50,27 +49,23 @@ export default function RecipeDetails() {
             </Link>
           )
         }
-        <Button
-          size="lg"
-          fixed="top"
+        <button
           data-testid="share-btn"
           onClick={ handleShare }
+          className="button-svg"
         >
-          Compartilhar
-        </Button>
-        <Button
-          size="lg"
-          fixed="top"
+          <img src={ shareIcon } alt="share" />
+        </button>
+        <button
           data-testid="favorite-btn"
-          onClick={ pathname.includes('meals')
-            ? handleFavoriteMeal
-            : handleFavoriteDrink }
+          onClick={ handleFavorite }
+          className="button-svg"
         >
           <img
             src={ fillHeart ? blackHeart : whiteHeart }
-            alt=""
+            alt="favorite"
           />
-        </Button>
+        </button>
       </div>
     );
 }

@@ -31,11 +31,11 @@ export default function DrinksProvider({ children }) {
     isLoadingRecDetal,
     recipeDetails } = useFetchRecipeDetails();
   const {
-    handleFavoriteDrink,
-    handleFavoriteMeal,
+    handleFavorite,
     handleShare,
     clipBoard,
-    fillHeart } = useFavorite(recipeDetails);
+    fillHeart,
+  } = useFavorite(recipeDetails);
   const {
     isDonedRecipe,
     finishRecipeDone,
@@ -64,8 +64,7 @@ export default function DrinksProvider({ children }) {
       fillHeart,
       dataSearch,
       clrCatRecipes,
-      handleFavoriteDrink,
-      handleFavoriteMeal,
+      handleFavorite,
       handleShare,
       handleSearch,
       getRecipesDetails,
@@ -92,8 +91,7 @@ export default function DrinksProvider({ children }) {
       fillHeart,
       dataSearch,
       clrCatRecipes,
-      handleFavoriteDrink,
-      handleFavoriteMeal,
+      handleFavorite,
       handleShare,
       handleSearch,
       getRecipesDetails,
