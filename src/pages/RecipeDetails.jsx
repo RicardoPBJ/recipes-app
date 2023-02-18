@@ -57,11 +57,11 @@ export default function RecipeDetails() {
           <img src={ shareIcon } alt="share" />
         </button>
         <button
-          data-testid="favorite-btn"
           onClick={ handleFavorite }
           className="button-svg"
         >
           <img
+            data-testid="favorite-btn"
             src={ fillHeart ? blackHeart : whiteHeart }
             alt="favorite"
           />

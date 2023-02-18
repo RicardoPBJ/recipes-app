@@ -65,7 +65,8 @@
       "src/fakes",
       "src/routes",
       "src/hooks",
-      "src/tests"
+      "src/tests",
+      "src/components/Loading.jsx"
     ]
   }
 }

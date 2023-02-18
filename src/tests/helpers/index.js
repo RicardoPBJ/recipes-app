@@ -8,5 +8,4 @@ export { default as catItemShake } from './mocks/drinkCatItemShake';
 export { default as corba } from './mocks/recipeDetailsCorba';
 export { default as GG } from './mocks/recipeDetailsGG';
 export { default as mockLocalStorage } from './mocks/localStorage';
-export { default as mockClipboard } from './mocks/navigatorClipboard';
 export * from './elementsTest';

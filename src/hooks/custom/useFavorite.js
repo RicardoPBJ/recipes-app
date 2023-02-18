@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import { checkFavorites } from './helpers';
 
 export default function useFavorite(recipes) {
@@ -12,9 +13,8 @@ export default function useFavorite(recipes) {
 
   async function handleShare() {
     const TIME = 2500;
-    await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
 
-    const url = await navigator.clipboard.readText();
+    const url = await copy(`http://localhost:3000${pathname}`);
 
     if (clipBoard.timeoutShow) clearTimeout(clipBoard.timeoutShow);
 

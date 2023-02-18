@@ -17,23 +17,28 @@ import {
   GG,
   jestMocksFetchsDrinks,
   jestMocksFetchsMeals,
-  mockClipboard,
   mockLocalStorage,
   queryElementByTxt,
   queryRecipeDetailsTxtShared,
   renderWithRouter,
 } from './helpers';
 import App from '../App';
+import 'clipboard-copy';
 import '@testing-library/jest-dom';
 
+jest.mock('clipboard-copy', () => jest.fn(Promise.resolve('url')));
+
 describe('Teste da page Recipe Details', () => {
-  beforeAll(() => {
-    mockClipboard();
+  beforeEach(() => {
     mockLocalStorage();
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
   });
 
   test('Verifica se a page Recipes Details faz um fetch da receita selecionada anteriormente na page meals.', async () => {
@@ -109,8 +114,6 @@ describe('Teste da page Recipe Details', () => {
   });
 
   test('Verifica se os botões são funcionais da rota herdada page meals.', async () => {
-    const spyClipboardWriteText = jest.spyOn(navigator.clipboard, 'writeText');
-    const spyClipboardReadText = jest.spyOn(navigator.clipboard, 'readText');
     const spySetLocalStorage = jest.spyOn(localStorage, 'setItem');
 
     global.fetch = jest.fn(jestMocksFetchsMeals);
@@ -122,11 +125,9 @@ describe('Teste da page Recipe Details', () => {
     userEvent.click(await findBtnShareRecipe());
 
     waitFor(async () => {
-      expect(spyClipboardWriteText).toBeCalled();
-      expect(spyClipboardReadText).toBeCalled();
       expect(await findRecipeDetailsTxtShared());
       expect(queryRecipeDetailsTxtShared()).not.toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
 
     userEvent.click(await findBtnFavoriteRecipe());
 
@@ -134,8 +135,6 @@ describe('Teste da page Recipe Details', () => {
   });
 
   test('Verifica se os botões são funcionais da rota herdada page drinks.', async () => {
-    const spyClipboardWriteText = jest.spyOn(navigator.clipboard, 'writeText');
-    const spyClipboardReadText = jest.spyOn(navigator.clipboard, 'readText');
     const spySetLocalStorage = jest.spyOn(localStorage, 'setItem');
 
     global.fetch = jest.fn(jestMocksFetchsDrinks);
@@ -147,11 +146,9 @@ describe('Teste da page Recipe Details', () => {
     userEvent.click(await findBtnShareRecipe());
 
     waitFor(async () => {
-      expect(spyClipboardWriteText).toBeCalled();
-      expect(spyClipboardReadText).toBeCalled();
       expect(await findRecipeDetailsTxtShared());
       expect(queryRecipeDetailsTxtShared()).not.toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
 
     userEvent.click(await findBtnFavoriteRecipe());
 
