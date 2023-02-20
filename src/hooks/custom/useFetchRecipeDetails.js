@@ -5,7 +5,7 @@ import { reduceDrinks, reduceMeals } from './helpers';
 
 export default function useFetchRecipeDetails() {
   const [errors, setErrors] = useState(null);
-  const [recipeDetails, SetRecipeDetails] = useState({});
+  const [recipeDetails, setRecipeDetails] = useState({});
   const [isLoadingRecDetal, setLoading] = useState(true);
   const { pathname } = useLocation();
   const fetchMeal = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -25,7 +25,7 @@ export default function useFetchRecipeDetails() {
     const data = await getFetch(id);
 
     if (data) {
-      SetRecipeDetails(
+      setRecipeDetails(
         pathname.includes('meals')
           ? reduceMeals(data)
           : reduceDrinks(data),

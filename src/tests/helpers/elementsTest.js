@@ -19,50 +19,94 @@ import {
   searchNameVodka,
 } from './mocks';
 
+const TEN = 10;
+
 export const invalidEmail = '@email';
 export const validEmail = 'email@email.com';
 export const invalidPassword = 'abc123';
 export const validPassword = 'abc1234';
+export const START_RECIPE = 'Start Recipe';
+export const CONTINUE_RECIPE = 'Continue Recipe';
+export const urlMealsCorba = [`/meals/${mockMeals.meals[0].idMeal}`];
+export const urlDrinksGG = [`/drinks/${mockDrinks.drinks[0].idDrink}`];
 
 export function jestMocksFetchsMeals(url) {
-  // AVISO: a ordem dos ifs importam! Não altere as posições para evitar dor de cabeça.
+  if (/lookup\.php\?i=52977$/i.test(url)) return promiseMock(recipeDetailsCorba);
 
-  if (url.includes('lookup.php?i=52977')) return promiseMock(recipeDetailsCorba);
+  if (/search\.php\?s=lamb$/i.test(url)) return promiseMock(searchNameLamb);
 
-  if (url.includes('search.php?s=lamb')) return promiseMock(searchNameLamb);
+  if (/filter\.php\?i=tomato$/i.test(url)) return promiseMock(searchIngrtTomato);
 
-  if (url.includes('filter.php?i=tomato')) return promiseMock(searchIngrtTomato);
+  if (/search\.php\?f=a$/i.test(url)) return promiseMock(searchMealFirstLetterA);
 
-  if (url.includes('search.php?f=a')) return promiseMock(searchMealFirstLetterA);
+  if (/Beef/.test(url)) return promiseMock(mealCatItemBeef);
 
-  if (url.includes('Beef')) return promiseMock(mealCatItemBeef);
+  if (/Dessert/.test(url)) return promiseMock(mealCatItemDessert);
 
-  if (url.includes('Dessert')) return promiseMock(mealCatItemDessert);
+  if (/search\.php\?s=$/i.test(url)) return promiseMock(mockMeals);
 
-  if (url.includes('search')) return promiseMock(mockMeals);
-
-  if (url.includes('list')) return promiseMock(mealsCategory);
+  if (/list$/i.test(url)) return promiseMock(mealsCategory);
 }
 
 export function jestMocksFetchsDrinks(url) {
-  // AVISO: a ordem dos ifs importam! Não altere as posições para evitar dor de cabeça.
+  if (/lookup\.php\?i=15997$/i.test(url)) return promiseMock(recipeDetailsGG);
 
-  if (url.includes('lookup.php?i=15997')) return promiseMock(recipeDetailsGG);
+  if (/search\.php\?f=j$/i.test(url)) return promiseMock(searchDrinkFirstLetterJ);
 
-  if (url.includes('search.php?f=j')) return promiseMock(searchDrinkFirstLetterJ);
+  if (/filter\.php\?i=ice$/i.test(url)) return promiseMock(searchIngrtIce);
 
-  if (url.includes('filter.php?i=ice')) return promiseMock(searchIngrtIce);
+  if (/search\.php\?s=vodka$/i.test(url)) return promiseMock(searchNameVodka);
 
-  if (url.includes('search.php?s=vodka')) return promiseMock(searchNameVodka);
+  if (/Ordinary Drink/.test(url)) return promiseMock(drinkCatItemOrdDrink);
 
-  if (url.includes('Ordinary Drink')) return promiseMock(drinkCatItemOrdDrink);
+  if (/Shake/.test(url)) return promiseMock(drinkCatItemShake);
 
-  if (url.includes('Shake')) return promiseMock(drinkCatItemShake);
+  if (/search\.php\?s=$/i.test(url)) return promiseMock(mockDrinks);
 
-  if (url.includes('search')) return promiseMock(mockDrinks);
-
-  if (url.includes('list')) return promiseMock(drinksCategory);
+  if (/list$/i.test(url)) return promiseMock(drinksCategory);
 }
+
+export const mockMealCorbaInProgress = (key) => (
+  key === 'inProgressRecipes' && JSON.stringify({ meals: { 52977: [] } })
+);
+
+export const mockMealCorbaDoned = (key) => (
+  key === 'doneRecipes'
+  && JSON.stringify([
+    {
+      id: mockMeals.meals[0].idMeal,
+      type: 'meal',
+      nationality: mockMeals.meals[0].strArea,
+      category: mockMeals.meals[0].strCategory,
+      name: mockMeals.meals[0].strMeal,
+      image: mockMeals.meals[0].strMealThumb,
+      alcoholicOrNot: '',
+      doneDate: new Date().toJSON().slice(0, TEN),
+      tags: mockMeals.meals[0].strTags.split(',', 2),
+    },
+  ])
+);
+
+export const mockDrinkGGInProgress = (key) => (
+  key === 'inProgressRecipes' && JSON.stringify({ drinks: { 15997: [] } })
+);
+
+export const mockDrinkGGDoned = (key) => (
+  key === 'doneRecipes'
+    && JSON.stringify([
+      {
+        id: mockDrinks.drinks[0].idDrink,
+        type: 'drink',
+        nationality: '',
+        category: mockDrinks.drinks[0].strCategory,
+        name: mockDrinks.drinks[0].strDrink,
+        image: mockDrinks.drinks[0].strDrinkThumb,
+        alcoholicOrNot: mockDrinks.drinks[0].strAlcoholic,
+        doneDate: new Date().toJSON().slice(0, TEN),
+        tags: mockDrinks.drinks[0].strTags || [],
+      },
+    ])
+);
 
 export const getEmail = () => screen.getByTestId('email-input');
 export const getPassword = () => screen.getByTestId('password-input');
@@ -73,10 +117,12 @@ export const favoritesBtn = () => screen.getByTestId('profile-favorite-btn');
 export const logoutBtn = () => screen.getByTestId('profile-logout-btn');
 export const drinkFooterBtn = () => screen.getByTestId('drinks-bottom-btn');
 export const findAllRecipes = () => screen.findAllByTestId(/recipe-card$/i);
-export const findAllCategoryMeals = () => screen
-  .findAllByText(/^Beef|Breakfast|Chicken|Dessert|Goat$/);
-export const findAllCategoryDrinks = () => screen
-  .findAllByText(/^Ordinary\sDrink|Cocktail|Shake|Other\s\/\sUnknown|Cocoa$/);
+export const findAllCategoryMeals = () => screen.findAllByText(
+  /^Beef|Breakfast|Chicken|Dessert|Goat$/,
+);
+export const findAllCategoryDrinks = () => screen.findAllByText(
+  /^Ordinary\sDrink|Cocktail|Shake|Other\s\/\sUnknown|Cocoa$/,
+);
 export const getLoading = () => screen.getAllByText(/^loading/i);
 export const findCatBeef = () => screen.findByText(/^Beef$/);
 export const findCatDessert = () => screen.findByText(/^Dessert$/);
@@ -86,6 +132,7 @@ export const findBtnAll = () => screen.findByText(/^all$/i);
 export const queryBtnAll = () => screen.queryByText(/^all$/i);
 export const findTitleHeader = () => screen.findByTestId('page-title');
 export const findBtnSearch = () => screen.findByTestId('search-top-btn');
+export const queryBtnSearch = () => screen.queryByTestId('search-top-btn');
 export const findLinkProfile = () => screen.findByTestId('profile-top-btn');
 export const findInputSearch = () => screen.findByTestId('search-input');
 export const queryInputSearch = () => screen.queryByTestId('search-input');
@@ -101,9 +148,9 @@ export const findElementByTxt = (string = '') => screen.findByText(new RegExp(`^
 export const queryElementByTxt = (string = '') => screen.queryByText(new RegExp(`^${string}$`));
 export const findImgCard = (string = '') => screen.findByRole('img', { name: new RegExp(`^${string}$`, 'i') });
 export const findBtnStartRecipe = () => screen.findByTestId('start-recipe-btn');
+export const queryBtnStartRecipe = () => screen.queryByRole('button', { name: /start recipe/i });
 export const findBtnShareRecipe = () => screen.findByTestId('share-btn');
 export const findBtnFavoriteRecipe = () => screen.findByTestId('favorite-btn');
-export const findBtnFinishRecipe = () => screen.findByTestId('finish-recipe-btn');
 export const findRecipeDetailsImg = () => screen.findByTestId('recipe-photo');
 export const findRecipeDetailsVideo = () => screen.findByTestId('video');
 export const findRecipeDetailsInstructions = () => screen.findByTestId('instructions');
@@ -111,4 +158,3 @@ export const findRecipeDetailsTitle = () => screen.findByTestId('recipe-title');
 export const findRecipeDetailsCategory = () => screen.findByTestId('recipe-category');
 export const findRecipeDetailsIgrtAndMsr = () => screen.findAllByTestId(/ingredient-name-and-measure$/i);
 export const findRecipeDetailsTxtShared = () => screen.findByText('Link copied!');
-export const queryRecipeDetailsTxtShared = () => screen.queryByText('Link copied!');

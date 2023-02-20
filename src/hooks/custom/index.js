@@ -8,3 +8,4 @@ export { default as useLocalStorage } from './useLocalStorage';
 export { default as useLogin } from './useLogin';
 export { default as useRecipeInProgress } from './useRecipeInProgress';
 export { default as useSearchBar } from './useSearchBar';
+export { default as useRecipeDetails } from './useRecipeDetails';

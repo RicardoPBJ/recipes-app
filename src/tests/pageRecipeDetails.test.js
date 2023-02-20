@@ -2,6 +2,7 @@ import { waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
+  CONTINUE_RECIPE,
   corba,
   findBtnFavoriteRecipe,
   findBtnShareRecipe,
@@ -17,10 +18,17 @@ import {
   GG,
   jestMocksFetchsDrinks,
   jestMocksFetchsMeals,
+  mockDrinkGGDoned,
+  mockDrinkGGInProgress,
   mockLocalStorage,
+  mockMealCorbaDoned,
+  mockMealCorbaInProgress,
+  queryBtnStartRecipe,
   queryElementByTxt,
-  queryRecipeDetailsTxtShared,
   renderWithRouter,
+  START_RECIPE,
+  urlDrinksGG,
+  urlMealsCorba,
 } from './helpers';
 import App from '../App';
 import 'clipboard-copy';
@@ -34,7 +42,7 @@ describe('Teste da page Recipe Details', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    // jest.clearAllMocks();
   });
 
   afterAll(() => {
@@ -44,7 +52,7 @@ describe('Teste da page Recipe Details', () => {
   test('Verifica se a page Recipes Details faz um fetch da receita selecionada anteriormente na page meals.', async () => {
     global.fetch = jest.fn(jestMocksFetchsMeals);
 
-    renderWithRouter(<App />, { initialEntries: ['/meals/52977'] });
+    renderWithRouter(<App />, { initialEntries: urlMealsCorba });
 
     waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
 
@@ -54,6 +62,7 @@ describe('Teste da page Recipe Details', () => {
     );
     expect(queryElementByTxt('link copied!')).not.toBeInTheDocument();
     expect(await findBtnStartRecipe()).toBeVisible();
+    expect(await findBtnStartRecipe()).toHaveTextContent(new RegExp(`^${START_RECIPE}$`));
     expect(await findBtnShareRecipe()).toBeVisible();
     expect(await findBtnFavoriteRecipe()).toBeVisible();
 
@@ -82,7 +91,7 @@ describe('Teste da page Recipe Details', () => {
   test('Verifica se a page Recipes Details faz um fetch da receita selecionada anteriormente na page drinks.', async () => {
     global.fetch = jest.fn(jestMocksFetchsDrinks);
 
-    renderWithRouter(<App />, { initialEntries: ['/drinks/15997'] });
+    renderWithRouter(<App />, { initialEntries: urlDrinksGG });
 
     waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
 
@@ -92,6 +101,7 @@ describe('Teste da page Recipe Details', () => {
     );
     expect(queryElementByTxt('link copied!')).not.toBeInTheDocument();
     expect(await findBtnStartRecipe()).toBeVisible();
+    expect(await findBtnStartRecipe()).toHaveTextContent(new RegExp(`^${START_RECIPE}$`));
     expect(await findBtnShareRecipe()).toBeVisible();
     expect(await findBtnFavoriteRecipe()).toBeVisible();
 
@@ -118,20 +128,24 @@ describe('Teste da page Recipe Details', () => {
 
     global.fetch = jest.fn(jestMocksFetchsMeals);
 
-    renderWithRouter(<App />, { initialEntries: ['/meals/52977'] });
+    const { history } = renderWithRouter(<App />, { initialEntries: urlMealsCorba });
 
     waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
 
     userEvent.click(await findBtnShareRecipe());
 
-    waitFor(async () => {
-      expect(await findRecipeDetailsTxtShared());
-      expect(queryRecipeDetailsTxtShared()).not.toBeInTheDocument();
-    }, { timeout: 3000 });
+    waitForElementToBeRemoved(
+      async () => expect(await findRecipeDetailsTxtShared()),
+      { timeout: 3000 },
+    );
 
     userEvent.click(await findBtnFavoriteRecipe());
 
     expect(spySetLocalStorage).toBeCalled();
+
+    userEvent.click(await findBtnStartRecipe());
+
+    expect(history.location.pathname).toBe('/meals/52977/in-progress');
   });
 
   test('Verifica se os botões são funcionais da rota herdada page drinks.', async () => {
@@ -139,19 +153,95 @@ describe('Teste da page Recipe Details', () => {
 
     global.fetch = jest.fn(jestMocksFetchsDrinks);
 
-    renderWithRouter(<App />, { initialEntries: ['/drinks/15997'] });
+    const { history } = renderWithRouter(<App />, { initialEntries: urlDrinksGG });
 
     waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
 
     userEvent.click(await findBtnShareRecipe());
 
-    waitFor(async () => {
-      expect(await findRecipeDetailsTxtShared());
-      expect(queryRecipeDetailsTxtShared()).not.toBeInTheDocument();
-    }, { timeout: 3000 });
+    waitForElementToBeRemoved(
+      async () => expect(await findRecipeDetailsTxtShared()),
+      { timeout: 3000 },
+    );
 
     userEvent.click(await findBtnFavoriteRecipe());
 
     expect(spySetLocalStorage).toBeCalled();
+
+    userEvent.click(await findBtnStartRecipe());
+
+    expect(history.location.pathname).toBe('/drinks/15997/in-progress');
+  });
+
+  test('Verifica se o botão start possui o nome `Continue Recipe` quando há a receita meals em progresso salvo no localStorage.', async () => {
+    window.localStorage.getItem = jest.fn(mockMealCorbaInProgress);
+
+    global.fetch = jest.fn(jestMocksFetchsMeals);
+
+    renderWithRouter(<App />, { initialEntries: urlMealsCorba });
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+
+    await waitFor(
+      async () => {
+        expect(await findBtnStartRecipe())
+          .not.toHaveTextContent(new RegExp(`^${START_RECIPE}$`));
+        expect(await findBtnStartRecipe())
+          .toHaveTextContent(new RegExp(`^${CONTINUE_RECIPE}$`));
+      },
+    );
+  });
+
+  test('Verifica se o botão start possui o nome `Continue Recipe` quando há a receita drinks em progresso salvo no localStorage.', async () => {
+    window.localStorage.getItem = jest.fn(mockDrinkGGInProgress);
+
+    global.fetch = jest.fn(jestMocksFetchsDrinks);
+
+    renderWithRouter(<App />, { initialEntries: urlDrinksGG });
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+
+    await waitFor(
+      async () => {
+        expect(await findBtnStartRecipe())
+          .not.toHaveTextContent(new RegExp(`^${START_RECIPE}$`));
+        expect(await findBtnStartRecipe())
+          .toHaveTextContent(new RegExp(`^${CONTINUE_RECIPE}$`));
+      },
+    );
+  });
+
+  test('Verifica se o botão start não aparece se a receita meal já estiver concluída.', async () => {
+    window.localStorage.getItem = jest.fn(mockMealCorbaDoned);
+
+    global.fetch = jest.fn(jestMocksFetchsMeals);
+
+    renderWithRouter(<App />, { initialEntries: urlMealsCorba });
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+
+    await waitFor(
+      () => {
+        act(() => expect(queryBtnStartRecipe()).not.toBeInTheDocument());
+      },
+      { timeout: 4500 },
+    );
+  });
+
+  test('Verifica se o botão start não aparece se a receita drink já estiver concluída.', async () => {
+    window.localStorage.getItem = jest.fn(mockDrinkGGDoned);
+
+    global.fetch = jest.fn(jestMocksFetchsDrinks);
+
+    renderWithRouter(<App />, { initialEntries: urlDrinksGG });
+
+    waitForElementToBeRemoved(() => act(() => expect(getLoading()).toHaveLength(1)));
+
+    await waitFor(
+      () => {
+        act(() => expect(queryBtnStartRecipe()).not.toBeInTheDocument());
+      },
+      { timeout: 4500 },
+    );
   });
 });

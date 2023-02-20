@@ -8,6 +8,7 @@ import {
   useFetchCategoryItems,
   useFetchRecipeDetails,
   useFetchRecipes,
+  useRecipeDetails,
   useRecipeInProgress,
   useSearchBar,
 } from '../custom';
@@ -32,17 +33,14 @@ export default function MealsProvider({ children }) {
     recipeDetails,
     getRecipesDetails,
   } = useFetchRecipeDetails();
+  const { isDonedRecipe, isRecipeInProgress } = useRecipeDetails(recipeDetails);
   const {
     handleFavorite,
     handleShare,
     clipBoard,
     fillHeart,
   } = useFavorite(recipeDetails);
-  const {
-    finishRecipeDone,
-    isDonedRecipe,
-    checkDoneRecipes,
-  } = useRecipeInProgress(recipeDetails);
+  const { finishRecipeDone } = useRecipeInProgress(recipeDetails);
   const { allRecipes, clrCatRecipes, searchCategory, showAllcat,
   } = useCategories(makeFetchRecipes, makeFetchCatItems);
   const { dataSearch, handleSearch } = useSearchBar();
@@ -53,6 +51,7 @@ export default function MealsProvider({ children }) {
       isLoadingCat,
       isLoadingTypeCat,
       isLoadingRecDetal,
+      isRecipeInProgress,
       isDonedRecipe,
       recipes,
       categories,
@@ -73,13 +72,13 @@ export default function MealsProvider({ children }) {
       makeFetchCat,
       makeFetchSearchRecipes,
       finishRecipeDone,
-      checkDoneRecipes,
     }),
     [
       isLoadingRecipes,
       isLoadingCat,
       isLoadingTypeCat,
       isLoadingRecDetal,
+      isRecipeInProgress,
       isDonedRecipe,
       recipes,
       categories,
@@ -100,7 +99,6 @@ export default function MealsProvider({ children }) {
       makeFetchCat,
       makeFetchSearchRecipes,
       finishRecipeDone,
-      checkDoneRecipes,
     ],
   );
 

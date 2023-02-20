@@ -7,6 +7,7 @@ import {
   getProfileEmail,
   logoutBtn,
   mockLocalStorage,
+  queryBtnSearch,
   renderWithRouter,
   validEmail,
 } from './helpers';
@@ -19,9 +20,10 @@ describe('Testes da page Profile.', () => {
     window.localStorage.setItem('user', JSON.stringify({ email: validEmail }));
   });
 
-  test('verifica se há os botões Done Recipes , Favorite e Logout e o email do usuário', async () => {
+  test('verifica se há os botões Done Recipes , Favorite e Logout e o email do usuário', () => {
     renderWithRouter(<App />, { initialEntries: ['/profile'] });
 
+    act(() => expect(queryBtnSearch()).not.toBeInTheDocument());
     expect(getProfileEmail()).toBeVisible();
     expect(getProfileEmail()).toHaveTextContent(validEmail);
     expect(doneRecipesBtn()).toBeVisible();
@@ -32,19 +34,21 @@ describe('Testes da page Profile.', () => {
   test('Verifica se ao clicar nos botões ocorre o redirecionamento correto para outras pages', async () => {
     const { history } = renderWithRouter(<App />, { initialEntries: ['/profile'] });
 
-    act(() => userEvent.click(doneRecipesBtn()));
+    act(() => expect(queryBtnSearch()).not.toBeInTheDocument());
+
+    userEvent.click(doneRecipesBtn());
 
     await waitFor(() => expect(history.location.pathname).toBe('/done-recipes'));
 
     act(() => history.push('/profile'));
 
-    act(() => userEvent.click(favoritesBtn()));
+    userEvent.click(favoritesBtn());
 
     await waitFor(() => expect(history.location.pathname).toBe('/favorite-recipes'));
 
     act(() => history.push('/profile'));
 
-    act(() => userEvent.click(logoutBtn()));
+    userEvent.click(logoutBtn());
 
     await waitFor(() => expect(history.location.pathname).toBe('/'));
   });

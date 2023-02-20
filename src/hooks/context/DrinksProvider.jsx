@@ -10,6 +10,7 @@ import {
   useFetchRecipes,
   useRecipeInProgress,
   useSearchBar,
+  useRecipeDetails,
 } from '../custom';
 
 export const DrinksContext = createContext();
@@ -25,23 +26,23 @@ export default function DrinksProvider({ children }) {
   const {
     isLoadingTypeCat,
     recipesForCategory,
-    makeFetchCatItems } = useFetchCategoryItems();
+    makeFetchCatItems,
+  } = useFetchCategoryItems();
   const {
     getRecipesDetails,
     isLoadingRecDetal,
-    recipeDetails } = useFetchRecipeDetails();
+    recipeDetails,
+  } = useFetchRecipeDetails();
+  const { isDonedRecipe, isRecipeInProgress } = useRecipeDetails(recipeDetails);
   const {
     handleFavorite,
     handleShare,
     clipBoard,
     fillHeart,
   } = useFavorite(recipeDetails);
+  const { finishRecipeDone } = useRecipeInProgress(recipeDetails);
   const {
-    isDonedRecipe,
-    finishRecipeDone,
-    checkDoneRecipes,
-  } = useRecipeInProgress(recipeDetails);
-  const { allRecipes,
+    allRecipes,
     clrCatRecipes,
     searchCategory,
     showAllcat,
@@ -56,6 +57,7 @@ export default function DrinksProvider({ children }) {
       isLoadingTypeCat,
       isLoadingRecDetal,
       isDonedRecipe,
+      isRecipeInProgress,
       categories,
       recipesForCategory,
       allRecipes,
@@ -68,19 +70,19 @@ export default function DrinksProvider({ children }) {
       handleShare,
       handleSearch,
       getRecipesDetails,
+      finishRecipeDone,
       searchCategory,
       showAllcat,
       makeFetchRecipes,
       makeFetchCat,
       makeFetchSearchRecipes,
-      finishRecipeDone,
-      checkDoneRecipes,
     }),
     [
       isLoadingRecipes,
       isLoadingTypeCat,
       isLoadingRecDetal,
       isDonedRecipe,
+      isRecipeInProgress,
       recipes,
       isLoadingCat,
       categories,
@@ -95,13 +97,12 @@ export default function DrinksProvider({ children }) {
       handleShare,
       handleSearch,
       getRecipesDetails,
+      finishRecipeDone,
       searchCategory,
       makeFetchRecipes,
       makeFetchSearchRecipes,
       showAllcat,
       makeFetchCat,
-      finishRecipeDone,
-      checkDoneRecipes,
     ],
   );
 

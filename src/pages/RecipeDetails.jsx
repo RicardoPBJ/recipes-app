@@ -14,9 +14,9 @@ export default function RecipeDetails() {
   const { pathname } = useLocation();
   const {
     isLoadingRecDetal,
+    isRecipeInProgress,
     isDonedRecipe,
     getRecipesDetails,
-    checkDoneRecipes,
     handleFavorite,
     handleShare,
     clipBoard,
@@ -26,7 +26,6 @@ export default function RecipeDetails() {
 
   useEffect(() => {
     getRecipesDetails(id);
-    checkDoneRecipes();
   }, []);
 
   return isLoadingRecDetal ? <Loading />
@@ -34,9 +33,9 @@ export default function RecipeDetails() {
       <div>
         {clipBoard.show && <h2>Link copied!</h2>}
         {pathname.includes('meals')
-          ? <MealCardDetails /> : <DrinkCardDetails />}
+          ? <MealCardDetails /> : <DrinkCardDetails /> }
         {
-          isDonedRecipe && (
+          !isDonedRecipe && (
             <Link to={ `${pathname}/in-progress` }>
               <Button
                 size="lg"
@@ -44,7 +43,7 @@ export default function RecipeDetails() {
                 data-testid="start-recipe-btn"
                 className="start-btn-container"
               >
-                Start Recipe
+                { isRecipeInProgress ? 'Continue Recipe' : 'Start Recipe' }
               </Button>
             </Link>
           )
