@@ -11,7 +11,7 @@ export default function useRecipeDetails(recipe) {
     if (getDoneRecipes() && (recipe.idMeal || recipe.idDrink)) {
       setIsDonedRecipe([...getDoneRecipes()]
         .some(({ id, name }) => id === (recipe.idMeal || recipe.idDrink)
-          && name === (recipe.mealName || recipe.drinkName)), 'some');
+          && name === (recipe.mealName || recipe.drinkName)));
     }
 
     if (getRecipeInProgress() && (recipe.idMeal || recipe.idDrink)) {

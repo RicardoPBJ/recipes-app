@@ -102,7 +102,7 @@ describe('Teste da page Recipe Details', () => {
     expect(await findNameRecommend(5)).toHaveTextContent(mockDrinks.drinks[5].strDrink);
   });
 
-  test('Verifica se a page Recipes Details faz um fetch da receita selecionada anteriormente na page drinks.', async () => {
+  test('Verifica se a page Recipes Details faz um fetch da receita selecionada anteriormente na page drinks e outro fetch de 6 recomendações de meals.', async () => {
     global.fetch = jest.fn(jestMocksFetchsDrinks);
 
     renderWithRouter(<App />, { initialEntries: urlDrinksGG });
