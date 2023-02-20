@@ -7,6 +7,7 @@ import {
   findBtnFavoriteRecipe,
   findBtnShareRecipe,
   findBtnStartRecipe,
+  findNameRecommend,
   findRecipeDetailsCategory,
   findRecipeDetailsIgrtAndMsr,
   findRecipeDetailsImg,
@@ -14,15 +15,18 @@ import {
   findRecipeDetailsTitle,
   findRecipeDetailsTxtShared,
   findRecipeDetailsVideo,
+  findRecommendsRecipes,
   getLoading,
   GG,
   jestMocksFetchsDrinks,
   jestMocksFetchsMeals,
   mockDrinkGGDoned,
   mockDrinkGGInProgress,
+  mockDrinks,
   mockLocalStorage,
   mockMealCorbaDoned,
   mockMealCorbaInProgress,
+  mockMeals,
   queryBtnStartRecipe,
   queryElementByTxt,
   renderWithRouter,
@@ -42,14 +46,14 @@ describe('Teste da page Recipe Details', () => {
   });
 
   afterEach(() => {
-    // jest.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   afterAll(() => {
     jest.restoreAllMocks();
   });
 
-  test('Verifica se a page Recipes Details faz um fetch da receita selecionada anteriormente na page meals.', async () => {
+  test('Verifica se a page Recipes Details faz um fetch da receita selecionada anteriormente na page meals e outro fetch de 6 recomendações de drinks.', async () => {
     global.fetch = jest.fn(jestMocksFetchsMeals);
 
     renderWithRouter(<App />, { initialEntries: urlMealsCorba });
@@ -86,6 +90,16 @@ describe('Teste da page Recipe Details', () => {
       corba.meals[0].strCategory,
     );
     expect(await findRecipeDetailsIgrtAndMsr()).toHaveLength(13);
+
+    expect(await findRecommendsRecipes()).toHaveLength(6);
+    expect(global.fetch).toBeCalledTimes(2);
+
+    expect(await findNameRecommend(0)).toHaveTextContent(mockDrinks.drinks[0].strDrink);
+    expect(await findNameRecommend(1)).toHaveTextContent(mockDrinks.drinks[1].strDrink);
+    expect(await findNameRecommend(2)).toHaveTextContent(mockDrinks.drinks[2].strDrink);
+    expect(await findNameRecommend(3)).toHaveTextContent(mockDrinks.drinks[3].strDrink);
+    expect(await findNameRecommend(4)).toHaveTextContent(mockDrinks.drinks[4].strDrink);
+    expect(await findNameRecommend(5)).toHaveTextContent(mockDrinks.drinks[5].strDrink);
   });
 
   test('Verifica se a page Recipes Details faz um fetch da receita selecionada anteriormente na page drinks.', async () => {
@@ -121,6 +135,16 @@ describe('Teste da page Recipe Details', () => {
       GG.drinks[0].strAlcoholic,
     );
     expect(await findRecipeDetailsIgrtAndMsr()).toHaveLength(3);
+
+    expect(await findRecommendsRecipes()).toHaveLength(6);
+    expect(global.fetch).toBeCalledTimes(2);
+
+    expect(await findNameRecommend(0)).toHaveTextContent(mockMeals.meals[0].strMeal);
+    expect(await findNameRecommend(1)).toHaveTextContent(mockMeals.meals[1].strMeal);
+    expect(await findNameRecommend(2)).toHaveTextContent(mockMeals.meals[2].strMeal);
+    expect(await findNameRecommend(3)).toHaveTextContent(mockMeals.meals[3].strMeal);
+    expect(await findNameRecommend(4)).toHaveTextContent(mockMeals.meals[4].strMeal);
+    expect(await findNameRecommend(5)).toHaveTextContent(mockMeals.meals[5].strMeal);
   });
 
   test('Verifica se os botões são funcionais da rota herdada page meals.', async () => {

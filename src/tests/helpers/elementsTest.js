@@ -43,7 +43,9 @@ export function jestMocksFetchsMeals(url) {
 
   if (/Dessert/.test(url)) return promiseMock(mealCatItemDessert);
 
-  if (/search\.php\?s=$/i.test(url)) return promiseMock(mockMeals);
+  if (/mealdb.+search\.php\?s=$/i.test(url)) return promiseMock(mockMeals);
+
+  if (/cocktaildb.+search\.php\?s=$/i.test(url)) return promiseMock(mockDrinks);
 
   if (/list$/i.test(url)) return promiseMock(mealsCategory);
 }
@@ -61,7 +63,9 @@ export function jestMocksFetchsDrinks(url) {
 
   if (/Shake/.test(url)) return promiseMock(drinkCatItemShake);
 
-  if (/search\.php\?s=$/i.test(url)) return promiseMock(mockDrinks);
+  if (/mealdb.+search\.php\?s=$/i.test(url)) return promiseMock(mockMeals);
+
+  if (/cocktaildb.+search\.php\?s=$/i.test(url)) return promiseMock(mockDrinks);
 
   if (/list$/i.test(url)) return promiseMock(drinksCategory);
 }
@@ -158,3 +162,5 @@ export const findRecipeDetailsTitle = () => screen.findByTestId('recipe-title');
 export const findRecipeDetailsCategory = () => screen.findByTestId('recipe-category');
 export const findRecipeDetailsIgrtAndMsr = () => screen.findAllByTestId(/ingredient-name-and-measure$/i);
 export const findRecipeDetailsTxtShared = () => screen.findByText('Link copied!');
+export const findRecommendsRecipes = () => screen.findAllByTestId(/recommendation-card$/i);
+export const findNameRecommend = (pos = 0) => screen.findByTestId(new RegExp(`^${pos}-recommendation-title$`, 'i'));
