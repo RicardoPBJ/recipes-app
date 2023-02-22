@@ -1,5 +1,4 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
 import { handlersLogin } from '../hooks';
 import '../styles/Login.css';
@@ -48,9 +47,3 @@ export default function Login() {
     </div>
   );
 }
-
-Login.propTypes = {
-  history: propTypes.shape({
-    push: propTypes.func.isRequired,
-  }).isRequired,
-};
