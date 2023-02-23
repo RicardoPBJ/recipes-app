@@ -1,19 +1,18 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { DrinksContext } from '../hooks';
 import RecomendCardFoods from './RecomendCardFoods';
 
-function DrinkCardDetails(
-  {
-    recipes: {
+function DrinkCardDetails() {
+  const {
+    recipeDetails: {
       idDrink,
-      drinkName,
-      ingredientAndMeasure,
       drinkThumb,
+      ingredientAndMeasure,
+      drinkName,
       instructions,
       categoryAlcool,
-    },
-  },
-) {
+    } } = useContext(DrinksContext);
+
   return (
     <div
       key={ idDrink }
@@ -34,25 +33,9 @@ function DrinkCardDetails(
         >
           {`${obj[`strIngredient${i + 1}`]}: ${obj[`strMeasure${i + 1}`]}`}
         </span>))}
-      <div>
-        <RecomendCardFoods />
-      </div>
+      <RecomendCardFoods />
     </div>
   );
 }
 
-DrinkCardDetails.propTypes = {
-  recipes: propTypes.shape({
-    idDrink: propTypes.string.isRequired,
-    drinkThumb: propTypes.string.isRequired,
-    ingredientAndMeasure: propTypes.arrayOf(
-      propTypes.object.isRequired,
-    ).isRequired,
-    drinkName: propTypes.string.isRequired,
-    instructions: propTypes.string.isRequired,
-    category: propTypes.string.isRequired,
-    categoryAlcool: propTypes.string.isRequired,
-    linkYoutube: propTypes.string.isRequired,
-  }).isRequired,
-};
 export default DrinkCardDetails;

@@ -1,59 +1,56 @@
-import React, { useContext } from 'react';
-import { Header } from '../components';
-import MealCard from '../components/MealCard';
-import { MealsContext } from '../hooks/context/MealsProvider';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
+import { Header, Loading, MealCard } from '../components';
+import { MealsContext } from '../hooks';
 import '../styles/MealsAndDrinks.css';
 
 export default function Meals() {
-  const { isLoading,
-    recipesData,
+  const {
+    isLoadingRecipes,
     isLoadingCat,
     categories,
-    fetchState,
     searchCategory,
-    showAllMeals,
-    recipesExhibitor } = useContext(MealsContext);
+    showAllcat,
+    allRecipes,
+    makeFetchCat,
+    makeFetchRecipes,
+  } = useContext(MealsContext);
 
-  const FIVE = 5;
-  const searchOn = true;
+  useEffect(() => {
+    makeFetchCat();
+    makeFetchRecipes();
+  }, []);
 
   return (
     <div className="page-container">
-      { !isLoadingCat && (
+      <Header />
+      {isLoadingCat ? (
+        <Loading />
+      ) : (
         <div className="space-button">
-          <Header searchAppear={ searchOn } />
-          {recipesExhibitor.showCategory && (
+          {allRecipes && (
             <button
-              onClick={ showAllMeals }
+              onClick={ showAllcat }
               type="button"
               data-testid="All-category-filter"
             >
               All
             </button>
           )}
-          {categories.meals.slice(0, FIVE)
-            .map((e) => (
-              <button
-                key={ e.strCategory }
-                data-testid={ `${e.strCategory}-category-filter` }
-                type="button"
-                value={ `${e.strCategory}` }
-                onClick={ searchCategory }
-              >
-                {e.strCategory}
-              </button>))}
+          {categories.map((e) => (
+            <button
+              key={ e.strCategory }
+              data-testid={ `${e.strCategory}-category-filter` }
+              type="button"
+              value={ `${e.strCategory}` }
+              onClick={ searchCategory }
+            >
+              {e.strCategory}
+            </button>
+          ))}
         </div>
       )}
-
-      { !isLoading
-      && (
-        <div style={ { height: '80vh' } }>
-          {recipesExhibitor.showCategory && !fetchState.isLoadingItems
-            ? <MealCard recipesData={ fetchState.items } />
-            : <MealCard recipesData={ recipesData } />}
-        </div>
-      )}
-
+      {isLoadingRecipes ? <Loading /> : <MealCard />}
     </div>
   );
 }

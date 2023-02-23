@@ -1,18 +1,16 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { DrinksContext } from '../hooks';
 
-function DrinkCardInProgress(
-  {
-    recipes: {
+function DrinkCardInProgress() {
+  const {
+    recipeDetails: {
       idDrink,
       drinkName,
       ingredientAndMeasure,
       drinkThumb,
       instructions,
-      categoryAlcool,
-    },
-  },
-) {
+      categoryAlcool } } = useContext(DrinksContext);
+
   return (
     <div
       key={ idDrink }
@@ -36,11 +34,8 @@ function DrinkCardInProgress(
             htmlFor="recipeCheck"
           >
             <span>
-              `$
-              {obj[`strIngredient${i + 1}`]}
-              : $
-              {obj[`strMeasure${i + 1}`]}
-              `
+              { `${obj[`strIngredient${i + 1}`]}${obj[`strMeasure${i + 1}`]
+                ? `: ${obj[`strMeasure${i + 1}`]}` : ''}` }
             </span>
             {' '}
             <input
@@ -54,18 +49,4 @@ function DrinkCardInProgress(
   );
 }
 
-DrinkCardInProgress.propTypes = {
-  recipes: propTypes.shape({
-    idDrink: propTypes.string.isRequired,
-    drinkThumb: propTypes.string.isRequired,
-    ingredientAndMeasure: propTypes.arrayOf(
-      propTypes.object.isRequired,
-    ).isRequired,
-    drinkName: propTypes.string.isRequired,
-    instructions: propTypes.string.isRequired,
-    category: propTypes.string.isRequired,
-    categoryAlcool: propTypes.string.isRequired,
-    linkYoutube: propTypes.string.isRequired,
-  }).isRequired,
-};
 export default DrinkCardInProgress;

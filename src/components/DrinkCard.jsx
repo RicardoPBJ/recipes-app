@@ -1,49 +1,52 @@
-import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { DrinksContext } from '../hooks';
+import Loading from './Loading';
 import '../styles/Cards.css';
 
 function DrinkCard() {
-  const { recipesData } = useContext(DrinksContext);
-  // const TWELVE = 12;
-  // const drinksRecipesToShow = recipesData.drinks.slice(0, TWELVE);
-  return (
-    <div className="card-container">
-      {
-        recipesData.map((e, index) => (
-          <div
-            data-testid={ `${index}-recipe-card` }
-            key={ e.idDrink }
-            className="card-item"
-          >
-            <Link to={ `/drinks/${e.idDrink}` }>
-              <img
-                style={ { height: '200px' } }
-                data-testid={ `${index}-card-img` }
-                src={ `${e.strDrinkThumb}` }
-                alt={ e.strDrink }
-              />
-            </Link>
-            <p
-              data-testid={ `${index}-card-name` }
-              className="card-text"
-            >
-              { e.strDrink }
-            </p>
-          </div>
+  const {
+    isLoadingTypeCat,
+    recipesForCategory,
+    recipes,
+    allRecipes,
+    clrCatRecipes,
+  } = useContext(DrinksContext);
 
-        ))
-      }
-    </div>
-  );
+  return isLoadingTypeCat ? <Loading />
+    : (
+      <div
+        className="card-container"
+        style={ { height: '80vh' } }
+      >
+        {
+          (allRecipes && !clrCatRecipes ? recipesForCategory : recipes).map(
+            ({ idDrink, strDrink, strDrinkThumb }, index) => (
+              <div
+                data-testid={ `${index}-recipe-card` }
+                key={ `${idDrink}-${strDrink}-${index + 1}` }
+                className="card-item"
+              >
+                <Link to={ `/drinks/${idDrink}` }>
+                  <img
+                    style={ { height: '200px' } }
+                    data-testid={ `${index}-card-img` }
+                    src={ `${strDrinkThumb}` }
+                    alt={ strDrink }
+                  />
+                </Link>
+                <p
+                  data-testid={ `${index}-card-name` }
+                  className="card-text"
+                >
+                  {strDrink}
+                </p>
+              </div>
+            ),
+          )
+        }
+      </div>
+    );
 }
-
-DrinkCard.propTypes = {
-  recipesData: PropTypes
-    .shape({ drinks: PropTypes
-      .arrayOf(PropTypes.objectOf(PropTypes.string)) }).isRequired,
-
-};
 
 export default DrinkCard;

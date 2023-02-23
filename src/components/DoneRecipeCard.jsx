@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -8,7 +7,6 @@ import ShareIcon from '../images/shareIcon.svg';
 function DoneRecipeCard() {
   const { storedValue } = useLocalStorage('doneRecipes');
 
-  console.log(storedValue);
   return (
     <div>
       {storedValue
@@ -52,12 +50,5 @@ function DoneRecipeCard() {
     </div>
   );
 }
-
-DoneRecipeCard.propTypes = {
-  recipesData: PropTypes
-    .shape({ drinks: PropTypes
-      .arrayOf(PropTypes.objectOf(PropTypes.string)) }).isRequired,
-
-};
 
 export default DoneRecipeCard;

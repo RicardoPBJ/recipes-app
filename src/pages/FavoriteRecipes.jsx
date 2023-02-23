@@ -3,7 +3,7 @@ import { Header } from '../components';
 function FavoriteRecipes() {
   return (
     <div>
-      <Header searchAppear={ false } />
+      <Header />
     </div>
   );
 }

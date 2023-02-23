@@ -1,57 +1,108 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React, { createContext, useMemo } from 'react';
 import propTypes from 'prop-types';
-import { createContext, useEffect, useMemo, useState } from 'react';
-import useFetchCategories from '../custom/useFetchCategories';
-import useFetchCategoryItems from '../custom/useFetchCategoryItems';
-import useFetchRecipes from '../custom/useFetchRecipes';
+import {
+  useCategories,
+  useFavorite,
+  useFetchCategories,
+  useFetchCategoryItems,
+  useFetchRecipeDetails,
+  useFetchRecipes,
+  useRecipeDetails,
+  useRecipeInProgress,
+  useSearchBar,
+} from '../custom';
 
 export const MealsContext = createContext();
 
 export default function MealsProvider({ children }) {
-  const { isLoading, recipesData, makeFetchRecipes } = useFetchRecipes('meals');
-  const { isLoadingCat, categories, makeFetchCat } = useFetchCategories();
-  const { fetchState, makeFetchCatItems } = useFetchCategoryItems('meals');
-  const [recipesExhibitor, setExhibitor] = useState({ showCategory: false,
-  });
-  const mealsRecipesUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const mealsCatUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-
-  useEffect(() => {
-    makeFetchRecipes(mealsRecipesUrl);
-    makeFetchCat(mealsCatUrl);
-  }, []);
-
-  const searchCategory = ({ target }) => {
-    makeFetchCatItems(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.value}`);
-    setExhibitor({ ...recipesExhibitor,
-      showCategory: !recipesExhibitor.showCategory,
-    });
-  };
-
-  const showAllMeals = () => {
-    setExhibitor({ ...recipesExhibitor,
-      showCategory: false,
-    });
-  };
-
-  const values = useMemo(() => ({
-    isLoading,
-    recipesData,
-    isLoadingCat,
-    categories,
-    fetchState,
-    searchCategory,
-    showAllMeals,
-    recipesExhibitor,
+  const {
+    isLoadingRecipes,
+    recipes,
     makeFetchRecipes,
-  }), [makeFetchRecipes, isLoading, recipesData, isLoadingCat, categories,
-    fetchState, searchCategory, showAllMeals, recipesExhibitor]);
+    makeFetchSearchRecipes,
+  } = useFetchRecipes();
+  const { isLoadingCat, categories, makeFetchCat } = useFetchCategories();
+  const {
+    isLoadingTypeCat,
+    recipesForCategory,
+    makeFetchCatItems,
+  } = useFetchCategoryItems();
+  const {
+    isLoadingRecDetal,
+    recipeDetails,
+    getRecipesDetails,
+  } = useFetchRecipeDetails();
+  const { isDonedRecipe, isRecipeInProgress } = useRecipeDetails(recipeDetails);
+  const {
+    handleFavorite,
+    handleShare,
+    clipBoard,
+    fillHeart,
+  } = useFavorite(recipeDetails);
+  const { finishRecipeDone } = useRecipeInProgress(recipeDetails);
+  const { allRecipes, clrCatRecipes, searchCategory, showAllcat,
+  } = useCategories(makeFetchRecipes, makeFetchCatItems);
+  const { dataSearch, handleSearch } = useSearchBar();
 
-  return (
-    <MealsContext.Provider value={ values }>
-      { children }
-    </MealsContext.Provider>
+  const values = useMemo(
+    () => ({
+      isLoadingRecipes,
+      isLoadingCat,
+      isLoadingTypeCat,
+      isLoadingRecDetal,
+      isRecipeInProgress,
+      isDonedRecipe,
+      recipes,
+      categories,
+      recipesForCategory,
+      allRecipes,
+      recipeDetails,
+      clipBoard,
+      fillHeart,
+      dataSearch,
+      clrCatRecipes,
+      handleFavorite,
+      handleShare,
+      handleSearch,
+      getRecipesDetails,
+      searchCategory,
+      showAllcat,
+      makeFetchRecipes,
+      makeFetchCat,
+      makeFetchSearchRecipes,
+      finishRecipeDone,
+    }),
+    [
+      isLoadingRecipes,
+      isLoadingCat,
+      isLoadingTypeCat,
+      isLoadingRecDetal,
+      isRecipeInProgress,
+      isDonedRecipe,
+      recipes,
+      categories,
+      recipesForCategory,
+      allRecipes,
+      recipeDetails,
+      clipBoard,
+      fillHeart,
+      dataSearch,
+      clrCatRecipes,
+      handleFavorite,
+      handleShare,
+      handleSearch,
+      getRecipesDetails,
+      makeFetchRecipes,
+      searchCategory,
+      showAllcat,
+      makeFetchCat,
+      makeFetchSearchRecipes,
+      finishRecipeDone,
+    ],
   );
+
+  return <MealsContext.Provider value={ values }>{children}</MealsContext.Provider>;
 }
 
 MealsProvider.propTypes = {

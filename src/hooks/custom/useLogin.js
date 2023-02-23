@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-export default function Handlers() {
+export default function useLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
+  const { push } = useHistory();
 
   function handlerChange({ target: { name, value } }) {
     switch (name) {
@@ -19,16 +21,16 @@ export default function Handlers() {
     }
   }
 
-  function clickSetStorageEmail(history) {
+  function clickSetStorageEmail() {
     localStorage.setItem('user', JSON.stringify({ email }));
 
-    history.push('/meals');
+    push('/meals');
   }
 
   useEffect(() => {
     const lim = 7;
 
-    const emailRegex = /[\w.]+@[a-z]+(\.com|(\.[a-z]+){2,3})/i;
+    const emailRegex = /[\w.]+@[a-z]+(\.com|(\.[a-z]+){1,3})/i;
 
     setIsDisabled(password.length < lim || !emailRegex.test(email));
   }, [email, password]);
@@ -36,8 +38,8 @@ export default function Handlers() {
   return {
     handlerChange,
     clickSetStorageEmail,
-    email,
-    password,
-    isDisabled,
+    email: useMemo(() => email, [email]),
+    password: useMemo(() => password, [password]),
+    isDisabled: useMemo(() => isDisabled, [isDisabled]),
   };
 }

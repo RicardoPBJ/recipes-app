@@ -1,65 +1,49 @@
-// import React, { useEffect } from 'react';
-import propTypes from 'prop-types';
-import { Button, Input } from '../components';
-import { handlers } from '../hooks';
+import React from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { handlersLogin } from '../hooks';
 import '../styles/Login.css';
 
-function Login({ history }) {
-  const { handlerChange, clickSetStorageEmail, email, password, isDisabled } = handlers();
-
-  // useEffect(() => {
-  //   if (localStorage.length === 0) {
-  //     localStorage
-  //       .setItem('favoriteRecipes', JSON.stringify([]));
-  //   }
-  // }, []);
+export default function Login() {
+  const {
+    handlerChange,
+    clickSetStorageEmail,
+    email,
+    password,
+    isDisabled,
+  } = handlersLogin();
 
   return (
     <div className="login-box init">
       <div className="login">
-        <div>
-          <Input
-            name="email"
-            // labelName="Email"
-            type="email"
-            value={ email }
-            id="email"
-            testId="email-input"
-            eventChange={ handlerChange }
-            placeholder="E-mail"
-          />
-        </div>
-        <div className="mt-3">
-          <Input
-            name="password"
-            // labelName="Password"
-            id="password"
-            type="password"
-            value={ password }
-            testId="password-input"
-            eventChange={ handlerChange }
-            placeholder="password"
-          />
-        </div>
+        <Form.Control
+          name="email"
+          type="email"
+          value={ email }
+          data-testid="email-input"
+          onChange={ handlerChange }
+          placeholder="e-mail"
+          className="mb-3"
+        />
+        <Form.Control
+          name="password"
+          type="password"
+          value={ password }
+          data-testid="password-input"
+          onChange={ handlerChange }
+          placeholder="password"
+        />
         <div className="mt-4 col-md-12 text-center">
           <Button
-            nameButton="Entrar"
-            eventClick={ () => clickSetStorageEmail(history) }
-            testId="login-submit-btn"
-            isDisabled={ isDisabled }
+            variant={ isDisabled ? 'light' : 'outline-success' }
+            onClick={ clickSetStorageEmail }
+            data-testid="login-submit-btn"
+            disabled={ isDisabled }
             type="button"
-            className="btn-login"
-          />
+          >
+            Entrar
+          </Button>
         </div>
       </div>
     </div>
   );
 }
-
-Login.propTypes = {
-  history: propTypes.shape({
-    push: propTypes.func.isRequired,
-  }).isRequired,
-};
-
-export default Login;

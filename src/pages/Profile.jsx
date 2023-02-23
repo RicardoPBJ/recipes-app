@@ -1,20 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Footer, Button, Header } from '../components';
-import useLocalStorage from '../hooks/custom/useLocalStorage';
+import { Button } from 'react-bootstrap';
+import { Footer, Header } from '../components';
+import { useLocalStorage } from '../hooks';
 
 function Profile() {
-  const { storedValue, clearStorage } = useLocalStorage('user', 'email');
-  const history = useHistory();
-
-  const pageRedirect = ({ target }) => {
-    history.push(target.value);
-  };
-
-  const handleLogout = () => {
-    clearStorage();
-    history.push('/');
-  };
+  const { storedValue, handleLogout } = useLocalStorage('user', 'email');
+  const { push } = useHistory();
 
   return (
     <main>
@@ -27,29 +19,30 @@ function Profile() {
         <div className="profile-btns-container">
           <div>
             <Button
-              nameButton="Done Recipes"
-              eventClick={ pageRedirect }
-              testId="profile-done-btn"
+              onClick={ () => push('/done-recipes') }
+              data-testid="profile-done-btn"
               type="button"
-              value="/done-recipes"
-            />
+            >
+              Done Recipes
+            </Button>
           </div>
           <div>
             <Button
-              nameButton="Favorite Recipes"
-              eventClick={ pageRedirect }
-              testId="profile-favorite-btn"
+              onClick={ () => push('/favorite-recipes') }
+              data-testid="profile-favorite-btn"
               type="button"
-              value="/favorite-recipes"
-            />
+            >
+              Favorite Recipes
+            </Button>
           </div>
           <div>
             <Button
-              nameButton="Logout"
-              eventClick={ handleLogout }
-              testId="profile-logout-btn"
+              onClick={ handleLogout }
+              data-testid="profile-logout-btn"
               type="button"
-            />
+            >
+              Logout
+            </Button>
           </div>
         </div>
       </div>
