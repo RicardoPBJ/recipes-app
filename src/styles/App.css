@@ -18,30 +18,27 @@
   justify-content: baseline;
 }
 
-/*
 #iceLeft {
-  animation: clink .8s infinite ease;
+  animation: clink 0.8s infinite ease;
   opacity: 0.6;
   transform-origin: 36px 66px;
 }
 
 #iceRight {
-  animation: clink .8s .2s infinite ease;
+  animation: clink 0.8s 0.2s infinite ease;
   opacity: 0.6;
   transform-origin: 60px 78px;
 }
-*/
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
 
 @keyframes shake {
-
   0% {
     transform: rotate(5deg);
   }
@@ -56,7 +53,6 @@
 }
 
 @keyframes clink {
-
   0% {
     transform: rotate(-10deg);
   }
