@@ -1,12 +1,12 @@
-/* button {
-    padding: 5px 35px;
-    border: none;
-    border-radius: 10px;
-    background-color: hsl(0, 86%, 51%);
-    color: white;
-    font-weight: bolder;
-  }
+button {
+  padding: 5px 35px;
+  border: none;
+  border-radius: 10px;
+  background-color: hsl(0, 86%, 51%);
+  color: white;
+  font-weight: bolder;
+}
 
 button:hover {
   background-color: hsl(0, 83%, 42%);
-} */
+}
