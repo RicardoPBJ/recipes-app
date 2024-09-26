@@ -6,6 +6,11 @@
   justify-content: center;
   width: 100%;
 }
+body {
+  background-image: url("../images/backgroud-app-receitas.avif");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 .rocksGlass {
   animation: shake 1s infinite ease;
