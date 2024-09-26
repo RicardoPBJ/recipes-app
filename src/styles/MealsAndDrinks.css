@@ -8,8 +8,6 @@
   background-image: url("../images/backgroud-app-receitas.avif");
   background-repeat: no-repeat;
   background-size: cover;
-  display: flex;
-  justify-content: center;
 }
 
 .space-button {
