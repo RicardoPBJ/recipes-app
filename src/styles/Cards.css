@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   justify-content: center;
   margin: auto;
+  background-color: aliceblue;
 }
 
 .card-item {
