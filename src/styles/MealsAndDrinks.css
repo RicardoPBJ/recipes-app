@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: antiquewhite;
+  background-image: url("../images/backgroud-app-receitas.avif");
 }
 
 .space-button {
