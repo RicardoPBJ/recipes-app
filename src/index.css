@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url("../images/backgroud-app-receitas.avif");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100vh;
 }
 
 code {
