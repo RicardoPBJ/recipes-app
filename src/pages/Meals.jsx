@@ -29,11 +29,7 @@ export default function Meals() {
       ) : (
         <div className="space-button">
           {allRecipes && (
-            <button
-              onClick={ showAllcat }
-              type="button"
-              data-testid="All-category-filter"
-            >
+            <button onClick={ showAllcat } type="button">
               All
             </button>
           )}

@@ -5,9 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("../images/backgroud-app-receitas.avif");
+  background-color: chocolate;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 100vh;
+  background-attachment: fixed;
 }
 
 code {
