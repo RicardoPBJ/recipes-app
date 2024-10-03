@@ -14,8 +14,12 @@
 
 .headerfix {
   display: flex;
-  flex-direction: row;
-  justify-content: baseline;
+  margin-inline: 4em;
+  margin-block: 1em;
+}
+
+.iconSrch {
+  color: white;
 }
 
 #iceLeft {
