@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("/home/ricardo/projetos/recipes-app/src/images/Imagem Fundo.jpeg");
+  background-image: url("/src/images/Imagem Fundo.jpeg");
   background-color: chocolate;
   background-size: cover;
   background-repeat: no-repeat;
