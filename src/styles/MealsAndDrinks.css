@@ -49,7 +49,9 @@
 }
 
 .space-button > *:hover {
-  transform: translateY(-1px);
+  transform: translateY(-3px);
+  background-color: #D79922;
+  color: white
 }
 
 .space-button > *:active {
