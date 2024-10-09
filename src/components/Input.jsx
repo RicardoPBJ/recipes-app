@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Input({
+  labelStyle,
+  inputStyle,
   name,
   labelName,
   type,
@@ -13,10 +15,11 @@ function Input({
 }) {
   if (labelName) {
     return (
-      <label htmlFor={ id }>
+      <label htmlFor={ id } className={ labelStyle }>
         {labelName}
         {' '}
         <input
+          className={ inputStyle }
           type={ type }
           name={ name }
           value={ value }
@@ -31,6 +34,7 @@ function Input({
 
   return (
     <input
+      className={ inputStyle }
       type={ type }
       name={ name }
       value={ value }
@@ -43,6 +47,8 @@ function Input({
 }
 
 Input.propTypes = {
+  labelStyle: PropTypes.string,
+  inputStyle: PropTypes.string,
   name: PropTypes.string.isRequired,
   testId: PropTypes.string,
   value: PropTypes.string,
@@ -54,6 +60,8 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  labelStyle: '',
+  inputStyle: '',
   value: undefined,
   type: 'text',
   eventChange: null,
