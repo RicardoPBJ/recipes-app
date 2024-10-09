@@ -1,0 +1,70 @@
+.search-bar {
+  display: flex;
+  margin-bottom: 2em;
+}
+
+.label-search {
+  color: white;
+  font-weight: 600;
+}
+
+.search-input {
+  width: 100%;
+  color: rgb(36, 35, 42);
+  font-size: 16px;
+  line-height: 20px;
+  min-height: 28px;
+  border-radius: 4px;
+  padding: 8px 16px;
+  border: 2px solid transparent;
+  box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
+  background: rgb(251, 251, 251);
+  transition: all 0.1s ease 0s;
+  :focus{
+    border: 2px solid rgb(124, 138, 255);
+  }
+  margin-left: 1em;
+}
+
+.radio-label {
+  font-size: large;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.radio-input {
+  accent-color: hsl(7, 78%, 55%);
+  margin-left: 1em;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  color: #E64833;
+  cursor: pointer;
+}
+
+.radio-button {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 250ms;
+  width: 10em;
+  height: 2.8em;
+}
+
+.radio-button:hover,
+.radio-button:focus {
+  background-color: #d35544;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  color: white;
+  transform: translateY(-1px);
+}
