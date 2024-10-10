@@ -35,7 +35,12 @@ function MealCard() {
                     alt={ strMeal }
                   />
                 </Link>
-                <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+                <p
+                  className="card-text"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {strMeal}
+                </p>
               </div>
             ),
           )
