@@ -15,10 +15,10 @@
 .headerfix {
   display: flex;
   margin-inline: 4em;
-  margin-block: 1em;
+  margin-block: 2.5em;
 }
 
-.iconSrch {
+.icons {
   color: white;
 }
 
@@ -34,11 +34,15 @@
   transform-origin: 60px 78px;
 }
 
+.header-title {
+  font-size: 4em;
+}
+
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
   font-family: Montserrat, sans-serif;
-  font-size: 3em;
+  font-size: 5em;
   font-weight: 900;
 }
 
