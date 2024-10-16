@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import {
   DoneRecipes,
   Login,
@@ -14,6 +15,9 @@ import './styles/App.css';
 function App() {
   return (
     <div className="init">
+      <Helmet>
+        <title>Recipes</title>
+      </Helmet>
       <MealsProvider>
         <DrinksProvider>
           <Switch>
