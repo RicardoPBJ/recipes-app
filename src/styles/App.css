@@ -83,3 +83,20 @@
   position: fixed;
   right: 0;
 }
+
+/* Estilizando a barra de rolagem para navegadores Webkit/Blink (Chrome, Safari) */
+::-webkit-scrollbar {
+  margin-inline: 5em;
+}
+
+/* Estilizando o botão de rolagem */
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 0.5em;
+  margin-inline: 5em;
+}
+
+/* Estilizando a área ao redor do botão de rolagem */
+::-webkit-scrollbar-track {
+  background: none;
+}

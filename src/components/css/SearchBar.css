@@ -1,18 +1,15 @@
 .search-bar {
-  display: flex; justify-content: center;
+  display: flex;
   align-items: center;
   margin-bottom: 2em;
 }
 
 .search-input {
   margin-bottom: 1em;
-  width: 25em;
+  width: 18em;
   color: rgb(36, 35, 42);
-  font-size: 1.2em;
-  line-height: 1em;
-  min-height: 1em;
+  font-size: 1em;
   border-radius: 0.3em;
-  padding:0.3em 1em;
   border: 2px solid transparent;
   box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
   background: rgb(251, 251, 251);
@@ -22,31 +19,32 @@
   } 
 }
 .search-radio-container {
-  margin-right: 1.5em;
-  display: block;
+  display: flex;
   align-items: center;
-  justify-content: space-evenly;
 }
 
 .radio-label {
-  font-size: large;
+  font-size: small;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   color: white;
   font-weight: 600;
   cursor: pointer;
+  margin-left: 1em;
 }
 
 .radio-input {
   accent-color: #D79922;
   margin-left: 1em;
-  width: 1.7em;
-  height: 1.7em;
-  border-radius: 50%;
+  width: 1em;
+  height: 1em;
   cursor: pointer;
 }
 
 .radio-button {
+  display: flex;
+  align-items: center;
   background-color: #FFD700;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
@@ -55,19 +53,24 @@
   color: rgba(0, 0, 0, 0.85);
   cursor: pointer;
   font-weight: 600;
-  text-decoration: none;
   transition: all 250ms;
-  width: 10em;
-  height: 3.8em;
+  width: 5em;
+  height: 2em;
+  margin-left: 1em;
 }
 
 .radio-button:hover,
 .radio-button:active,
 .radio-button:focus {
-  background-color: #D79922;
+  background-color: rgb(246 160 42);
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   color: white;
   transform: scale(1.2);
 }
 
+.label-search {
+  display: flex;
+  size: 0.5em;
+  align-items: center;
+}

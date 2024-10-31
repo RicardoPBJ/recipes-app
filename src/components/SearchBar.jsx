@@ -15,8 +15,8 @@ export default function SearchBar() {
     <div className="search-bar">
       <div className="search-radio-container">
         <Input
-          labelStyle="label-search container"
-          inputStyle="search-input container"
+          labelStyle="label-search"
+          inputStyle="search-input"
           name="searchBar"
           placeholder="Search"
           type="text"
@@ -24,7 +24,7 @@ export default function SearchBar() {
           labelName=""
           eventChange={ handleSearch }
         />
-        <div className="container d-flex justify-content-around">
+        <div className="containe justify-content-around">
           <Input
             labelStyle="radio-label"
             inputStyle="radio-input radio-anime"
