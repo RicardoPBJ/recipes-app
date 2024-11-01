@@ -50,7 +50,7 @@
 
 .space-button > *:hover {
   transform: translateY(-3px);
-  background-color: #D79922;
+  background-color: rgb(246 160 42);
   color: white
 }
 

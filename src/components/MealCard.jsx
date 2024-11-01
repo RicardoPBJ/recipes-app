@@ -29,7 +29,7 @@ function MealCard() {
               >
                 <Link to={ `/meals/${idMeal}` }>
                   <img
-                    style={ { height: '200px' } }
+                    style={ { height: '15em', borderRadius: '0.5em' } }
                     data-testid={ `${index}-card-img` }
                     src={ `${strMealThumb}` }
                     alt={ strMeal }
