@@ -18,6 +18,9 @@ export default function Header() {
               title ? `${title} ${g1.toUpperCase()}${g2}` : `${g1.toUpperCase()}${g2}`
             ), '')}
         </h1>
+        {
+          search && <SearchBar />
+        }
         <div className="d-flex">
           {
             !/^\/profile|\/done|\/favorite/i.test(pathname)
@@ -46,9 +49,6 @@ export default function Header() {
           </Link>
         </div>
       </header>
-      {
-        search && <SearchBar />
-      }
     </div>
   );
 }
