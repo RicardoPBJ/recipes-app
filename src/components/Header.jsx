@@ -31,7 +31,7 @@ export default function Header() {
             >
               <IoSearch
                 className="icons container"
-                size={ 55 }
+                size={ 43 }
                 alt="search-icon"
                 data-testid="search-top-btn"
               />
@@ -43,7 +43,7 @@ export default function Header() {
               className="icons"
               alt="profile-icon"
               data-testid="profile-top-btn"
-              size={ 55 }
+              size={ 43 }
               color="white"
             />
           </Link>
