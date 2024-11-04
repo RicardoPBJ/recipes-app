@@ -15,11 +15,12 @@
 .headerfix {
   display: flex;
   margin-inline: 4em;
-  margin-block: 2.5em;
+  margin-top: 2.5em;
+  margin-bottom: 1em;
 }
 
 .icons {
-  color: white;
+  color: black;
 }
 
 #iceLeft {
@@ -35,12 +36,13 @@
 }
 
 .header-title {
+  color: black;
   font-size: 3em;
 }
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;
-  color: aliceblue;
+  color: black;
   font-family: Montserrat, sans-serif;
   font-size: 5em;
   font-weight: 900;
