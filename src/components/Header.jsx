@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <div className="container">
       <header className="headerfix align-items-center justify-content-between">
-        <h1 data-testid="page-title" className="text-white header-title">
+        <h1 data-testid="page-title" className="text-black header-title">
           {[...pathname.matchAll(/(?<g1>\b[a-z])(?<g2>(?!\b[a-z])[a-z]+)/g)]
             .reduce((title, { groups: { g1, g2 } }) => (
               title ? `${title} ${g1.toUpperCase()}${g2}` : `${g1.toUpperCase()}${g2}`
@@ -44,7 +44,7 @@ export default function Header() {
               alt="profile-icon"
               data-testid="profile-top-btn"
               size={ 43 }
-              color="white"
+              color="black"
             />
           </Link>
         </div>
