@@ -1,7 +1,6 @@
 .search-bar {
   display: flex;
   align-items: center;
-  margin-bottom: 2em;
 }
 
 .search-input {
@@ -31,7 +30,7 @@
   color: white;
   font-weight: 600;
   cursor: pointer;
-  margin-left: 1em;
+  margin-left: 2.5em;
 }
 
 .radio-input {
@@ -56,7 +55,7 @@
   transition: all 250ms;
   width: 5em;
   height: 2em;
-  margin-left: 1em;
+  margin-left: 2.5em;
 }
 
 .radio-button:hover,
