@@ -24,7 +24,7 @@ export default function SearchBar() {
           labelName=""
           eventChange={ handleSearch }
         />
-        <div className="containe justify-content-around">
+        <div className="container d-flex">
           <Input
             labelStyle="radio-label"
             inputStyle="radio-input radio-anime"

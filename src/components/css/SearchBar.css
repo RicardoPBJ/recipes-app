@@ -18,24 +18,23 @@
   } 
 }
 .search-radio-container {
-  display: flex;
+  display: block;
   align-items: center;
 }
 
 .radio-label {
   font-size: small;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   color: white;
   font-weight: 600;
   cursor: pointer;
-  margin-left: 2.5em;
 }
 
 .radio-input {
   accent-color: #D79922;
   margin-left: 1em;
+  margin-right: 1em;
   width: 1em;
   height: 1em;
   cursor: pointer;
