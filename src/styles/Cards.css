@@ -1,18 +1,18 @@
 .card-container {
   width: 100vw;
   display: flex;
-  justify-content:flex-start;
-  margin: auto;
-  margin-bottom: 5em;
+  justify-content: flex-start;
+  margin-bottom: 4em;
   overflow-x: scroll;
 }
 
 .card-item {
-  padding: 15px;
+  padding: 0.9em;
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 1em;
-  margin: 2em;
+  margin-inline: 1.5em;
+  margin-block: 1em;
   background-color: white;
   cursor: pointer;
 }
