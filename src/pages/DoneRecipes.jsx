@@ -12,7 +12,7 @@ function DoneRecipes() {
         size="lg"
         fixed="top"
         data-testid="filter-by-all-btn"
-        onClick={ handleClick }
+        // onClick={ handleClick }
       >
         Filter All
       </Button>
@@ -21,7 +21,7 @@ function DoneRecipes() {
         size="lg"
         fixed="top"
         data-testid="filter-by-meal-btn"
-        onClick={ handleShare }
+        // onClick={ handleShare }
       >
         Filter Meals
       </Button>
@@ -29,7 +29,7 @@ function DoneRecipes() {
         size="lg"
         fixed="top"
         data-testid="filter-by-drink-btn"
-        onClick={ handleFavoriteMeal }
+        // onClick={ handleFavoriteMeal }
       >
         Filter Drinks
       </Button>
