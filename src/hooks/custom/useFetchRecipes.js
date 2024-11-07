@@ -29,11 +29,10 @@ export default function useFetchRecipes() {
       }
 
       const result = await response.json();
-
+      console.log(result);
       SetRecipesData(result[result.meals ? 'meals' : 'drinks'].slice(0, LIM));
     } catch (error) {
       setErrors(error);
-
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } finally {
       setIsLoading(false);

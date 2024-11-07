@@ -12,3 +12,4 @@ export { default as DrinkCardInProgress } from './DrinkCardInProgress';
 export { default as DoneRecipeCard } from './DoneRecipeCard';
 export { default as RecomendCardDrinks } from './RecomendCardFoods';
 export { default as RecomendCardFoods } from './RecomendCardDrinks';
+export { default as Profile } from './Profile';

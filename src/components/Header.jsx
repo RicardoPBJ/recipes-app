@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { IoSearch } from 'react-icons/io5';
-import { AiOutlineUser } from 'react-icons/ai';
+import MenuSheet from './MenuSheet';
 import SearchBar from './SearchBar';
 import '../styles/App.css';
 
@@ -38,15 +38,7 @@ export default function Header() {
             </button>
           )
           }
-          <Link to="/profile">
-            <AiOutlineUser
-              className="icons"
-              alt="profile-icon"
-              data-testid="profile-top-btn"
-              size={ 43 }
-              color="black"
-            />
-          </Link>
+          <MenuSheet />
         </div>
       </header>
     </div>

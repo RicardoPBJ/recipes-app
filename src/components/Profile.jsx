@@ -1,52 +1,52 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import { Footer, Header } from '../components';
 import { useLocalStorage } from '../hooks';
+import './css/Profile.css';
 
 function Profile() {
   const { storedValue, handleLogout } = useLocalStorage('user', 'email');
   const { push } = useHistory();
 
   return (
-    <main>
-      <Header searchAppear={ false } />
-      <div>
-        Profile
+    <main className="container bg-main">
+      <div className="main-container">
+        USER
         <div>
           <p data-testid="profile-email">{storedValue.email}</p>
         </div>
-        <div className="profile-btns-container">
+        <div className="container btns-container">
           <div>
-            <Button
+            <button
+              className="user-button"
               onClick={ () => push('/done-recipes') }
               data-testid="profile-done-btn"
               type="button"
             >
               Done Recipes
-            </Button>
+            </button>
           </div>
           <div>
-            <Button
+            <button
+              className="user-button"
               onClick={ () => push('/favorite-recipes') }
               data-testid="profile-favorite-btn"
               type="button"
             >
               Favorite Recipes
-            </Button>
+            </button>
           </div>
-          <div>
-            <Button
+          <div className="container align-itens-center">
+            <button
               onClick={ handleLogout }
               data-testid="profile-logout-btn"
               type="button"
+              className="logout-btn"
             >
               Logout
-            </Button>
+            </button>
           </div>
         </div>
       </div>
-      <Footer />
     </main>
   );
 }

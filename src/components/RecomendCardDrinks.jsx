@@ -9,6 +9,7 @@ function RecomendCardDrinks() {
 
   useEffect(() => {
     makeFetchRecipes('drinks');
+    console.log(recipes);
   }, []);
 
   return (
