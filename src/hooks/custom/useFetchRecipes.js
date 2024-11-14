@@ -40,7 +40,7 @@ export default function useFetchRecipes() {
   }
 
   const mealsRecipesUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic';
 
   function makeFetchRecipes(path = pathname) {
     fetchRecipes(path.includes('meals') ? mealsRecipesUrl : drinksRecipesUrl);

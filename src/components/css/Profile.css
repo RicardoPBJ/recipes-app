@@ -1,5 +1,8 @@
 .main-container {
   text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
 }
 
 .display-aline {
