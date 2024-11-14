@@ -29,11 +29,10 @@ export default function useFetchRecipes() {
       }
 
       const result = await response.json();
-
+      console.log(result);
       SetRecipesData(result[result.meals ? 'meals' : 'drinks'].slice(0, LIM));
     } catch (error) {
       setErrors(error);
-
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } finally {
       setIsLoading(false);
@@ -41,7 +40,7 @@ export default function useFetchRecipes() {
   }
 
   const mealsRecipesUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const drinksRecipesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic';
 
   function makeFetchRecipes(path = pathname) {
     fetchRecipes(path.includes('meals') ? mealsRecipesUrl : drinksRecipesUrl);

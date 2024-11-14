@@ -38,6 +38,8 @@
 .header-title {
   color: black;
   font-size: 3em;
+  cursor: pointer;
+  outline: none;
 }
 
 .meals > .logo {
@@ -84,7 +86,6 @@
   padding: 1em;
   position: fixed;
   right: 0;
-
 }
 
 /* Estilizando a barra de rolagem para navegadores Webkit/Blink (Chrome, Safari) */

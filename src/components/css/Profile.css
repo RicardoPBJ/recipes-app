@@ -1,0 +1,47 @@
+.main-container {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.display-aline {
+  align-items: center;
+}
+
+.btns-container > * {
+  margin-block: 0.35em;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+}
+
+.logout-btn:hover {
+  color: blue;
+}
+
+.user-button {
+  background-color: #FFD700;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 250ms;
+  width: auto;
+  height: 2.2em;
+}
+
+.user-button:hover,
+.user-button:active,
+.user-button:focus {
+  background-color: rgb(246 160 42);
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  color: white;
+  transform: scale(1.2);
+}
