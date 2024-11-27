@@ -12,7 +12,7 @@ function RecomendCardFoods() {
   }, []);
 
   return (
-    <div style={ { height: '200px' } }>
+    <div>
       {
         isLoadingRecipes ? <Loading />
           : (
@@ -26,7 +26,6 @@ function RecomendCardFoods() {
                   {e.strMeal}
                 </p>
                 <img
-                  style={ { height: '200px' } }
                   src={ `${e.strMealThumb}` }
                   alt={ e.strMeal }
                 />
