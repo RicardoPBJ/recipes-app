@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { MealsContext } from '../hooks';
-import RecomendCardDrinks from './RecomendCardDrinks';
+// import RecomendCardDrinks from './RecomendCardDrinks';
 import './css/MealCardDetails.css';
 
 function MealCardDetails() {
@@ -17,8 +17,8 @@ function MealCardDetails() {
 
   return (
     <div>
-      <main className="border-default bg-white main-container container" key={ idMeal }>
-        <section className="container d-flex upper-row">
+      <main className="detail-container border-default" key={ idMeal }>
+        <section className=" d-flex upper-row">
           <img
             data-testid="recipe-photo"
             className="recipe-photo"
@@ -41,15 +41,15 @@ function MealCardDetails() {
             className=""
             src={ linkYoutube }
             title="video"
-            width="400"
-            height="300"
+            width="300"
+            height="200"
             data-testid="video"
             allow="accelerometer; autoplay; clipboard-write;
         encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
           <div>
-            <RecomendCardDrinks />
+            {/* <RecomendCardDrinks /> */}
           </div>
         </section>
       </main>

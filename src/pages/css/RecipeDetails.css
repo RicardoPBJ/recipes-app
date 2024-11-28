@@ -1,4 +1,6 @@
-.foot-details-card {
+.foot-card-details {
+  display: flex;
+  justify-content: space-between;
   position: fixed;
   bottom: 0;
 }
@@ -12,5 +14,8 @@
   border: none;
   margin: 4px 1rem;
   padding: 0;
-  right: 0;
+}
+
+.meal-card-details {
+
 }

@@ -30,41 +30,45 @@ export default function RecipeDetails() {
 
   return isLoadingRecDetal ? <Loading />
     : (
-      <div className="foot-details-card">
+      <div className="meal-card-details">
         {clipBoard.show && <h2>Link copied!</h2>}
         {pathname.includes('meals')
           ? <MealCardDetails /> : <DrinkCardDetails /> }
-        {
-          !isDonedRecipe && (
-            <Link to={ `${pathname}/in-progress` }>
-              <Button
-                size=""
-                fixed="bottom"
-                data-testid="start-recipe-btn"
-                className="start-btn-container"
-              >
-                { isRecipeInProgress ? 'Continue Recipe' : 'Start Recipe' }
-              </Button>
-            </Link>
-          )
-        }
-        <button
-          data-testid="share-btn"
-          onClick={ handleShare }
-          className="button-svg"
-        >
-          <img src={ shareIcon } alt="share" />
-        </button>
-        <button
-          onClick={ handleFavorite }
-          className="button-svg"
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ fillHeart ? blackHeart : whiteHeart }
-            alt="favorite"
-          />
-        </button>
+        <div className="foot-card-details">
+          {
+            !isDonedRecipe && (
+              <Link to={ `${pathname}/in-progress` }>
+                <Button
+                  size="lg"
+                  fixed="bottom"
+                  data-testid="start-recipe-btn"
+                  className=""
+                >
+                  { isRecipeInProgress ? 'Continue Recipe' : 'Start Recipe' }
+                </Button>
+              </Link>
+            )
+          }
+          <div className="end-0">
+            <button
+              data-testid="share-btn"
+              onClick={ handleShare }
+              className="button-svg"
+            >
+              <img src={ shareIcon } alt="share" />
+            </button>
+            <button
+              onClick={ handleFavorite }
+              className="button-svg"
+            >
+              <img
+                data-testid="favorite-btn"
+                src={ fillHeart ? blackHeart : whiteHeart }
+                alt="favorite"
+              />
+            </button>
+          </div>
+        </div>
       </div>
     );
 }
