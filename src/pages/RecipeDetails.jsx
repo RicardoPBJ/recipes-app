@@ -30,7 +30,7 @@ export default function RecipeDetails() {
 
   return isLoadingRecDetal ? <Loading />
     : (
-      <div>
+      <div className="foot-details-card">
         {clipBoard.show && <h2>Link copied!</h2>}
         {pathname.includes('meals')
           ? <MealCardDetails /> : <DrinkCardDetails /> }
@@ -38,7 +38,7 @@ export default function RecipeDetails() {
           !isDonedRecipe && (
             <Link to={ `${pathname}/in-progress` }>
               <Button
-                size="lg"
+                size=""
                 fixed="bottom"
                 data-testid="start-recipe-btn"
                 className="start-btn-container"

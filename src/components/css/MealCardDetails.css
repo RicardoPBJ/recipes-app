@@ -1,7 +1,18 @@
 .recipe-photo {
-  width: 25em;
+  width: 5em;
+  height: 5em;
 }
 
 .upper-row {
-  margin-top: 10em;
+  
+}
+
+.bottom-row {
+
+}
+
+.border-default {
+  border-radius: 1em;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
 }

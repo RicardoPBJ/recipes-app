@@ -1,6 +1,10 @@
-.start-btn-container {
-  bottom: 0;
+.foot-details-card {
   position: fixed;
+  bottom: 0;
+}
+
+.start-btn-container {
+
 }
 
 .button-svg {
@@ -8,4 +12,5 @@
   border: none;
   margin: 4px 1rem;
   padding: 0;
+  right: 0;
 }

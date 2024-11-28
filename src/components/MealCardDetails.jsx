@@ -17,7 +17,7 @@ function MealCardDetails() {
 
   return (
     <div>
-      <main className="container" key={ idMeal }>
+      <main className="border-default bg-white main-container container" key={ idMeal }>
         <section className="container d-flex upper-row">
           <img
             data-testid="recipe-photo"
@@ -36,20 +36,22 @@ function MealCardDetails() {
               {`${obj[`strIngredient${i + 1}`]}: ${obj[`strMeasure${i + 1}`]}`}
             </span>))}
         </section>
-        <iframe
-          className=""
-          src={ linkYoutube }
-          title="video"
-          width="400"
-          height="300"
-          data-testid="video"
-          allow="accelerometer; autoplay; clipboard-write;
+        <section className="d-flex">
+          <iframe
+            className=""
+            src={ linkYoutube }
+            title="video"
+            width="400"
+            height="300"
+            data-testid="video"
+            allow="accelerometer; autoplay; clipboard-write;
         encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-        <div>
-          <RecomendCardDrinks />
-        </div>
+            allowFullScreen
+          />
+          <div>
+            <RecomendCardDrinks />
+          </div>
+        </section>
       </main>
     </div>
   );
