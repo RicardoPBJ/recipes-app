@@ -1,0 +1,32 @@
+.title-anime-name {
+  font-size: 3em;
+  margin-right: 1em;
+  background: linear-gradient(to right, #d17708, #ee6e13, #64cb10c7, #5fc30cb3);
+  animation: textFill 5s normal infinite;
+  background-clip: text;
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes textFill {
+  to {
+    background-position: 200%;
+  }
+}
+
+.title-anime-category {
+  font-size: 3em;
+  background: linear-gradient(to right, #5fc30cb3,  #64cb10c7, #ee6e13, #d17708 );
+  animation: textFill 5s normal infinite;
+  background-clip: text;
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes textFill {
+  to {
+    background-position: 200%;
+  }
+}
