@@ -2,6 +2,7 @@
   background-color: white;
   padding: 2em;
 }
+
 .text-name {
   color: grey;
 }
@@ -30,6 +31,7 @@
 }
 
 .bottom-row {
+  justify-content: space-evenly;
   margin-top: 2em;
 }
 
@@ -48,7 +50,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .fixed-block > *{

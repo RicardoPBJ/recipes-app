@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { MealsContext } from '../hooks';
-// import RecomendCardDrinks from './RecomendCardDrinks';
+import RecomendCardDrinks from './RecomendCardDrinks';
 import './css/MealCardDetails.css';
 import './css/AnimatedTitle.css';
 
@@ -69,8 +69,8 @@ function MealCardDetails() {
         encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
-          <div>
-            {/* <RecomendCardDrinks /> */}
+          <div className="">
+            <RecomendCardDrinks />
           </div>
         </section>
       </main>

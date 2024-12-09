@@ -2,6 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 import { MealsContext } from '../hooks';
 import Loading from './Loading';
+import './css/RecomendCard.css';
 
 function RecomendCardFoods() {
   const { recipes, isLoadingRecipes, makeFetchRecipes } = useContext(MealsContext);
@@ -12,7 +13,7 @@ function RecomendCardFoods() {
   }, []);
 
   return (
-    <div>
+    <div className="recomend-container">
       {
         isLoadingRecipes ? <Loading />
           : (
@@ -20,6 +21,7 @@ function RecomendCardFoods() {
               <div
                 key={ `${i + 1}-recommendation-card` }
                 data-testid={ `${i}-recommendation-card` }
+                className="card"
               >
                 Recomended Meal
                 <p data-testid={ `${i}-recommendation-title` }>
