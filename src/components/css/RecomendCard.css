@@ -1,0 +1,34 @@
+.recomend-container {
+  font-family: "Poppins", serif;
+  font-weight: bold;
+  font-style: normal;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 0.5em;
+  width: 30em;
+  height: 12em;
+  overflow-x: scroll;
+}
+
+.recomend-container > * {
+  font-size: x-small;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  margin: 0.3em;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 0.5em;
+  align-items: center;
+  padding: 1em;
+}
+
+.recomend-container > div > img {
+  width: 12em;
+  height: 9em;
+  border-radius: 0.5em;
+}
+
+
