@@ -69,7 +69,7 @@ function MealCardDetails() {
         encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
-          <div className="">
+          <div className="custom-scroll">
             <RecomendCardDrinks />
           </div>
         </section>

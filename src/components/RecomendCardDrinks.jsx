@@ -13,7 +13,7 @@ function RecomendCardDrinks() {
   }, []);
 
   return (
-    <div className="recomend-container d-flex">
+    <div className="recomend-container custom-scroll d-flex">
       {
         isLoadingRecipes ? <Loading />
           : (

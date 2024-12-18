@@ -23,7 +23,7 @@
 }
 
 .upper-row {
-
+  margin-bottom: 1.5em;
 }
 
 .upper-row > * {
@@ -32,7 +32,6 @@
 
 .bottom-row {
   justify-content: space-evenly;
-  margin-top: 2em;
 }
 
 .border-default {
