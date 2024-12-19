@@ -40,20 +40,25 @@
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
 }
 
-.fixed-block {
-  width: 13em;
-  height: 13em;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 0.5em;
+.fixed-block1 {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 15em;
+  height: 13em;
+  background-color: #d9d4d4;
+  border: 1px solid #ddd;
+  border-radius: 0.5em;
   overflow: hidden;
 }
 
-.fixed-block > *{
-  margin: 0.3em;
+.fixed-block1 > p {
+  align-items: center;
+}
+
+.fixed-words1 {
+  padding-inline: 0.3em;
   width: 100%;
   height: 100%;
   overflow: auto;

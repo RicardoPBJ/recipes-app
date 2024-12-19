@@ -43,10 +43,11 @@ function MealCardDetails() {
             src={ mealThumb }
             alt={ mealName }
           />
-          <div className="fixed-block">
-            <p data-testid="instructions">{instructions}</p>
+          <div className="fixed-block1 container">
+            <p>Instructions</p>
+            <div className="fixed-words1">{instructions}</div>
           </div>
-          <div>
+          <div className="">
             {ingredientAndMeasure.map((obj, i) => (
               <span
                 key={ `ingredient-and-measure-${i + 1}` }
