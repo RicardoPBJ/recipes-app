@@ -1,0 +1,53 @@
+.recomend-container {
+  font-family: "Poppins", serif;
+  font-weight: bold;
+  font-style: normal;
+  display: flex;
+  justify-content: space-evenly;
+  background: #c7c3c3;
+  border: 1px solid #ddd;
+  border-radius: 0.5em;
+  width: 33em;
+  height: 12em;
+
+}
+
+.recomend-container > * {
+  font-size: x-small;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  margin: 0.5em;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 0.5em;
+  align-items: center;
+  padding: 1em;
+}
+
+.recomend-container > *:hover {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  transition: all 400ms;
+  transform: translateY(-3px);
+}
+
+.recomend-container > div > img {
+  width: 12em;
+  height: 9em;
+  border-radius: 0.5em;
+}
+
+.custom-scroll {
+  overflow-x: scroll;
+  /* Para Chrome, Safari e outros baseados em WebKit */
+  ::-webkit-scrollbar {
+    width: 10em;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5em;
+  }
+  ::-webkit-scrollbar-track {
+    background: #c7c3c3;
+  }
+}
+

@@ -17,7 +17,6 @@ function MealCard() {
     : (
       <div
         className="card-container"
-        style={ { height: '80vh' } }
       >
         {
           (allRecipes && !clrCatRecipes ? recipesForCategory : recipes).map(

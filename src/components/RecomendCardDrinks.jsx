@@ -2,6 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 import { DrinksContext } from '../hooks';
 import Loading from './Loading';
+import './css/RecomendCard.css';
 
 function RecomendCardDrinks() {
   const { recipes, isLoadingRecipes, makeFetchRecipes } = useContext(DrinksContext);
@@ -9,11 +10,10 @@ function RecomendCardDrinks() {
 
   useEffect(() => {
     makeFetchRecipes('drinks');
-    console.log(recipes);
   }, []);
 
   return (
-    <div style={ { height: '200px' } }>
+    <div className="recomend-container custom-scroll d-flex">
       {
         isLoadingRecipes ? <Loading />
           : (
@@ -27,7 +27,6 @@ function RecomendCardDrinks() {
                   {e.strDrink}
                 </p>
                 <img
-                  style={ { height: '200px' } }
                   src={ `${e.strDrinkThumb}` }
                   alt={ e.strDrink }
                 />
