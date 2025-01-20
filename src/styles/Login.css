@@ -1,9 +1,20 @@
+.login-box {
+  display: flex;
+  background-image: url("../images/backgroud-app-receitas.avif");
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
 .login {
   background-color: white;
   border-radius: 15px;
-  padding: 100px;
+  padding-inline: 9em;
+  padding-block: 6em;
 }
 
-.login-box {
-  background-image: url("../images/backgroud-app-receitas.avif");
-}
+
+
+
+

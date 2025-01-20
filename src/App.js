@@ -13,7 +13,7 @@ import './styles/App.css';
 
 function App() {
   return (
-    <div className="init">
+    <div id="body" className="init">
       <Helmet>
         <title>Recipes</title>
       </Helmet>

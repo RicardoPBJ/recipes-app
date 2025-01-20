@@ -1,6 +1,12 @@
-.start-btn-container {
-  bottom: 0;
+.foot-card-details {
+  display: flex;
+  justify-content: space-between;
   position: fixed;
+  bottom: 0;
+}
+
+.start-btn-container {
+
 }
 
 .button-svg {
@@ -8,4 +14,8 @@
   border: none;
   margin: 4px 1rem;
   padding: 0;
+}
+
+.meal-card-details {
+
 }

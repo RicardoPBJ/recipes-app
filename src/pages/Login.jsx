@@ -13,7 +13,7 @@ export default function Login() {
   } = handlersLogin();
 
   return (
-    <div className="login-box init">
+    <div className="login-box">
       <div className="login">
         <Form.Control
           name="email"
@@ -22,7 +22,7 @@ export default function Login() {
           data-testid="email-input"
           onChange={ handlerChange }
           placeholder="e-mail"
-          className="mb-3"
+          className="mb-3 form-item"
         />
         <Form.Control
           name="password"
@@ -31,6 +31,7 @@ export default function Login() {
           data-testid="password-input"
           onChange={ handlerChange }
           placeholder="password"
+          className="form-item"
         />
         <div className="mt-4 col-md-12 text-center">
           <Button
