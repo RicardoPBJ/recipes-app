@@ -70,7 +70,28 @@
 }
 
 .ingre-container {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  background-color: #d9d4d4;
+  border: 1px solid #ddd;
+  border-radius: 0.5em;
+}
+
+.ingre-container > p {
+  align-items: center;
+  font-weight: bolder;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+.ingre-itens {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 1em;
+}
+
+.ingre-text-style {
+  font-size: large;
 }
 
 .ytb-frame {
@@ -78,4 +99,11 @@
   border: 1px solid #ddd;
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.06) 0 5px 5px;
+
+}
+
+.ytb-frame:hover {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  transition: all 400ms;
+  transform: scale(1.1);
 }

@@ -1,7 +1,6 @@
 .recomend-container {
   font-family: "Poppins", serif;
   font-weight: bold;
-  font-style: normal;
   display: flex;
   justify-content: space-evenly;
   background: #c7c3c3;
@@ -9,7 +8,6 @@
   border-radius: 0.5em;
   width: 33em;
   height: 12em;
-
 }
 
 .recomend-container > * {
@@ -31,7 +29,12 @@
   transform: translateY(-3px);
 }
 
-.recomend-container > div > img {
+.recomend-container > a {
+  text-decoration: none;
+  color: black;
+}
+
+.recomend-container > a > div > img {
   width: 12em;
   height: 9em;
   border-radius: 0.5em;

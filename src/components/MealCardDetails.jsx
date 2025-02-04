@@ -47,15 +47,18 @@ function MealCardDetails() {
             <p>Instructions</p>
             <div className="fixed-words1">{instructions}</div>
           </div>
-          <div className="">
-            {ingredientAndMeasure.map((obj, i) => (
-              <span
-                key={ `ingredient-and-measure-${i + 1}` }
-                className="ingre-container"
-                data-testid={ `${i}-ingredient-name-and-measure` }
-              >
-                {`${obj[`strIngredient${i + 1}`]}: ${obj[`strMeasure${i + 1}`]}`}
-              </span>))}
+          <div className="ingre-container">
+            <p>Ingredients</p>
+            <div>
+              {ingredientAndMeasure.map((obj, i) => (
+                <span
+                  key={ `ingredient-and-measure-${i + 1}` }
+                  className="ingre-itens ingre-text-style"
+                  data-testid={ `${i}-ingredient-name-and-measure` }
+                >
+                  {`${obj[`strIngredient${i + 1}`]}: ${obj[`strMeasure${i + 1}`]}`}
+                </span>))}
+            </div>
           </div>
         </section>
         <section className="d-flex bottom-row">
